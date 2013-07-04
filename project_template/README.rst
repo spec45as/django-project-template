@@ -24,13 +24,19 @@ To run Django in debug mode::
 
     vim .config-dev-username.ini            # configure database
     vim local_settings_username.py          # configure it to your needs
-    python manage.py runserver --settings=project_name.local_settings_debug
+
+    # to run server
+    python manage.py runserver --settings=project_name.local_settings_username
+
+    # to syncdb
+    python manage.py syncdb --settings=project_name.local_settings_username
 
 
 Requirements
 ============
 
     - python >= 2.7 (may work with lower versions)
+    - django >= 1.6b1 (you can manually configure settings to make it compatible with older versions)
     - pip
     - virtualenv
     - fabric
