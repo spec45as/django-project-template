@@ -138,8 +138,10 @@ def create_user_config_file():
             print ('now you should modify your database settings in {}'
                    .format(ini_file))
             print 'you can run django development server with following command:'
-            print ('python manage.py runserver --settings={{ project_name }}'
+            print ('\tpython manage.py runserver --settings={{ project_name }}'
                    '.local_settings_{}'.format(username))
+            print "but remeber to source your virtual env first:"
+            print '\tsource env/bin/activate'
 
 
 def bootstrap(nonode=None, cpus=1):
