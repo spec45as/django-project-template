@@ -1,4 +1,4 @@
-django
+git+git://github.com/django/django.git@1.6b1
 south
 psycopg2
 pytils
