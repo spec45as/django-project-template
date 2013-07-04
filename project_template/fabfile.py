@@ -2,9 +2,11 @@
 
 import os
 import base64
+import getpass
 
-from fabric.operations import local
+from fabric.operations import local, prompt
 from fabric.context_managers import lcd
+from fabric.contrib.console import confirm
 
 
 def _absolute_dir(*dirs):
@@ -39,13 +41,6 @@ def generate_secret():
         secret_key = base64.urlsafe_b64encode(os.urandom(512))
         f.write(secret_key)
         print 'generated secret key: {}'.format(SECRET_FILE)
-
-
-def on_complete():
-    print ('Now go to {{ project_name }} directory and configure database/mail,'
-           ' using example configs. You may copy and extend your local_settings'
-           ' by appending your name to the file, e.g. local_settings_username.py,'
-           ' or just use existing templates.')
 
 
 def install_nodejs(version='0.10.12', cpus=1):
@@ -128,16 +123,31 @@ def minify():
 
 
 def create_user_config_file():
-    # read username
-    # copy configs for username
-    pass
+    print
+    if confirm('Do you want to create your new development configuration?'):
+        username = prompt('Enter your username',
+                          default=getpass.getuser(),
+                          validate=r'^.*$')
+        with lcd('{{ project_name }}'):
+            ini_file = '.config-dev-{}.ini'.format(username)
+            py_file = 'local_settings_{}.py'.format(username)
+            local('cp .config-dev-example.ini {}'.format(ini_file))
+            local('cp local_settings_debug.py {}'.format(py_file))
+            print 'created {}'.format(ini_file)
+            print 'created {}'.format(py_file)
+            print ('now you should modify your database settings in {}'
+                   .format(ini_file))
+            print 'you can run django development server with following command:'
+            print ('python manage.py runserver --settings={{ project_name }}'
+                   '.local_settings_{}'.format(username))
 
 
-def bootstrap():
+def bootstrap(nonode=None, cpus=1):
     """Installs everything."""
     make_virtualenv()
     install_requirements()
     generate_secret()
-    install_nodejs()
-    install_nodejs_modules()
-    on_complete()
+    if nonode is None:
+        install_nodejs(cpus=cpus)
+        install_nodejs_modules()
+    create_user_config_file()
