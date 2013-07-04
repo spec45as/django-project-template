@@ -35,23 +35,23 @@ To run Django in debug mode::
 Requirements
 ============
 
-    - python >= 2.7 (may work with lower versions)
-    - django >= 1.6b1 (you can manually configure settings to make it compatible with older versions)
-    - pip
-    - virtualenv
-    - fabric
-    - bash (preinstalled on most unix systems)
+- python >= 2.7 (may work with lower versions)
+- django >= 1.6b1 (you can manually configure settings to make it compatible with older versions)
+- pip
+- virtualenv
+- fabric
+- bash (preinstalled on most unix systems)
 
 
 Description
 ===========
 The template is consists of:
 
-    * settings modules
-    * private database/email configuration files
-    * predefined directory structure, including cache, templates and static directories
-    * fabric helper script for one command deploy/minify files
-    * requirements.txt file
+- settings modules
+- private database/email configuration files
+- predefined directory structure, including cache, templates and static directories
+- fabric helper script for one command deploy/minify files
+- requirements.txt file
 
 Settings modules
 ----------------
@@ -78,8 +78,8 @@ staged in your VCS. Also this settings can be different in different project
 environments, sush as production.
 Template includes two examples of private configuration files:
 
-    - .config-dev-example.ini
-    - .config-production-example.ini
+- .config-dev-example.ini
+- .config-production-example.ini
 
 Just copy the file and change requisites according your environment, then
 set right filename in local_settings.
@@ -112,39 +112,39 @@ This script helps you to bootstrap the project.
 
 Tasks you can perform:
 
-    - bootstrap
-    - generate_secret
-    - install_nodejs
-    - install_nodejs_modules
-    - install_requirements
-    - make_virtualenv
-    - minify
-    - minifycss
-    - minifyjs
-    - stylus_convert
-    - create_user_config_file
+- bootstrap
+- generate_secret
+- install_nodejs
+- install_nodejs_modules
+- install_requirements
+- make_virtualenv
+- minify
+- minifycss
+- minifyjs
+- stylus_convert
+- create_user_config_file
 
 ---------
 bootstrap
 ---------
 This task is sequence of other tasks and does the following:
 
-    - Creates virtualenv directory, called `env`
-    - Installs requirements into this virtual environment
-    - Generates secret key for Django
-    - Installs nodejs and it's modules by default. You may override this
-      behaviour by passing :nonode to bootstrap command::
+- Creates virtualenv directory, called `env`
+- Installs requirements into this virtual environment
+- Generates secret key for Django
+- Installs nodejs and it's modules by default. You may override this
+  behaviour by passing :nonode to bootstrap command::
 
-        fab bootstrap:nonode
+    fab bootstrap:nonode
 
-    - Prompts if you want to create some development configuration files. Why
-      only development? Because deploying site in production is very accurate
-      job that should be dony by hands, including preparing configuration files.
+- Prompts if you want to create some development configuration files. Why
+  only development? Because deploying site in production is very accurate
+  job that should be dony by hands, including preparing configuration files.
 
 Arguments:
 
-    - `nonode`: do not install nodejs
-    - `cpus`: number of cpus to use when compiling nodejs, defaults to 1.
+- `nonode`: do not install nodejs
+- `cpus`: number of cpus to use when compiling nodejs, defaults to 1.
 
 ::
 
@@ -230,6 +230,11 @@ dependencies you can read in `official pip documentation`_.
 LICENSE
 =======
 
-.. raw:: html
+.. image:: http://i.creativecommons.org/l/by/3.0/88x31.png
+   :alt: Creative Commons License
 
-    <a rel="license" href="http://creativecommons.org/licenses/by/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by/3.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Django-project-template</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="https://github.com/asyncee/django-project-template" property="cc:attributionName" rel="cc:attributionURL">asyncee</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>.
+Django-project-template by asyncee_ is licensed under a
+`Creative Commons Attribution 3.0 Unported License`_.
+
+.. _asyncee: https://github.com/asyncee/django-project-template
+.. _Creative Commons Attribution 3.0 Unported License: http://creativecommons.org/licenses/by/3.0/
