@@ -6,6 +6,8 @@ Django template designed for fast and easy project creation, flexible custom
 database/email/whatever settings and keeping your database/secret-key/any-sensitive-data
 private by not including it in your CVS - just configure sensitive data to your needs,
 drop it over the settings files and forget it.
+**Remeber** not to commit your database/email ini config file, but only
+your specific local_setings.
 
 Quickstart
 ==========
@@ -13,18 +15,15 @@ To create project using this template::
 
     django-admin.py startproject --template=https://github.com/asyncee/django-project-template/zipball/master <project_name>
 
-To create virtualenv, generate project secret key, install requirements and nodejs tools::
+To create virtualenv, generate project secret key, install requirements,
+create your user configuration files and nodejs tools::
 
     fab bootstrap
 
-To run django in debug mode::
+To run Django in debug mode::
 
-    cp local_settings_debug.py local_settings_username.py
-    vim local_settings_debug.py  # configure it to your needs
-    cp .config-dev-example.ini .config-dev-username.ini
-    vim .config-dev-username.ini  # configure database
-    DJANGO_SETTINGS_MODULE=project_name.local_settings_debug python manage.py runserver
-    or
+    vim .config-dev-username.ini            # configure database
+    vim local_settings_username.py          # configure it to your needs
     python manage.py runserver --settings=project_name.local_settings_debug
 
 
@@ -51,7 +50,7 @@ The template is consists of:
 Settings modules
 ----------------
 
-- settings.py - main configuration file, placeholder for django and third-party settings. Main features is:
+- settings.py - main configuration file, placeholder for Django and third-party settings. Main features is:
 
     - south preinstalled
     - secret key is readed from external file, called '.secret'. This file
@@ -126,7 +125,7 @@ This task is sequence of other tasks and does the following:
 
     - Creates virtualenv directory, called `env`
     - Installs requirements into this virtual environment
-    - Generates secret key for django
+    - Generates secret key for Django
     - Installs nodejs and it's modules by default. You may override this
       behaviour by passing :nonode to bootstrap command::
 
