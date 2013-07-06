@@ -1,0 +1,9 @@
+.secret
+
+*.ini
+!.config-dev-example.ini
+!.config-production-example.ini
+
+*.log
+*.pid
+*.pyc
