@@ -77,7 +77,7 @@ def install_nodejs_modules():
 
 def minifyjs():
     """Minifies all *.js files found in js/build directory to js/src/script.js."""
-    with lcd('blog'):
+    with lcd(PROJECT_NAME):
         local('mkdir -p {}'.format(JS_BUILD_DIR))
         js_files = []
         for root, dirs, files in os.walk(JS_SRC_DIR):
