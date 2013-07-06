@@ -14,12 +14,15 @@ def _absolute_dir(*dirs):
     return os.path.join(os.path.abspath(os.path.dirname(__file__)), *dirs)
 
 
-CSS_SRC_DIR = _absolute_dir('{{ project_name }}', 'static/css/src')
-CSS_BUILD_DIR = _absolute_dir('{{ project_name }}', 'static/css/build')
-CSS_STYLUS_DIR = _absolute_dir('{{ project_name }}', 'static/css/styl')
+PROJECT_NAME = '{{ project_name }}'
+PROJECT_PATH = _absolute_dir(PROJECT_NAME)
 
-JS_SRC_DIR = _absolute_dir('{{ project_name }}', 'static/js/src')
-JS_BUILD_DIR = _absolute_dir('{{ project_name }}', 'static/js/build')
+CSS_SRC_DIR = os.path.join(PROJECT_PATH, 'static/css/src')
+CSS_BUILD_DIR = os.path.join(PROJECT_PATH, 'static/css/build')
+CSS_STYLUS_DIR = os.path.join(PROJECT_PATH, 'static/css/styl')
+
+JS_SRC_DIR = os.path.join(PROJECT_PATH, 'static/js/src')
+JS_BUILD_DIR = os.path.join(PROJECT_PATH, 'static/js/build')
 
 
 def make_virtualenv():
@@ -133,6 +136,12 @@ def create_user_config_file():
             py_file = 'local_settings_{}.py'.format(username)
             local('cp .config-dev-example.ini {}'.format(ini_file))
             local('cp local_settings_debug.py {}'.format(py_file))
+            with open(os.path.join(PROJECT_PATH, py_file), 'r+') as f:
+                data = f.read().replace('.config-dev-example.ini', ini_file)
+                f.seek(0)
+                f.write(data)
+                f.truncate()
+            
             print 'created {}'.format(ini_file)
             print 'created {}'.format(py_file)
             print ('now you should modify your database settings in {}'
