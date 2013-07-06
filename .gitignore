@@ -11,4 +11,6 @@
 /bin
 /lib
 /share
+/env
+
 /README.rst
