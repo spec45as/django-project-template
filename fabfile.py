@@ -85,7 +85,7 @@ def minifyjs():
                 if fname.endswith('.js'):
                     js_files.append(os.path.join(root, fname))
     if js_files:
-        local('bin/uglifyjs {} -o {}/script.min.js'.format(
+        local('PATH=$PATH:`pwd`/bin bash -c "bin/uglifyjs {} -o {}/script.min.js"'.format(
             ' '.join(js_files), JS_BUILD_DIR
         ))
     else:
@@ -97,7 +97,7 @@ def stylus_convert():
     for root, dirs, files in os.walk(CSS_STYLUS_DIR):
         for fname in files:
             if fname.endswith('.styl'):
-                local('bin/stylus < {} > {}'.format(
+                local('PATH=$PATH:`pwd`/bin bash -c "bin/stylus < {} > {}"'.format(
                     os.path.join(root, fname),
                     os.path.join(CSS_SRC_DIR, fname.replace('.styl', '.css')),
                 ))
@@ -111,7 +111,7 @@ def minifycss():
             if fname.endswith('.css'):
                 css_files.append(os.path.join(root, fname))
     if css_files:
-        local('cat {} | bin/cleancss -o {}/style.min.css'.format(
+        local('PATH=$PATH:`pwd`/bin bash -c "cat {} | bin/cleancss -o {}/style.min.css"'.format(
             ' '.join(css_files), CSS_BUILD_DIR
         ))
     else:
