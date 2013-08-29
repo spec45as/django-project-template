@@ -30,15 +30,25 @@ def make_virtualenv():
     local('virtualenv env')
 
 
-def install_requirements():
-    """Installs requirements to the local virtualenv."""
-    local('source env/bin/activate && pip install -r requirements.txt',
-          shell='bash')
+def install_requirements(wheels=None, noindex=False):
+    """
+    Installs requirements to the local virtualenv.
+    If wheels directory is not None then wheel installation is performed.
+    """
+    if wheels is not None:
+        source = 'source env/bin/activate'
+        index = '--no-index' if noindex else ''
+        pip_wheels = ('pip install --use-wheel {no_index} --find-links={wheels}'
+                      ' -r requirements.txt'.format(no_index=index, wheels=wheels))
+        local('{} && {}'.format(source, pip_wheels), shell='bash')
+    else:
+        local('source env/bin/activate && pip install -r requirements.txt',
+              shell='bash')
 
 
 def generate_secret():
     """Generates 512-length secret key and writes it to the file `.secret`."""
-    SECRET_FILE = os.path.join('{{project_name}}', '.secret')
+    SECRET_FILE = os.path.join(PROJECT_NAME, '.secret')
 
     with open(SECRET_FILE, 'w') as f:
         secret_key = base64.urlsafe_b64encode(os.urandom(512))
@@ -131,7 +141,7 @@ def create_user_config_file():
         username = prompt('Enter your username',
                           default=getpass.getuser(),
                           validate=r'^.*$')
-        with lcd('{{ project_name }}'):
+        with lcd(PROJECT_NAME):
             ini_file = '.config-dev-{}.ini'.format(username)
             py_file = 'local_settings_{}.py'.format(username)
             local('cp .config-dev-example.ini {}'.format(ini_file))
@@ -147,16 +157,16 @@ def create_user_config_file():
             print ('now you should modify your database settings in {}'
                    .format(ini_file))
             print 'you can run django development server with following command:'
-            print ('\tpython manage.py runserver --settings={{ project_name }}'
-                   '.local_settings_{}'.format(username))
+            print ('\tpython manage.py runserver --settings={}'
+                   '.local_settings_{}'.format(PROJECT_NAME, username))
             print "but remeber to source your virtual env first:"
             print '\tsource env/bin/activate'
 
 
-def bootstrap(nonode=None, cpus=1):
+def bootstrap(nonode=None, cpus=1, wheels=None, noindex=False):
     """Installs everything."""
     make_virtualenv()
-    install_requirements()
+    install_requirements(wheels, noindex)
     generate_secret()
     if nonode is None:
         install_nodejs(cpus=cpus)

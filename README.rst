@@ -42,10 +42,22 @@ Requirements
 - fabric
 - bash (preinstalled on most unix systems)
 
+If you want to use wheel:
+
+- pip >= 1.4
+- setuptools >= 0.8
+- `wheel`_
+
+.. wheel_: https://wheel.readthedocs.org/en/latest/
+
+You can install latest versions of pip and setuptools with::
+
+    pip install --upgrade pip setuptools
+
 
 Description
 ===========
-The template is consists of:
+The template consists of:
 
 - settings modules
 - private database/email configuration files
@@ -130,7 +142,14 @@ bootstrap
 This task is sequence of other tasks and does the following:
 
 - Creates virtualenv directory, called `env`
-- Installs requirements into this virtual environment
+- Installs requirements into this virtual environment. Optional you can use
+  `wheel` module to install dependencies. You need to supply `wheels=<wheels-dir>`
+  and `noindex=1` if you don't want to use pypi index and check for new versions::
+
+    fab bootstrap:wheels=~/wheels,noindex=1
+
+  Setup script will then search for \*.whl files in `wheels` directory.
+
 - Generates secret key for Django
 - Installs nodejs and it's modules by default. You may override this
   behaviour by passing :nonode to bootstrap command::
