@@ -48,7 +48,7 @@ If you want to use wheel:
 - setuptools >= 0.8
 - `wheel`_
 
-.. wheel_: https://wheel.readthedocs.org/en/latest/
+.. _wheel: https://wheel.readthedocs.org/en/latest/
 
 You can install latest versions of pip and setuptools with::
 
@@ -243,7 +243,7 @@ Requirements file
 This is the place where the project dependencies is stored. How to specify
 dependencies you can read in `official pip documentation`_.
 
-.. _official pip documentation: http://www.pip-installer.org/en/latest/requirements.html.
+.. _official pip documentation: http://www.pip-installer.org/en/latest/requirements.html
 
 
 LICENSE
