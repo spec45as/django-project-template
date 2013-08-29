@@ -46,6 +46,11 @@ def install_requirements(wheels=None, noindex=False):
               shell='bash')
 
 
+def make_wheels(path='./wheels'):
+    local('mkdir -p {}'.format(path))
+    local('pip wheel --wheel-dir={} -r requirements.txt'.format(path))
+
+
 def generate_secret():
     """Generates 512-length secret key and writes it to the file `.secret`."""
     SECRET_FILE = os.path.join(PROJECT_NAME, '.secret')
