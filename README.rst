@@ -130,6 +130,7 @@ Tasks you can perform:
 - install_nodejs_modules
 - install_requirements
 - make_virtualenv
+- make_wheels
 - minify
 - minifycss
 - minifyjs
@@ -205,6 +206,15 @@ source `activate` script.
 make_virtualenv
 ---------------
 Creates virtual environment, `env`.
+
+-----------
+make_wheels
+-----------
+Downloads and packages requirements from `requirements.txt` into wheels 
+and installs it in the `wheels` directory by default. You may override
+it with `path` argument::
+
+    fab make_wheels:path=~/wheels
 
 --------------
 stylus_convert
