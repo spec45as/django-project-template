@@ -6,6 +6,8 @@ Django template designed for fast and easy project creation, flexible custom
 database/email/whatever settings and keeping your database/secret-key/any-sensitive-data
 private by not including it in your CVS - just configure sensitive data to your needs,
 drop it over the settings files and forget it.
+Template allows easy project configuration with deploy.yml (only css minification
+configuration for now).
 **Remeber** not to commit your database/email ini config file, but only
 your specific local_setings.
 
@@ -40,6 +42,7 @@ Requirements
 - pip
 - virtualenv
 - fabric
+- pyyaml (there is no performance hit without libyaml - not required)
 - bash (preinstalled on most unix systems)
 
 If you want to use wheel:
@@ -82,6 +85,9 @@ Settings modules
   This file used when you run Django, so you must point one to it. You can do that
   by defining DJANGO_TEMPLATE_SETTINGS environment variable, --settings argument to
   `manage.py runserver` or explicitly specify it in your uwsgi.ini, for example.
+
+- deploy.yml - handles css minification build step for now. Configures css filenames and
+  order in wich minified files should be concatenated into style.min.css.
 
 Private configuration files
 ---------------------------
@@ -225,8 +231,17 @@ directory.
 ---------
 minifycss
 ---------
-Minifies and concatenates all css files from `/static/css/src` into
+Minifies and concatenates files from `deploy.yml` (in `/static/css/src`) into
 `/static/css/build` directory.
+CSS minifying is configured through **deploy.yml** file, for example:
+
+    minify:
+        css:
+            - style.css
+            - another_style.css
+
+Both `style.css` and `another_style.css` files will be minified and
+concatenated respectively order listed.
 
 --------
 minifyjs

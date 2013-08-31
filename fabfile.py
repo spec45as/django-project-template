@@ -4,6 +4,8 @@ import os
 import base64
 import getpass
 
+import yaml
+
 from fabric.operations import local, prompt
 from fabric.context_managers import lcd
 from fabric.contrib.console import confirm
@@ -118,13 +120,16 @@ def stylus_convert():
                 ))
 
 
+def _load_settings(fname='deploy.yml'):
+    return yaml.load(open(fname))
+
+
 def minifycss():
     """Minifies css files from css/src to css/build."""
+    css_filenames = _load_settings()['minify']['css']
     css_files = []
-    for root, dirs, files in os.walk(CSS_SRC_DIR):
-        for fname in files:
-            if fname.endswith('.css'):
-                css_files.append(os.path.join(root, fname))
+    for fname in css_filenames:
+        css_files.append(os.path.join(CSS_SRC_DIR, fname))
     if css_files:
         local('PATH=$PATH:`pwd`/bin bash -c "cat {} | bin/cleancss -o {}/style.min.css"'.format(
             ' '.join(css_files), CSS_BUILD_DIR
