@@ -1,5 +1,6 @@
 # coding: utf-8
 
+import re
 import os
 import base64
 import getpass
@@ -11,13 +12,11 @@ from fabric.context_managers import lcd
 from fabric.contrib.console import confirm
 
 
-def _absolute_dir(*dirs):
-    """Returns absolute path to this file, joined with dirs."""
-    return os.path.join(os.path.abspath(os.path.dirname(__file__)), *dirs)
-
+# full path to this file
+BASE_PATH = os.path.abspath(os.path.dirname(__file__))
 
 PROJECT_NAME = '{{ project_name }}'
-PROJECT_PATH = _absolute_dir(PROJECT_NAME)
+PROJECT_PATH = os.path.join(BASE_PATH, PROJECT_NAME)
 
 CSS_SRC_DIR = os.path.join(PROJECT_PATH, 'static/css/src')
 CSS_BUILD_DIR = os.path.join(PROJECT_PATH, 'static/css/build')
@@ -25,6 +24,58 @@ CSS_STYLUS_DIR = os.path.join(PROJECT_PATH, 'static/css/styl')
 
 JS_SRC_DIR = os.path.join(PROJECT_PATH, 'static/js/src')
 JS_BUILD_DIR = os.path.join(PROJECT_PATH, 'static/js/build')
+
+CRONTAB_PRE = '#-- crontab {name}\n'
+CRONTAB_LINE = '{line}\n'
+CRONTAB_POST = '#-- end crontab {name}\n'
+CRONTAB_TEMPLATE = '{pre}{line}{post}'.format(pre=CRONTAB_PRE,
+                                              post=CRONTAB_POST,
+                                              line=CRONTAB_LINE)
+
+
+def _load_settings(fname='deploy.yml'):
+    return yaml.load(open(fname))
+
+
+def _read_crontab():
+    """Reads user crontab into string and returns it w/o modifications."""
+    crontab = os.popen('crontab -l')
+    lines = crontab.read()
+    crontab.close()
+    return lines
+
+
+def _write_crontab(data):
+    """Re-writes whole crontab with data."""
+    fallback = _read_crontab()
+    crontab = os.popen('crontab -', 'w')
+    crontab.write(data)
+    code = crontab.close()
+    if code:
+        fb = os.popen('crontab -', 'w')
+        fb.write(fallback)
+        fb.close()
+        print 'failed to install crontab {}'.format(name)
+
+
+def _add_task(name, line):
+    """Adds new task or updates existing."""
+    _del_task(name)
+    lines = _read_crontab()
+    task = CRONTAB_TEMPLATE.format(name=name, line=line)
+    data = '{}\n{}'.format(lines, task)
+    _write_crontab(data)
+
+
+def _del_task(name):
+    """Deletes existing task with supplied name."""
+    lines = _read_crontab()
+    pre = CRONTAB_PRE.format(name=name)
+    post = CRONTAB_POST.format(name=name)
+    pattern = r'(\n{pre}.*?{post})'.format(pre=pre, post=post)
+
+    result = re.sub(pattern, '', lines, count=0, flags=re.M|re.S)
+    _write_crontab(result)
 
 
 def make_virtualenv():
@@ -46,6 +97,28 @@ def install_requirements(wheels=None, noindex=False):
     else:
         local('source env/bin/activate && pip install -r requirements.txt',
               shell='bash')
+
+
+def install_crontabs():
+    """Installs project crontabs."""
+    settings = _load_settings()    
+    crontabs = settings['crontabs']
+
+    if crontabs is not None:
+        for crontab in crontabs:
+            name = crontab['name']
+            command = crontab['crontab'].format(
+                base_path=BASE_PATH,
+                project_path=PROJECT_PATH,
+                project_name=PROJECT_NAME,
+                css_src_dir=CSS_SRC_DIR,
+                css_build_dir=CSS_BUILD_DIR,
+                css_stylus_dir=CSS_STYLUS_DIR,
+                js_src_dir=JS_SRC_DIR,
+                js_build_dir=JS_BUILD_DIR
+            )
+            print 'installing crontab "{}": {}'.format(name, command)
+            _add_task(name, command)
 
 
 def make_wheels(path='./wheels'):
@@ -80,7 +153,7 @@ def install_nodejs(version='0.10.12', cpus=1):
         local('wget {} -O {}'.format(node_url, node_file))
         local('tar xzf {}'.format(node_file))
         with lcd('node-v{}'.format(version)):
-            local('./configure --prefix={}'.format(_absolute_dir()))
+            local('./configure --prefix={}'.format(BASE_PATH))
             local('make -j{}'.format(cpus))
             local('make install')
     local('rm -rf {}'.format(build_dir))
@@ -118,10 +191,6 @@ def stylus_convert():
                     os.path.join(root, fname),
                     os.path.join(CSS_SRC_DIR, fname.replace('.styl', '.css')),
                 ))
-
-
-def _load_settings(fname='deploy.yml'):
-    return yaml.load(open(fname))
 
 
 def minifycss():
