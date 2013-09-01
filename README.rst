@@ -278,7 +278,7 @@ Minification (**minify** section)
 ---------------------------------
 
 You can configure css filenames and order in wich minified files should be
-concatenated into resulting file (style.min.css).::
+concatenated into resulting file (style.min.css)::
 
   minify:
       css:
@@ -291,12 +291,12 @@ concatenated respectively order listed.
 Minification can be done with::
 
   fab minifycss # css only
-  fab minify    # everythin
+  fab minify    # everything
 
 Crontabs (**crontabs** section)
 -------------------------------
 
-Crontabs are pretty easy to configure:
+Crontabs are pretty easy to configure::
 
   crontabs:
       - name: 'crontab name'
