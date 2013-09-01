@@ -122,6 +122,7 @@ def install_crontabs():
 
 
 def make_wheels(path='./wheels'):
+    """Packages all requirements into specified directory using wheel format (*.whl)."""
     local('mkdir -p {}'.format(path))
     local('pip wheel --wheel-dir={} -r requirements.txt'.format(path))
 
