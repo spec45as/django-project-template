@@ -38,7 +38,7 @@ Requirements
 - python >= 2.7 (may work with lower versions)
 - django >= 1.6b1 (you can manually configure settings to make it compatible with older versions)
 - pip
-- virtualenv
+- virtualenv >= 1.10.1
 - fabric
 - bash (preinstalled on most unix systems)
 
