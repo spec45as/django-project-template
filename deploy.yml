@@ -1,0 +1,10 @@
+minify:
+    css:
+        - style.css
+crontabs:
+    #- name: 'calling /bin/true'
+    #  crontab: '* 10 * * * /bin/true'
+    #- name: 'base path test'
+    #  crontab: '* 20 * * * {base_path}/manage.py'
+    #- name: 'current project path test'
+    #  crontab: '* 20 * * * {project_path}/manage.py'

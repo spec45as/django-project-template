@@ -51,6 +51,7 @@ FIRST_DAY_OF_WEEK = 1
 
 USE_TZ = False
 
+# template loaders with caching
 TEMPLATE_LOADERS = (
     ('django.template.loaders.cached.Loader', (
         'django.template.loaders.filesystem.Loader',
