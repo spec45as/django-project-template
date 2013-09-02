@@ -6,6 +6,8 @@ Django template designed for fast and easy project creation, flexible custom
 database/email/whatever settings and keeping your database/secret-key/any-sensitive-data
 private by not including it in your CVS - just configure sensitive data to your needs,
 drop it over the settings files and forget it.
+Template allows easy project configuration with deploy.yml (only css minification
+configuration for now).
 **Remeber** not to commit your database/email ini config file, but only
 your specific local_setings.
 
@@ -40,6 +42,7 @@ Requirements
 - pip
 - virtualenv >= 1.10.1
 - fabric
+- pyyaml (there is no performance hit without libyaml - not required)
 - bash (preinstalled on most unix systems)
 
 If you want to use wheel:
@@ -62,7 +65,7 @@ The template consists of:
 - settings modules
 - private database/email configuration files
 - predefined directory structure, including cache, templates and static directories
-- fabric helper script for one command deploy/minify files
+- fabric helper script for deploy/minify files, install crontabs, etc (see below)
 - requirements.txt file
 
 Settings modules
@@ -82,6 +85,9 @@ Settings modules
   This file used when you run Django, so you must point one to it. You can do that
   by defining DJANGO_TEMPLATE_SETTINGS environment variable, --settings argument to
   `manage.py runserver` or explicitly specify it in your uwsgi.ini, for example.
+
+- deploy.yml - handles css minification, crontabs installing.
+
 
 Private configuration files
 ---------------------------
@@ -129,6 +135,7 @@ Tasks you can perform:
 - install_nodejs
 - install_nodejs_modules
 - install_requirements
+- install_crontabs
 - make_virtualenv
 - make_wheels
 - minify
@@ -202,6 +209,13 @@ install_requirements
 Installs project dependencies into virtual environment. There is no need to
 source `activate` script.
 
+--------------------
+install_crontabs
+--------------------
+Installs crontabs, specified in `deploy.yml` file. Keep in mind, that for now,
+system *does not track* obsolete crontabs (those you removed manually from
+`deploy.yml` file).
+
 ---------------
 make_virtualenv
 ---------------
@@ -225,8 +239,9 @@ directory.
 ---------
 minifycss
 ---------
-Minifies and concatenates all css files from `/static/css/src` into
+Minifies and concatenates files from `deploy.yml` (in `/static/css/src`) into
 `/static/css/build` directory.
+CSS minifying is configured through **deploy.yml** file (see above).
 
 --------
 minifyjs
@@ -254,6 +269,60 @@ This is the place where the project dependencies is stored. How to specify
 dependencies you can read in `official pip documentation`_.
 
 .. _official pip documentation: http://www.pip-installer.org/en/latest/requirements.html
+
+
+`deploy.yml` configuration overview
+===================================
+
+Minification (**minify** section)
+---------------------------------
+
+You can configure css filenames and order in wich minified files should be
+concatenated into resulting file (style.min.css)::
+
+  minify:
+      css:
+          - style.css
+          - another_style.css
+
+Both `style.css` and `another_style.css` files will be minified and
+concatenated respectively order listed.
+
+Minification can be done with::
+
+  fab minifycss # css only
+  fab minify    # everything
+
+Crontabs (**crontabs** section)
+-------------------------------
+
+Crontabs are pretty easy to configure::
+
+  crontabs:
+      - name: 'crontab name'
+        crontab: 'crontab command, like * * * * * /bin/true'
+      - name: 'this crontab show base path variable'
+        crontab: '* * * * * {base_path}/manage.py'
+      - name: 'css sources backup'
+        crontab: '* * * * * cp -r {css_src_dir} /media/backups'
+
+As you can see, there are some variables you might want to use:
+
+- base_path - substitutes full path to fab file
+- project_name
+- project_path - path to your **project** directory
+- css_src_dir - path to CSS sources directory
+- css_build_dir - path to CSS builds directory
+- css_stylus_dir - path to stylus sources directory
+- js_src_dir - path to JS sources directory
+- js_build_dir - path to JS build directory
+
+Crontabs can be installed with following command::
+
+  fab install_crontabs
+
+Crontabs installed under your user, using `crontab` command. You can
+check installation with `crontab -l` command.
 
 
 LICENSE

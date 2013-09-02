@@ -33,6 +33,7 @@ INTERNAL_IPS = ['127.0.0.1']
 
 TEMPLATE_CONTEXT_PROCESSORS += ("django.core.context_processors.debug",)
 
+# default template loaders w/o caching
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
