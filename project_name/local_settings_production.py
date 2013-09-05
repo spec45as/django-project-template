@@ -6,7 +6,7 @@ cfg = ConfigParser()
 cfg.readfp(open(os.path.join(BASE_DIR, '.config-production-example.ini')))
 
 ADMINS = (
-    ('username', 'user@email')
+    ('username', 'user@email'),
 )
 
 MANAGERS = ADMINS
