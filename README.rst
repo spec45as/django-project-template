@@ -86,7 +86,7 @@ Settings modules
   by defining DJANGO_TEMPLATE_SETTINGS environment variable, --settings argument to
   `manage.py runserver` or explicitly specify it in your uwsgi.ini, for example.
 
-- deploy.yml - handles css minification, crontabs installing.
+- deploy.yml - handles css/js minification, crontabs installing.
 
 
 Private configuration files
@@ -246,8 +246,9 @@ CSS minifying is configured through **deploy.yml** file (see above).
 --------
 minifyjs
 --------
-Minifies and concatenates all js files from `/static/js/src` into
+Minifies and concatenates all js files from `deploy.yml` (in `/static/js/src`) into
 `/static/js/build` directory.
+JS minifying is configured through **deploy.yml** file (see above).
 
 ------
 minify
@@ -287,6 +288,8 @@ concatenated into resulting file (style.min.css)::
 
 Both `style.css` and `another_style.css` files will be minified and
 concatenated respectively order listed.
+
+The same applies to minify/js section.
 
 Minification can be done with::
 
