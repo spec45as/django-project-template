@@ -167,14 +167,17 @@ def install_nodejs_modules():
 
 
 def minifyjs():
-    """Minifies all *.js files found in js/build directory to js/src/script.js."""
+    """
+    Minifies all *.js files provided in deploy.yml found in js/src
+    directory to js/bulid/script.min.js.
+    """
     with lcd(PROJECT_NAME):
-        local('mkdir -p {}'.format(JS_BUILD_DIR))
+        js_filenames = _load_settings()['minify']['js']
         js_files = []
-        for root, dirs, files in os.walk(JS_SRC_DIR):
-            for fname in files:
-                if fname.endswith('.js'):
-                    js_files.append(os.path.join(root, fname))
+        for fname in js_filenames:
+            js_files.append(os.path.join(JS_SRC_DIR, fname))
+        local('mkdir -p {}'.format(JS_BUILD_DIR))
+
     if js_files:
         local('PATH=$PATH:`pwd`/bin bash -c "bin/uglifyjs {} -o {}/script.min.js"'.format(
             ' '.join(js_files), JS_BUILD_DIR
