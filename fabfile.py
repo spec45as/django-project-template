@@ -2,6 +2,7 @@
 
 import re
 import os
+import sys
 import base64
 import getpass
 
@@ -11,6 +12,8 @@ from fabric.operations import local, prompt
 from fabric.context_managers import lcd
 from fabric.contrib.console import confirm
 
+
+MAKE = 'gmake' if 'freebsd' in sys.platform else 'make'
 
 # full path to this file
 BASE_PATH = os.path.abspath(os.path.dirname(__file__))
@@ -155,8 +158,8 @@ def install_nodejs(version='0.10.12', cpus=1):
         local('tar xzf {}'.format(node_file))
         with lcd('node-v{}'.format(version)):
             local('./configure --prefix={}'.format(BASE_PATH))
-            local('make -j{}'.format(cpus))
-            local('make install')
+            local('{} -j{}'.format(MAKE, cpus))
+            local('{} install'.format(MAKE))
     local('rm -rf {}'.format(build_dir))
 
 
