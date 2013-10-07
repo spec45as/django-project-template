@@ -124,6 +124,8 @@ to serve static from `build` directories. You may also want to add .htaccess
 file containing *deny from all* to `src` directories, so nodoby can access it
 from outside.
 
+You can override this directory structure in deploy.yml file.
+
 Fabric helper script
 --------------------
 This script helps you to bootstrap the project.
@@ -277,6 +279,8 @@ dependencies you can read in `official pip documentation`_.
 
 Minification (**minify** section)
 ---------------------------------
+You can configure project paths, used to minify files through `deploy.yml`,
+`paths` section.
 
 You can configure css filenames and order in wich minified files should be
 concatenated into resulting file (style.min.css)::
