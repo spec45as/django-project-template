@@ -1,3 +1,9 @@
+paths:
+    css_src_dir: 'static/css/src'
+    css_build_dir: 'static/css/build'
+    css_stylus_dir: 'static/css/styl'
+    js_src_dir: 'static/js/src'
+    js_build_dir: 'static/js/build'
 minify:
     css:
     #    - style.css
