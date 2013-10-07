@@ -21,13 +21,6 @@ BASE_PATH = os.path.abspath(os.path.dirname(__file__))
 PROJECT_NAME = '{{ project_name }}'
 PROJECT_PATH = os.path.join(BASE_PATH, PROJECT_NAME)
 
-CSS_SRC_DIR = os.path.join(PROJECT_PATH, 'static/css/src')
-CSS_BUILD_DIR = os.path.join(PROJECT_PATH, 'static/css/build')
-CSS_STYLUS_DIR = os.path.join(PROJECT_PATH, 'static/css/styl')
-
-JS_SRC_DIR = os.path.join(PROJECT_PATH, 'static/js/src')
-JS_BUILD_DIR = os.path.join(PROJECT_PATH, 'static/js/build')
-
 CRONTAB_PRE = '#-- crontab {name}\n'
 CRONTAB_LINE = '{line}\n'
 CRONTAB_POST = '#-- end crontab {name}\n'
@@ -38,6 +31,16 @@ CRONTAB_TEMPLATE = '{pre}{line}{post}'.format(pre=CRONTAB_PRE,
 
 def _load_settings(fname='deploy.yml'):
     return yaml.load(open(fname))
+
+
+SETTINGS = _load_settings()
+
+CSS_SRC_DIR = os.path.join(PROJECT_PATH, SETTINGS['paths']['css_src_dir'])
+CSS_BUILD_DIR = os.path.join(PROJECT_PATH, SETTINGS['paths']['css_build_dir'])
+CSS_STYLUS_DIR = os.path.join(PROJECT_PATH, SETTINGS['paths']['css_stylus_dir'])
+
+JS_SRC_DIR = os.path.join(PROJECT_PATH, SETTINGS['paths']['js_src_dir'])
+JS_BUILD_DIR = os.path.join(PROJECT_PATH, SETTINGS['paths']['js_build_dir'])
 
 
 def _read_crontab():
@@ -104,8 +107,7 @@ def install_requirements(wheels=None, noindex=False):
 
 def install_crontabs():
     """Installs project crontabs."""
-    settings = _load_settings()    
-    crontabs = settings['crontabs']
+    crontabs = SETTINGS['crontabs']
 
     if crontabs is not None:
         for crontab in crontabs:
@@ -175,7 +177,7 @@ def minifyjs():
     directory to js/bulid/script.min.js.
     """
     with lcd(PROJECT_NAME):
-        js_filenames = _load_settings()['minify']['js']
+        js_filenames = SETTINGS['minify']['js']
         js_files = []
         for fname in js_filenames:
             js_files.append(os.path.join(JS_SRC_DIR, fname))
@@ -202,7 +204,7 @@ def stylus_convert():
 
 def minifycss():
     """Minifies css files from css/src to css/build."""
-    css_filenames = _load_settings()['minify']['css']
+    css_filenames = SETTINGS['minify']['css']
     css_files = []
     for fname in css_filenames:
         css_files.append(os.path.join(CSS_SRC_DIR, fname))
