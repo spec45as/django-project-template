@@ -6,8 +6,6 @@ import sys
 import base64
 import getpass
 
-import yaml
-
 from fabric.operations import local, prompt
 from fabric.context_managers import lcd
 from fabric.contrib.console import confirm
@@ -29,18 +27,9 @@ CRONTAB_TEMPLATE = '{pre}{line}{post}'.format(pre=CRONTAB_PRE,
                                               line=CRONTAB_LINE)
 
 
-def _load_settings(fname='deploy.yml'):
+def _load_settings(fname='config.yml'):
+    import yaml
     return yaml.load(open(fname))
-
-
-SETTINGS = _load_settings()
-
-CSS_SRC_DIR = os.path.join(PROJECT_PATH, SETTINGS['paths']['css_src_dir'])
-CSS_BUILD_DIR = os.path.join(PROJECT_PATH, SETTINGS['paths']['css_build_dir'])
-CSS_STYLUS_DIR = os.path.join(PROJECT_PATH, SETTINGS['paths']['css_stylus_dir'])
-
-JS_SRC_DIR = os.path.join(PROJECT_PATH, SETTINGS['paths']['js_src_dir'])
-JS_BUILD_DIR = os.path.join(PROJECT_PATH, SETTINGS['paths']['js_build_dir'])
 
 
 def _read_crontab():
@@ -107,7 +96,7 @@ def install_requirements(wheels=None, noindex=False):
 
 def install_crontabs():
     """Installs project crontabs."""
-    crontabs = SETTINGS['crontabs']
+    crontabs = _load_settings()['crontabs']
 
     if crontabs is not None:
         for crontab in crontabs:
@@ -116,11 +105,6 @@ def install_crontabs():
                 base_path=BASE_PATH,
                 project_path=PROJECT_PATH,
                 project_name=PROJECT_NAME,
-                css_src_dir=CSS_SRC_DIR,
-                css_build_dir=CSS_BUILD_DIR,
-                css_stylus_dir=CSS_STYLUS_DIR,
-                js_src_dir=JS_SRC_DIR,
-                js_build_dir=JS_BUILD_DIR
             )
             print 'installing crontab "{}": {}'.format(name, command)
             _add_task(name, command)
@@ -142,7 +126,13 @@ def generate_secret():
         print 'generated secret key: {}'.format(SECRET_FILE)
 
 
-def install_nodejs(version='0.10.12', cpus=1):
+def install_nodejs_modules():
+    """Installs nodejs minification modules."""
+    modules = ['uglify-js', 'clean-css']
+    local('bin/npm install -g {}'.format(' '.join(modules)))
+
+
+def install_nodejs(version='0.10.21', cpus=1):
     """
     Installs nodejs in local directory.
 
@@ -164,62 +154,45 @@ def install_nodejs(version='0.10.12', cpus=1):
             local('{} install'.format(MAKE))
     local('rm -rf {}'.format(build_dir))
 
-
-def install_nodejs_modules():
-    """Installs nodejs minification modules."""
-    modules = ['uglify-js', 'stylus', 'clean-css']
-    local('bin/npm install -g {}'.format(' '.join(modules)))
+    install_nodejs_modules()
 
 
-def minifyjs():
-    """
-    Minifies all *.js files provided in deploy.yml found in js/src
-    directory to js/bulid/script.min.js.
-    """
-    with lcd(PROJECT_NAME):
-        js_filenames = SETTINGS['minify']['js']
-        js_files = []
-        for fname in js_filenames:
-            js_files.append(os.path.join(JS_SRC_DIR, fname))
-        local('mkdir -p {}'.format(JS_BUILD_DIR))
-
-    if js_files:
-        local('PATH=$PATH:`pwd`/bin bash -c "bin/uglifyjs {} -o {}/script.min.js"'.format(
-            ' '.join(js_files), JS_BUILD_DIR
-        ))
-    else:
-        print 'no javascript files to minify found'
+def _minify(section_name, minify_cmd):
+    sections = _load_settings()[section_name]
+    if sections:
+        for section in sections:
+            input_files = section['from']
+            output_file = section['to']
+            if not isinstance(input_files, list):
+                input_files = [input_files]
+            minify_cmd(input_files, output_file)
 
 
-def stylus_convert():
-    """Processes all *.styl files from css/styl to css/src."""
-    for root, dirs, files in os.walk(CSS_STYLUS_DIR):
-        for fname in files:
-            if fname.endswith('.styl'):
-                local('PATH=$PATH:`pwd`/bin bash -c "bin/stylus < {} > {}"'.format(
-                    os.path.join(root, fname),
-                    os.path.join(CSS_SRC_DIR, fname.replace('.styl', '.css')),
-                ))
+def _minify_js(input_files, output_file):
+    cmd = 'PATH=$PATH:`pwd`/bin bash -c "bin/uglifyjs {} -o {}"'.format(
+        ' '.join(input_files), output_file
+    )
+    local(cmd)
+
+
+def _minify_css(input_files, output_file):
+    cmd = 'PATH=$PATH:`pwd`/bin bash -c "cat {} | bin/cleancss -o {}"'.format(
+        ' '.join(input_files), output_file
+    )
+    local(cmd)
 
 
 def minifycss():
-    """Minifies css files from css/src to css/build."""
-    css_filenames = SETTINGS['minify']['css']
-    css_files = []
-    for fname in css_filenames:
-        css_files.append(os.path.join(CSS_SRC_DIR, fname))
-    if css_files:
-        local('PATH=$PATH:`pwd`/bin bash -c "cat {} | bin/cleancss -o {}/style.min.css"'.format(
-            ' '.join(css_files), CSS_BUILD_DIR
-        ))
-    else:
-        print 'no css files to minify found'
+    _minify('minify_css', _minify_css)
+
+
+def minifyjs():
+    _minify('minify_js', _minify_js)
 
 
 def minify():
     """Minifies js and css for whole project."""
     minifyjs()
-    stylus_convert()
     minifycss()
 
 
@@ -256,7 +229,4 @@ def bootstrap(nonode=None, cpus=1, wheels=None, noindex=False):
     make_virtualenv()
     install_requirements(wheels, noindex)
     generate_secret()
-    if nonode is None:
-        install_nodejs(cpus=cpus)
-        install_nodejs_modules()
     create_user_config_file()
