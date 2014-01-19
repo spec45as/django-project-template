@@ -1,6 +1,6 @@
-==================================
-Django project template by asyncee
-==================================
+=======================
+Django project template
+=======================
 
 Django template designed for fast and easy project creation, flexible custom
 database/email settings and keeping your sensitive db/email access data
@@ -183,16 +183,3 @@ This is the place where the project dependencies is stored. How to specify
 dependencies you can read in `official pip documentation`_.
 
 .. _official pip documentation: http://www.pip-installer.org/en/latest/requirements.html
-
-
-LICENSE
-=======
-
-.. image:: http://i.creativecommons.org/l/by/3.0/88x31.png
-   :alt: Creative Commons License
-
-Django-project-template by asyncee_ is licensed under a
-`Creative Commons Attribution 3.0 Unported License`_.
-
-.. _asyncee: https://github.com/asyncee/django-project-template
-.. _Creative Commons Attribution 3.0 Unported License: http://creativecommons.org/licenses/by/3.0/
