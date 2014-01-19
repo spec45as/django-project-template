@@ -3,11 +3,9 @@ Django project template by asyncee
 ==================================
 
 Django template designed for fast and easy project creation, flexible custom
-database/email/whatever settings and keeping your database/secret-key/any-sensitive-data
-private by not including it in your CVS - just configure sensitive data to your needs,
-drop it over the settings files and forget it.
-Template allows easy project minification and crontabs configuration with
-config.yml.
+database/email settings and keeping your sensitive db/email access data
+private by not including it in your CVS - just configure sensitive data to
+your needs, drop it over the settings files and forget it.
 **Remeber** not to commit your database/email ini config file, but only
 your specific local_setings.
 
@@ -18,7 +16,7 @@ To create project using this template::
     django-admin.py startproject --template=https://github.com/asyncee/django-project-template/zipball/master <project_name>
 
 To create virtualenv, generate project secret key, install requirements,
-create your user configuration files and nodejs tools::
+create your user configuration files::
 
     fab bootstrap
 
@@ -38,15 +36,11 @@ Requirements
 ============
 
 - python >= 2.7 (may work with lower versions)
-- django >= 1.6b1 (you can manually configure settings to make it compatible with older versions)
+- django >= 1.6
 - pip
 - virtualenv >= 1.10.1
 - fabric
 - bash (preinstalled on most unix systems)
-
-If you want to use minification or crontabs installing features:
-
-- pyyaml (libyaml not required)
 
 If you want to use wheel:
 
@@ -68,7 +62,7 @@ The template consists of:
 - settings modules
 - private database/email configuration files
 - predefined directory structure, including templates and static directories
-- fabric helper script to minify files, install crontabs, etc (see below)
+- fabric helper script
 - requirements.txt file
 
 Settings modules
@@ -88,8 +82,6 @@ Settings modules
   This file used when you run Django, so you must point one to it. You can do that
   by defining DJANGO_TEMPLATE_SETTINGS environment variable, --settings argument to
   `manage.py runserver` or explicitly specify it in your uwsgi.ini, for example.
-
-- config.yml - handles minification and crontabs installing.
 
 
 Private configuration files
@@ -125,15 +117,9 @@ Tasks you can perform:
 
 - bootstrap
 - generate_secret
-- install_nodejs
-- install_nodejs_modules
 - install_requirements
-- install_crontabs
 - make_virtualenv
 - make_wheels
-- minify
-- minifycss
-- minifyjs
 - create_user_config_file
 
 ---------
@@ -162,38 +148,11 @@ generate_secret
 ---------------
 Generates secret key file with 512-length random string inside.
 
---------------
-install_nodejs
---------------
-Installs nodejs in fabfile script (project root where manage.py lies) directory.
-All binary files placed in `./bin`, libraries in `./lib`, etc.
-
-This command accepts one optional argument:
-`cpus` - number of jobs to use when compiling (make -j). Default value is 1.
-
-::
-
-    fab install_nodejs:cpus=8
-
-
-----------------------
-install_nodejs_modules
-----------------------
-Installs `uglify-js` and `clean-css` into local nodejs directory. All
-binaries available as symlinks in `./bin` directory.
-
 --------------------
 install_requirements
 --------------------
 Installs project dependencies into virtual environment. There is no need to
 source `activate` script.
-
---------------------
-install_crontabs
---------------------
-Installs crontabs, specified in `config.yml` file. Keep in mind, that for now,
-system *does not track* obsolete crontabs (those you removed manually from
-`config.yml` file).
 
 ---------------
 make_virtualenv
@@ -203,26 +162,11 @@ Creates virtual environment, `env`.
 -----------
 make_wheels
 -----------
-Downloads and packages requirements from `requirements.txt` into wheels 
+Downloads and packages requirements from `requirements.txt` into wheels
 and installs it in the `wheels` directory by default. You may override
 it with `path` argument::
 
     fab make_wheels:path=~/wheels
-
----------
-minifycss
----------
-Minifies and concatenates css files defined in `config.yml`.
-
---------
-minifyjs
---------
-Minifies and concatenates js files defined in `config.yml`.
-
-------
-minify
-------
-Runs `minifycss` and `minifyjs` tasks.
 
 -----------------------
 create_user_config_file
@@ -239,65 +183,6 @@ This is the place where the project dependencies is stored. How to specify
 dependencies you can read in `official pip documentation`_.
 
 .. _official pip documentation: http://www.pip-installer.org/en/latest/requirements.html
-
-
-`config.yml` configuration overview
-===================================
-
-Minification
----------------------------------
-You can configure filenames and order in wich files should be
-concatenated into resulting file::
-
-  minify_css:
-      - from: ["style.css", "style1.css"]
-        to: "style.min.css"
-
-      - from: "custom.css"
-        to: "custom.min.css"
-
-  minify_js:
-      - from: ["script.js", "menu.js"]
-        to: "scipt.min.js"
-
-      - from: "form.js"
-        to: "form.min.js"
-
-`from` field can be array of string or a single string.
-You need to note, that you need to specify full path to files
-(related to fabfile.py script).
-
-Minification can be done with::
-
-  fab minifycss
-  fab minifyjs
-  fab minify    # everything
-
-Crontabs (**crontabs** section)
--------------------------------
-
-Crontabs are pretty easy to configure::
-
-  crontabs:
-      - name: 'crontab name'
-        crontab: 'crontab command, like * * * * * /bin/true'
-      - name: 'this crontab show base path variable'
-        crontab: '* * * * * {base_path}/manage.py'
-      - name: 'css sources backup'
-        crontab: '* * * * * cp -r {css_src_dir} /media/backups'
-
-As you can see, there are some variables you might want to use:
-
-- base_path - substitutes full path to fab file
-- project_name
-- project_path - path to your **project** directory
-
-Crontabs can be installed with following command::
-
-  fab install_crontabs
-
-Crontabs installed under your user, using `crontab` command. You can
-check installation with `crontab -l` command.
 
 
 LICENSE
