@@ -2,4 +2,4 @@ django
 south
 psycopg2
 pytils
-bpython
+ipython
