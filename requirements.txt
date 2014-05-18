@@ -6,3 +6,4 @@ ipython
 pytest
 
 django-debug-toolbar
+Pillow
