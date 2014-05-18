@@ -1,4 +1,6 @@
 .secret
+.idea
+media
 
 *.ini
 !.config-dev-example.ini
