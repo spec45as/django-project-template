@@ -20,12 +20,14 @@ INSTALLED_APPS = (
 
     # third-party apps
     'south',
+    'debug_toolbar',
 
     # project apps
 )
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.gzip.GZipMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.common.BrokenLinkEmailsMiddleware',
@@ -138,4 +140,10 @@ LOGGING = {
             'propagate': True,
         },
     }
+}
+
+# debug toolbar
+DEBUG_TOOLBAR_PATCH_SETTINGS = False
+DEBUG_TOOLBAR_CONFIG = {
+    'JQUERY_URL': '/static/vendor/jquery/jquery-2.1.1.js',
 }
