@@ -3,6 +3,7 @@ Settings for {{ project_name }} project.
 """
 
 import os
+import sys
 
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
@@ -130,7 +131,12 @@ LOGGING = {
         'file_error_log': {
             'level': 'ERROR',
             'class': 'logging.FileHandler',
-            'filename': 'error.log'
+            'filename': 'var/log/error.log'
+        },
+        'stdout': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'stream': sys.stdout,
         },
     },
     'loggers': {
