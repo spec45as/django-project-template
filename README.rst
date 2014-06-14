@@ -13,7 +13,7 @@ Quickstart
 ==========
 To create project using this template::
 
-    django-admin.py startproject --template=https://github.com/asyncee/django-project-template/zipball/master <project_name>
+    django-admin.py startproject --template=https://github.com/asyncee/django-project-template/zipball/master --extension py,template <project_name>
 
 To create virtualenv, generate project secret key, install requirements,
 create your user configuration files::
