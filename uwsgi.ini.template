@@ -7,7 +7,7 @@ pythonpath = ..
 chdir = %(project_dir)
 
 env = DJANGO_SETTINGS_MODULE={{ project_name }}.%(settings_module)
-module = django.core.handlers.wsgi:WSGIHandler()
+module = django.core.wsgi:get_wsgi_application()
 
 pidfile = %(project_dir)var/pid/uwsgi.pid
 socket = %(project_dir)var/run/uwsgi.sock
