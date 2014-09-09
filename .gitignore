@@ -1,3 +1,6 @@
+conf/*.ini
+settings/local.py
+
 .secret
 .idea
 media
