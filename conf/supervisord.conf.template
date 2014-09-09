@@ -1,0 +1,72 @@
+[inet_http_server]
+port = 127.0.0.1:9001
+
+[unix_http_server]
+file = %(here)s/var/run/supervisor.sock
+chmod = 0666
+
+[supervisord]
+logfile = %(here)s/var/log/supervisord.log
+pidfile = %(here)s/var/pid/supervisord.pid
+logfile_maxbytes = 50MB
+logfile_backups = 10
+loglevel = warn
+nodaemon = false
+identifier = str
+environment = DJANGO_SETTINGS_MODULE="{{ project_name }}.settings.production"
+
+[supervisorctl]
+serverurl = unix://%(here)s/var/run/supervisor.sock
+history_file = %(here)s/var/supervisorctl_history
+
+[program:uwsgi]
+command = uwsgi --ini %(here)s/uwsgi.ini
+stdout_logfile = %(here)s/var/log/uwsgi.log
+stdout_logfile_maxbytes = 1MB
+stdout_logfile_backups = 10
+stderr_logfile = %(here)s/var/log/uwsgi_err.log
+stderr_logfile_maxbytes = 1MB
+stderr_logfile_backups = 10
+autorestart = true
+stopsignal = INT
+
+[program:celery]
+command = celery worker --app={{ project_name }} -l info
+stdout_logfile = %(here)s/var/log/celery.log
+stdout_logfile_maxbytes = 1MB
+stdout_logfile_backups = 10
+stderr_logfile = %(here)s/var/log/celery_err.log
+stderr_logfile_maxbytes = 1MB
+stderr_logfile_backups = 10
+numprocs = 1
+autorestart = true
+stopsignal = INT
+
+[program:solr]
+command = java -jar start.jar
+directory = %(here)s/solr
+stdout_logfile = %(here)s/var/log/solr.log
+stdout_logfile_maxbytes = 1MB
+stdout_logfile_backups = 10
+stderr_logfile = %(here)s/var/log/solr_err.log
+stderr_logfile_maxbytes = 1MB
+stderr_logfile_backups = 10
+numprocs = 1
+autorestart = true
+stopsignal = INT
+
+[program:elastic]
+command = bin/elasticsearch
+directory = %(here)s/elasticsearch
+stdout_logfile = %(here)s/var/log/elasticsearch.log
+stdout_logfile_maxbytes = 1MB
+stdout_logfile_backups = 10
+stderr_logfile = %(here)s/var/log/elasticsearch_err.log
+stderr_logfile_maxbytes = 1MB
+stderr_logfile_backups = 10
+numprocs = 1
+autorestart = true
+stopsignal = INT
+
+[rpcinterface:supervisor]
+supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface

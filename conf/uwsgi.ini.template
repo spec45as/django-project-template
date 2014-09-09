@@ -1,0 +1,30 @@
+[uwsgi]
+project_dir = %d
+settings_module = settings.production
+
+virtualenv = %(project_dir)env
+pythonpath = ..
+chdir = %(project_dir)
+
+env = DJANGO_SETTINGS_MODULE={{ project_name }}.%(settings_module)
+module = django.core.wsgi:get_wsgi_application()
+
+pidfile = %(project_dir)var/pid/uwsgi.pid
+socket = %(project_dir)var/run/uwsgi.sock
+chmod-socket = 666
+
+workers = 3
+vacuum = true
+master = true
+touch-reload = %(project_dir)var/touch.me
+touch-logrotate = %(project_dir)var/touch_logrotate.me
+
+max-requests = 4000
+harakiri = 120
+harakiri-verbose = true
+
+ignore-sigpipe = 1
+log-format-strftime = 1
+log-date =
+
+#reaper = 1
