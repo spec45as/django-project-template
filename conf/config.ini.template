@@ -4,3 +4,11 @@ user = username
 password = password
 host = localhost
 port =
+
+[email]
+from_email = root@localhost
+host = localhost
+port =
+user =
+password =
+
