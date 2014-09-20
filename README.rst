@@ -58,6 +58,10 @@ Quickstart
     vim <название проекта>/settings/production.py    # продакшен
     vim <название проекта>/settings/local_<user>.py  # пользовательские настройки
 
+Инициализировать БД::
+
+    python manage.py migrate --settings=project_name.settings.local_username
+
 Чтобы запустить проект в режиме дебага::
 
     # to run server
