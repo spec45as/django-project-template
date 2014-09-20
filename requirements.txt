@@ -1,9 +1,14 @@
+# base
 django
-south
 psycopg2
 pytils
 ipython
 pytest
-
-django-debug-toolbar
 Pillow
+
+# debug
+django-debug-toolbar
+
+# production
+uwsgi
+supervisor
