@@ -1,9 +1,9 @@
 from ConfigParser import ConfigParser
 
-from settings import *
+from {{ project_name }}.settings.base import *
 
 cfg = ConfigParser()
-cfg.readfp(open(os.path.join(BASE_DIR, '.config-production-example.ini')))
+cfg.readfp(open(os.path.normpath(os.path.join(BASE_DIR, '../conf/config.ini'))))
 
 ADMINS = (
     ('username', 'user@email'),
@@ -43,3 +43,11 @@ EMAIL_PORT = cfg.get('email', 'port')
 EMAIL_HOST_USER = cfg.get('email', 'user')
 EMAIL_HOST_PASSWORD = cfg.get('email', 'password')
 EMAIL_SUBJECT_PREFIX = '{{ project_name }} '
+
+TEMPLATE_LOADERS = (
+    ('django.template.loaders.cached.Loader', (
+        'django.template.loaders.filesystem.Loader',
+        'django.template.loaders.app_directories.Loader',
+        'django.template.loaders.eggs.Loader',
+    )),
+)

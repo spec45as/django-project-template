@@ -6,9 +6,9 @@ import os
 import sys
 
 
-BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+BASE_DIR = os.path.normpath(os.path.join(os.path.dirname(__file__), '..'))
 
-SECRET_KEY = open(os.path.normpath(os.path.join(BASE_DIR, '../../conf/secret'))).read().strip()
+SECRET_KEY = open(os.path.normpath(os.path.join(BASE_DIR, '../conf/secret'))).read().strip()
 
 INSTALLED_APPS = (
     # django apps
@@ -20,7 +20,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     # third-party apps
-    'south',
     'debug_toolbar',
 
     # project apps
