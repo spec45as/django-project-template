@@ -16,8 +16,8 @@ chmod-socket = 666
 workers = 3
 vacuum = true
 master = true
-touch-reload = %(project_dir)var/touch.me
-touch-logrotate = %(project_dir)var/touch_logrotate.me
+touch-reload = %(project_dir)var/reload
+touch-logrotate = %(project_dir)var/rotate
 
 max-requests = 4000
 harakiri = 120
