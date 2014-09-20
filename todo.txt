@@ -1,0 +1,7 @@
+1. add celery configuration commented template to settings,
+requirements and base configuration with ability to easy turn it on.
+2. add commented redis cache with ability to turn it on
+3. add pylint, mccabe, pep8, pylint, pylama, etc default checks
+and commit hooks / script to run it
+4. check python3 compatibility
+5. add "core" applicaton
