@@ -10,3 +10,10 @@ django sites framework (turn on by default)
 7. add middleware
 SessionAuthenticationMiddleware
 CurrentSiteMiddleware
+8. create templates for bin script:
+create bin directory with scripts:
+
+bin/run_tests (py.test)
+bin/coverate report
+bin/run celery/elastic/etc (if any)
+bin/checks (bash script with pylint / flake8)
