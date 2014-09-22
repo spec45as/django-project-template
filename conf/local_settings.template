@@ -1,4 +1,7 @@
-from ConfigParser import ConfigParser
+try:
+    from ConfigParser import ConfigParser
+except ImportError:  # python3
+    from configparser import ConfigParser
 
 from {{ project_name }}.settings.base import *
 
