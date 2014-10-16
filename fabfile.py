@@ -88,9 +88,10 @@ def create_user_config_file():
 
         # Обновить manage.py для использования новых настроек
         config_path = os.path.splitext(dst_settings_path.replace('/', '.'))[0]
-        _render(_rel('conf/manage.py.template'), _rel('manage.py'),
+        _render(_rel('conf/manage.py.template'), _rel('manage'),
                 config_path=config_path)
-        _log('Обновлён manage.py')
+        local('chmod +x manage')
+        _log('Создан скрипт "manage"')
 
         _log('Осталось указать конфигурацию БД в {}'
              .format(USER_CONFIG_FILE))

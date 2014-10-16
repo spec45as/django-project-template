@@ -1,6 +1,7 @@
 conf/*.ini
 conf/secret
 settings/local.py
+manage
 
 .secret
 .idea
