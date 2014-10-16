@@ -10,3 +10,5 @@ bin/run_tests (py.test)
 bin/coverate report
 bin/run celery/elastic/etc (if any)
 bin/checks (bash script with pylint / flake8)
+
+core application
