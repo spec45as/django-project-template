@@ -64,8 +64,14 @@ def generate_secret(length=512):
         _log('Сгенерирован секретный ключ: {}'.format(SECRET_FILE))
 
 
+def create_config_ini():
+    """Создать config.ini."""
+    _render(_rel('conf/config.ini.template'), _rel('conf/config.ini'))
+    _log('Создан файл {}'.format(USER_CONFIG_FILE))
+
+
 def create_user_config_file():
-    if confirm('Создать новую конфигурацию проекта?'):
+    if confirm('Создать новую конфигурацию проекта для разработки?'):
         username = prompt('Имя пользователя',
                           default=getpass.getuser(),
                           validate=r'^.*$')
@@ -82,10 +88,6 @@ def create_user_config_file():
         _render(src_settings, dst_settings)
         _log('Создан файл {}'.format(dst_settings_path))
 
-        # Создать config.ini
-        _render(_rel('conf/config.ini.template'), _rel('conf/config.ini'))
-        _log('Создан файл {}'.format(USER_CONFIG_FILE))
-
         # Обновить manage.py для использования новых настроек
         config_path = os.path.splitext(dst_settings_path.replace('/', '.'))[0]
         _render(_rel('conf/manage.py.template'), _rel('manage'),
@@ -93,8 +95,11 @@ def create_user_config_file():
         local('chmod +x manage')
         _log('Создан скрипт "manage"')
 
-        _log('Осталось указать конфигурацию БД в {}'
+        _log('Для запуска проекта осталось:')
+        _log('\t - указать конфигурацию БД в {}'
              .format(USER_CONFIG_FILE))
+        _log('\t - выполнить ./manage migrate')
+        _log('\t - выполнить ./manage runserver')
 
 
 def bootstrap():
@@ -102,4 +107,5 @@ def bootstrap():
     make_virtualenv()
     install_requirements()
     generate_secret()
+    create_config_ini()
     create_user_config_file()
