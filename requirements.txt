@@ -12,3 +12,10 @@ django-debug-toolbar
 # production
 uwsgi
 supervisor
+
+# test
+pytest
+pytest-django
+pytest-cov
+coverage
+tox
