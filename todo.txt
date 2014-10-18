@@ -1,14 +1,2 @@
-1. add celery configuration commented template to settings,
-requirements and base configuration with ability to easy turn it on.
-2. add commented redis cache with ability to turn it on
-3. add pylint, flake8, hacking, isort, pep257, mccabe, pep8, pylint, pylama, etc default checks
-and commit hooks / script to run it
-8. create templates for bin script:
-create bin directory with scripts:
-
-bin/run_tests (py.test)
-bin/coverate report
-bin/run celery/elastic/etc (if any)
-bin/checks (bash script with pylint / flake8)
-
-core application
+1. add pylint, flake8, hacking, isort, pep257, mccabe, pep8, pylint, pylama, etc default checks and commit hooks / script to run it
+2. add pytest and tox
