@@ -22,6 +22,7 @@ INSTALLED_APPS = (
     # third-party apps
 
     # project apps
+    'core',
 )
 
 MIDDLEWARE_CLASSES = (
