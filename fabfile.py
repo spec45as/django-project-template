@@ -49,10 +49,21 @@ def make_virtualenv():
     local('virtualenv env')
 
 
-def install_requirements():
-    """Установить зависимости в виртуальное окружение."""
-    local('source env/bin/activate && pip install -r requirements.txt',
-          shell='bash')
+def install_requirements(env):
+    """
+    Установить зависимости в виртуальное окружение.
+
+    Аргументы:
+        env - окружение проекта. Если True - development, иначе
+            production.
+    """
+    if env:
+        req = 'local.txt'
+    else:
+        req = 'production.txt'
+    cmd = ('source env/bin/activate && '
+           'pip install -r requirements/{}'.format(req))
+    local(cmd, shell='bash')
 
 
 def generate_secret(length=512):
@@ -68,6 +79,14 @@ def create_config_ini():
     """Создать config.ini."""
     _render(_rel('conf/config.ini.template'), _rel('conf/config.ini'))
     _log('Создан файл {}'.format(USER_CONFIG_FILE))
+
+
+def create_manage_script(settings_module_path):
+    # Обновить manage.py для использования новых настроек
+    _render(_rel('conf/manage.py.template'), _rel('manage'),
+            config_path=settings_module_path)
+    local('chmod +x manage')
+    _log('Создан скрипт "manage"')
 
 
 def create_user_config_file():
@@ -90,10 +109,7 @@ def create_user_config_file():
 
         # Обновить manage.py для использования новых настроек
         config_path = os.path.splitext(dst_settings_path.replace('/', '.'))[0]
-        _render(_rel('conf/manage.py.template'), _rel('manage'),
-                config_path=config_path)
-        local('chmod +x manage')
-        _log('Создан скрипт "manage"')
+        create_manage_script(config_path)
 
         _log('Для запуска проекта осталось:')
         _log('\t - указать конфигурацию БД в {}'
@@ -102,10 +118,18 @@ def create_user_config_file():
         _log('\t - выполнить ./manage runserver')
 
 
+def ask_if_development_deployment():
+    return confirm('Проект разворачивается для локальной разработки?')
+
+
 def bootstrap():
     """Разворачивает проект в виртуальном окружении."""
     make_virtualenv()
-    install_requirements()
+    development = ask_if_development_deployment()
+    install_requirements(development)
     generate_secret()
     create_config_ini()
-    create_user_config_file()
+    if development:
+        create_user_config_file()
+    else:
+        create_manage_script(PROJECT_NAME + '.settings.production')
