@@ -20,14 +20,12 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     # third-party apps
-    'debug_toolbar',
 
     # project apps
 )
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.gzip.GZipMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.common.BrokenLinkEmailsMiddleware',
