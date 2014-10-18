@@ -1,12 +1,12 @@
 [uwsgi]
 project_dir = %d
-settings_module = settings.production
+settings_module = {{ project_name }}.settings.production
 
 virtualenv = %(project_dir)env
 pythonpath = ..
 chdir = %(project_dir)
 
-env = DJANGO_SETTINGS_MODULE={{ project_name }}.%(settings_module)
+env = DJANGO_SETTINGS_MODULE=%(settings_module)
 module = django.core.wsgi:get_wsgi_application()
 
 pidfile = %(project_dir)var/pid/uwsgi.pid
