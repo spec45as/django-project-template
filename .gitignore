@@ -8,8 +8,8 @@ manage
 media
 
 *.ini
-!.config-dev-example.ini
-!.config-production-example.ini
+!tox.ini
+!pytest.ini
 
 *.log
 *.pid
