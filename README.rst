@@ -37,7 +37,7 @@ Quickstart
 ==========
 Для создания проекта необходимо выполнить действия:
 
-    django-admin.py startproject --template=https://github.com/asyncee/django-project-template/zipball/master --extension py,template <имя проекта>
+    django-admin.py startproject --template=https://github.com/asyncee/django-project-template/zipball/master --extension py,template,ini <имя проекта>
 
 Для разворачивания проекта в виртуальном окружении необходимо
 выполнить команду::
