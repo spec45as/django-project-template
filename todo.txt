@@ -1,1 +1,2 @@
 1. add pylint, flake8, hacking, isort, pep257, mccabe, pep8, pylint, pylama, etc default checks and commit hooks
+2. add gunicorn configuration template and add/remove (uwsgi) to/from requirements
