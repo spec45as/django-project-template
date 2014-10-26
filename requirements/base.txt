@@ -1,4 +1,6 @@
-django
+# always pin versions in this document
+
+django>=1.7,<=1.8
 psycopg2
 pytils
 Pillow
