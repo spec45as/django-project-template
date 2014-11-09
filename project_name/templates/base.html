@@ -10,13 +10,17 @@
     <!-- Bootstrap -->
     <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
 
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
     <!--[if lt IE 9]>
       <script src="{% static 'vendor/html5shiv.js' %}"></script>
       <script src="{% static 'vendor/respond.min.js' %}"></script>
     <![endif]-->
+
+    <script src="{% static 'js/script.js' %}"></script>
   </head>
   <body>
-    <h1>Hello, world!</h1>
+    {% block content %}{% endblock %}
 
     {% if DEBUG %}
         <script src="{% static 'vendor/jquery/jquery-2.1.1.js' %}"></script>
