@@ -53,15 +53,6 @@ FIRST_DAY_OF_WEEK = 1
 
 USE_TZ = False
 
-# template loaders with caching
-TEMPLATE_LOADERS = (
-    ('django.template.loaders.cached.Loader', (
-        'django.template.loaders.filesystem.Loader',
-        'django.template.loaders.app_directories.Loader',
-        'django.template.loaders.eggs.Loader',
-    )),
-)
-
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates'),
 )
