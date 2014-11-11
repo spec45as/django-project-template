@@ -12,7 +12,7 @@ ADMINS = (
     ('username', 'user@email'),
 )
 
-MANAGERS = ADMINS
+MANAGERS = ()
 
 ALLOWED_HOSTS = ['.example.com']
 
