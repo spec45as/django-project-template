@@ -6,3 +6,5 @@ pytils
 Pillow
 ipython
 celery
+redis
+hiredis

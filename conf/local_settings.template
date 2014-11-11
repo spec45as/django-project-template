@@ -52,11 +52,6 @@ TEMPLATE_LOADERS = (
 )
 
 # celery configuration
-# http://docs.celeryproject.org/en/latest/getting-started/brokers/rabbitmq.html#broker-rabbitmq
-# transport://user:password@hostname:port/virtual_host
-# rabbitmqctl add_user site_user 123
-# rabbitmqctl add_vhost site_host
-# rabbitmqctl set_permissions site_user ".*" ".*" ".*"
-# rabbitmqctl set_permissions -p site_host site_user ".*" ".*" ".*"
-BROKER_URL = 'amqp://user:password@localhost:5672/vhost'
-CELERY_RESULT_BACKEND = 'amqp://user:password@localhost:5672/vhost'
+BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+
