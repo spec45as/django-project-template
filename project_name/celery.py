@@ -1,6 +1,6 @@
 # coding: utf-8
 
-from __future__ import print_function, unicode_literals, division
+from __future__ import absolute_import
 
 from celery import Celery
 from django.conf import settings
