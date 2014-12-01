@@ -10,7 +10,7 @@ BASE_DIR = os.path.normpath(os.path.join(os.path.dirname(__file__), '..'))
 
 SECRET_KEY = open(os.path.normpath(os.path.join(BASE_DIR, '../conf/secret'))).read().strip()
 
-INSTALLED_APPS = (
+INSTALLED_APPS = [
     # django apps
     'django.contrib.admin',
     'django.contrib.auth',
@@ -18,12 +18,13 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 
     # third-party apps
 
     # project apps
     'core',
-)
+]
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.gzip.GZipMiddleware',
@@ -35,7 +36,10 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.contrib.sites.middleware.CurrentSiteMiddleware',
 )
+
+SITE_ID = 1
 
 ROOT_URLCONF = '{{ project_name }}.urls'
 
