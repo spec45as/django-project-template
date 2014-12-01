@@ -1,3 +1,7 @@
+# coding: utf-8
+
+from __future__ import print_function, unicode_literals, division
+
 try:
     from ConfigParser import ConfigParser
 except ImportError:  # python3
@@ -14,7 +18,7 @@ ADMINS = (
 
 MANAGERS = ()
 
-ALLOWED_HOSTS = ['.example.com']
+ALLOWED_HOSTS = ['*']
 
 DATABASES = {
     'default': {
