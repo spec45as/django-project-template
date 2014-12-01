@@ -4,10 +4,18 @@ from django.conf.urls.static import static
 from django.contrib import admin
 
 
-urlpatterns = patterns('',
-    url(r'^$', '{{ project_name }}.views.home', name='home'),
+project_urlpatterns = patterns('{{ project_name }}.views',
+    url(r'^$', 'home', name='home'),
+    url(r'^robots.txt$', 'robots_txt', name='robots_txt'),
+)
+
+
+apps_patterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 )
+
+urlpatterns = project_urlpatterns + apps_patterns
+
 
 if settings.DEBUG:
     urlpatterns += (
