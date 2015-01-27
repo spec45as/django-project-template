@@ -10,6 +10,7 @@ import sys
 
 
 BASE_DIR = os.path.normpath(os.path.join(os.path.dirname(__file__), '..'))
+ROOT_DIR = os.path.normpath(os.path.join(BASE_DIR, '..'))
 
 SECRET_KEY = open(os.path.normpath(os.path.join(BASE_DIR, '../conf/secret'))).read().strip()
 
@@ -128,7 +129,7 @@ LOGGING = {
         'file_error_log': {
             'level': 'ERROR',
             'class': 'logging.FileHandler',
-            'filename': 'var/log/error.log'
+            'filename': os.path.join(ROOT_DIR, 'var/log/error.log'),
         },
         'stdout': {
             'level': 'DEBUG',
