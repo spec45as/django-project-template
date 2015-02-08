@@ -1,2 +1,24 @@
-1. add pylint, flake8, hacking, isort, pep257, mccabe, pep8, pylint, pylama, etc default checks and commit hooks
-2. add gunicorn configuration template and add/remove (uwsgi) to/from requirements
+1. add gunicorn configuration template and add/remove (uwsgi) to/from requirements
+2. add crontabs support (fab install_crontabs)
+    - must be asked to install if deployed in production
+    - must be jinja2 templates
+    - example:
+        # example crontab
+        * * * * *    {{ project_dir}}/env/bin/python {{ project_dir}}/manage.py index_objects
+    - must be run with `crontab crontab_file`
+3. update directory layout
+    - move project-specific files to an lower directory:
+        README.rst
+        fabfile
+        tox.ini
+        tests/
+        ...
+        other files
+        ...
+        project/
+            project/
+            manage.py
+            ... project-specific files ...
+            application1/
+            application2/
+4. refactor fabfile
