@@ -12,10 +12,15 @@ from fabric.operations import local, prompt
 from fabric.contrib.console import confirm
 
 
+# Базовый путь до корня проекта
 BASE_PATH = os.path.abspath(os.path.dirname(__file__))
 
 PROJECT_NAME = '{{ project_name }}'
-PROJECT_PATH = os.path.join(BASE_PATH, PROJECT_NAME)
+# Путь до manage.py
+MANAGE_PATH = os.path.join(BASE_PATH, PROJECT_NAME)
+# Путь до директории проекта с файло settings.py
+PROJECT_PATH = os.path.join(MANAGE_PATH, PROJECT_NAME)
+
 SECRET_FILE = 'conf/secret'
 USER_CONFIG_FILE = 'conf/config.ini'
 
@@ -39,9 +44,19 @@ def _render(src, dst, **kwargs):
         f.write(template.render(**kwargs))
 
 
-def _rel(*path):
-    """Возвратить полный путь относительно директории проекта."""
+def _base_path(*path):
+    """Возвратить полный путь относительно корневой директории."""
     return os.path.join(BASE_PATH, *path)
+
+
+def _manage_path(*path):
+    """Возвратить полный путь относительно manage.py."""
+    return os.path.join(MANAGE_PATH, *path)
+
+
+def _project_path(*path):
+    """Возвратить полный путь относительно проекта (settings.py)."""
+    return os.path.join(PROJECT_PATH, *path)
 
 
 def make_virtualenv():
@@ -69,7 +84,7 @@ def install_requirements(env):
 def generate_secret(length=512):
     """Сгенерировать секрет и записать в файл conf/secret."""
 
-    with open(_rel(SECRET_FILE), 'w') as f:
+    with open(_base_path(SECRET_FILE), 'w') as f:
         secret_key = base64.urlsafe_b64encode(os.urandom(length))
         f.write(secret_key)
         _log('Сгенерирован секретный ключ: {}'.format(SECRET_FILE))
@@ -77,15 +92,19 @@ def generate_secret(length=512):
 
 def create_config_ini():
     """Создать config.ini."""
-    _render(_rel('conf/config.ini.template'), _rel('conf/config.ini'))
+    _render(_base_path('conf/config.ini.template'), _base_path('conf/config.ini'))
     _log('Создан файл {}'.format(USER_CONFIG_FILE))
 
 
 def create_manage_script(settings_module_path):
     # Обновить manage.py для использования новых настроек
-    _render(_rel('conf/manage.py.template'), _rel('manage'),
-            config_path=settings_module_path)
-    local('chmod +x manage')
+    new_manage_path = _manage_path('manage.py')
+    _render(
+        _base_path('conf/manage.py.template'),
+        new_manage_path,
+        config_path=settings_module_path,
+    )
+    local('chmod +x {}'.format(new_manage_path))
     _log('Создан скрипт "manage"')
 
 
@@ -95,13 +114,13 @@ def create_user_config_file():
                           default=getpass.getuser(),
                           validate=r'^.*$')
 
-        src_settings = _rel('conf/local_settings.template')
+        src_settings = _base_path('conf/local_settings.template')
         dst_settings_path = os.path.join(
             PROJECT_NAME,
             'settings',
             'local_{}.py'.format(username)
         )
-        dst_settings = _rel(dst_settings_path)
+        dst_settings = _manage_path(dst_settings_path)
 
         # Создать local_<user>.py
         _render(src_settings, dst_settings)
