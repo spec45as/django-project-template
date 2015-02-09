@@ -9,7 +9,8 @@ import os
 import sys
 
 
-BASE_DIR = os.path.normpath(os.path.join(os.path.dirname(__file__), '..'))
+PROJECT_DIR = os.path.normpath(os.path.join(os.path.dirname(__file__), '..'))
+BASE_DIR = os.path.normpath(os.path.join(os.path.dirname(__file__), '../..'))
 ROOT_DIR = os.path.normpath(os.path.join(BASE_DIR, '..'))
 
 SECRET_KEY = open(os.path.normpath(os.path.join(BASE_DIR, '../conf/secret'))).read().strip()
@@ -62,11 +63,11 @@ FIRST_DAY_OF_WEEK = 1
 USE_TZ = False
 
 TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR, 'templates'),
+    os.path.join(PROJECT_DIR, 'templates'),
 )
 
 LOCALE_PATHS = [
-    os.path.abspath(os.path.join(BASE_DIR, 'locale')),
+    os.path.abspath(os.path.join(PROJECT_DIR, 'locale')),
 ]
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -85,7 +86,7 @@ STATICFILES_FINDERS = (
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
 
 STATICFILES_DIRS = (
     ('css', os.path.join(STATIC_ROOT, 'css')),
@@ -96,7 +97,7 @@ STATICFILES_DIRS = (
 
 MEDIA_URL = '/media/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(PROJECT_DIR, 'media')
 
 CSRF_COOKIE_NAME = '__csrf'
 
