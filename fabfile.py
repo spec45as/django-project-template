@@ -27,8 +27,26 @@ SECRET_FILE = 'conf/secret'
 USER_CONFIG_FILE = 'conf/config.ini'
 
 
+class Colors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
+    def __init__(self, color):
+        self.color = color
+
+    def bold(self, msg):
+        return self.color + self.BOLD + msg + Colors.ENDC
+
+
 def _log(message):
-    print(message)
+    writer = Colors(Colors.OKGREEN)
+    print(writer.bold(message))
 
 
 def _render(src, dst, **kwargs):
