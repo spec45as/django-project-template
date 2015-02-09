@@ -4,6 +4,8 @@ from __future__ import print_function
 
 import os
 import base64
+import tempfile
+import glob
 import getpass
 
 import jinja2
@@ -141,6 +143,33 @@ def ask_if_development_deployment():
     return confirm('Проект разворачивается для локальной разработки?')
 
 
+def ask_if_install_crontabs():
+    return confirm('Установить задачи в крон от текущего пользователя?')
+
+
+def install_crontab(filepath):
+    """Установить задачу в крон."""
+    _log('Установка задачи в крон {}'.format(
+        os.path.basename(filepath)
+    ))
+    crontab_path = os.path.abspath(filepath)
+    tmp_file = tempfile.mkstemp(suffix='crontab')[1]
+    _render(
+        src=crontab_path,
+        dst=tmp_file,
+        here=BASE_PATH,
+        project_name=PROJECT_NAME,
+    )
+    local('crontab {}'.format(tmp_file))
+
+
+def install_crontabs():
+    """Найти и установить кронтабы."""
+    crontabs = glob.glob('crontabs/*')
+    for crontab in crontabs:
+        install_crontab(crontab)
+
+
 def bootstrap():
     """Разворачивает проект в виртуальном окружении."""
     make_virtualenv()
@@ -152,3 +181,5 @@ def bootstrap():
         create_user_config_file()
     else:
         create_manage_script(PROJECT_NAME + '.settings.production')
+        if ask_if_install_crontabs():
+            install_crontabs()
