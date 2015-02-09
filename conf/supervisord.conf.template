@@ -1,5 +1,5 @@
 [inet_http_server]
-port = 127.0.0.1:9001
+port = 127.0.0.1:10000
 
 [unix_http_server]
 file = %(here)s/var/run/supervisor.sock
@@ -30,8 +30,20 @@ stderr_logfile_backups = 10
 autorestart = true
 stopsignal = INT
 
+[program:gunicorn]
+command=gunicorn --access-logfile=var/log/gunicorn_access.logfile
+        --error-logfile=var/log/gunicorn_error.log
+        -k gevent
+        --max-requests=3000
+        --workers=4
+        --bind=0.0.0.0:8081
+        {{ project_name }}.wsgi:application
+stdout_logfile=%(here)s/var/log/gunicorn.log
+stderr_logfile=%(here)s/var/log/gunicorn_err.log
+autorestart=true
+
 [program:celery]
-command = celery worker --app={{ project_name }} -l info
+command = %(here)s/env/bin/celery worker --app={{ project_name }} -l info
 stdout_logfile = %(here)s/var/log/celery.log
 stdout_logfile_maxbytes = 1MB
 stdout_logfile_backups = 10
@@ -42,22 +54,9 @@ numprocs = 1
 autorestart = true
 stopsignal = INT
 
-[program:solr]
-command = java -jar start.jar
-directory = %(here)s/solr
-stdout_logfile = %(here)s/var/log/solr.log
-stdout_logfile_maxbytes = 1MB
-stdout_logfile_backups = 10
-stderr_logfile = %(here)s/var/log/solr_err.log
-stderr_logfile_maxbytes = 1MB
-stderr_logfile_backups = 10
-numprocs = 1
-autorestart = true
-stopsignal = INT
-
 [program:elastic]
-command = bin/elasticsearch
-directory = %(here)s/elasticsearch
+command = elasticsearch/bin/elasticsearch
+directory = %(here)s
 stdout_logfile = %(here)s/var/log/elasticsearch.log
 stdout_logfile_maxbytes = 1MB
 stdout_logfile_backups = 10
