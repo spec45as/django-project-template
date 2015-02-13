@@ -2,6 +2,6 @@
 pytest
 pytest-django
 pytest-cov
-coverage
+#coverage
 tox
 mock
