@@ -14,10 +14,9 @@ from fabric.operations import local, prompt
 from fabric.contrib.console import confirm
 
 
-# Базовый путь до корня проекта
-BASE_PATH = os.path.abspath(os.path.dirname(__file__))
-
 PROJECT_NAME = '{{ project_name }}'
+# Путь до корня проекта
+BASE_PATH = os.path.abspath(os.path.dirname(__file__))
 # Путь до manage.py
 MANAGE_PATH = os.path.join(BASE_PATH, PROJECT_NAME)
 # Путь до директории проекта с файло settings.py
@@ -27,7 +26,7 @@ SECRET_FILE = 'conf/secret'
 USER_CONFIG_FILE = 'conf/config.ini'
 
 
-class Colors:
+class Logger:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
     OKGREEN = '\033[92m'
@@ -40,13 +39,32 @@ class Colors:
     def __init__(self, color):
         self.color = color
 
-    def bold(self, msg):
-        return self.color + self.BOLD + msg + Colors.ENDC
+    def start(self):
+        return self.color
+
+    def end(self):
+        return self.ENDC
+
+    def format(self, msg):
+        return self.start() + msg + self.end()
+
+    @property
+    def _log(self):
+        return print
+
+    def log(self, msg):
+        self._log(self.format(msg))
+
+    def confirm(self, msg):
+        self._log(self.start())
+        answer = confirm(msg)
+        self._log(self.end())
+        return answer
 
 
-def _log(message):
-    writer = Colors(Colors.OKGREEN)
-    print(writer.bold(message))
+logger = Logger(Logger.OKGREEN + Logger.BOLD)
+_log = logger.log
+_confirm = logger.confirm
 
 
 def _render(src, dst, **kwargs):
@@ -77,6 +95,10 @@ def _manage_path(*path):
 def _project_path(*path):
     """Возвратить полный путь относительно проекта (settings.py)."""
     return os.path.join(PROJECT_PATH, *path)
+
+
+def _make_config_pythonpath(config_name):
+    return PROJECT_NAME + '.settings.' + config_name
 
 
 def make_virtualenv():
@@ -112,7 +134,10 @@ def generate_secret(length=512):
 
 def create_config_ini():
     """Создать config.ini."""
-    _render(_base_path('conf/config.ini.template'), _base_path('conf/config.ini'))
+    _render(
+        _base_path('conf/config.ini.template'),
+        _base_path('conf/config.ini'),
+    )
     _log('Создан файл {}'.format(USER_CONFIG_FILE))
 
 
@@ -125,15 +150,10 @@ def create_manage_script(settings_module_path):
         config_path=settings_module_path,
     )
     local('chmod +x {}'.format(new_manage_path))
-    _log('Создан скрипт "manage"')
+    _log('Обновлён скрипт "manage.py"')
 
 
-def create_user_config_file():
-    if confirm('Создать новую конфигурацию проекта для разработки?'):
-        username = prompt('Имя пользователя',
-                          default=getpass.getuser(),
-                          validate=r'^.*$')
-
+def create_user_config_file(username):
         src_settings = _base_path('conf/local_settings.template')
         dst_settings_path = os.path.join(
             PROJECT_NAME,
@@ -146,23 +166,17 @@ def create_user_config_file():
         _render(src_settings, dst_settings)
         _log('Создан файл {}'.format(dst_settings_path))
 
-        # Обновить manage.py для использования новых настроек
-        config_path = os.path.splitext(dst_settings_path.replace('/', '.'))[0]
-        create_manage_script(config_path)
-
-        _log('Для запуска проекта осталось:')
-        _log('\t - указать конфигурацию БД в {}'
-             .format(USER_CONFIG_FILE))
-        _log('\t - выполнить ./manage migrate')
-        _log('\t - выполнить ./manage runserver')
-
 
 def ask_if_development_deployment():
-    return confirm('Проект разворачивается для локальной разработки?')
+    return _confirm('Проект разворачивается для локальной разработки?')
 
 
 def ask_if_install_crontabs():
-    return confirm('Установить задачи в крон от текущего пользователя?')
+    return _confirm('Установить задачи в крон от текущего пользователя?')
+
+
+def ask_if_create_new_development_configuration():
+    return _confirm('Создать новую конфигурацию проекта для разработки?')
 
 
 def install_crontab(filepath):
@@ -188,16 +202,35 @@ def install_crontabs():
         install_crontab(crontab)
 
 
+def delete_common_files():
+    for fname in ['LICENSE.md', 'README.rst', 'todo.txt']:
+        try:
+            os.unlink(fname)
+        except OSError:
+            pass
+
+
 def bootstrap():
     """Разворачивает проект в виртуальном окружении."""
+    delete_common_files()
     make_virtualenv()
     development = ask_if_development_deployment()
     install_requirements(development)
     generate_secret()
     create_config_ini()
-    if development:
-        create_user_config_file()
+    if development and ask_if_create_new_development_configuration():
+        username = prompt('Имя пользователя', default=getpass.getuser())
+        create_user_config_file(username)
+        config_name = 'local_' + username
     else:
-        create_manage_script(PROJECT_NAME + '.settings.production')
+        config_name = 'production'
         if ask_if_install_crontabs():
             install_crontabs()
+    create_manage_script(_make_config_pythonpath(config_name))
+
+    _log('Для запуска проекта осталось:')
+    _log('\t - указать конфигурацию БД в {}'
+         .format(USER_CONFIG_FILE))
+    manage_path = PROJECT_NAME + '/manage.py'
+    _log('\t - выполнить {} migrate'.format(manage_path))
+    _log('\t - выполнить {} runserver'.format(manage_path))
