@@ -1,8 +1,2 @@
-1. add crontabs support (fab install_crontabs)
-    - must be asked to install if deployed in production
-    - must be jinja2 templates
-    - example:
-        # example crontab
-        * * * * *    {{ project_dir}}/env/bin/python {{ project_dir}}/manage.py index_objects
-    - must be run with `crontab crontab_file`
-2. refactor fabfile
+2. create test templates and remove default gap
+3. refactor project_dir, root_dir, etc in settings to more explicit
