@@ -40,13 +40,21 @@ class Colors:
     def __init__(self, color):
         self.color = color
 
-    def bold(self, msg):
-        return self.color + self.BOLD + msg + Colors.ENDC
+    def start(self):
+        return self.color
+
+    def end(self):
+        return self.ENDC
+
+    def format(self, msg):
+        return self.start() + msg + self.end()
+
+
+writer = Colors(Colors.OKGREEN + Colors.BOLD)
 
 
 def _log(message):
-    writer = Colors(Colors.OKGREEN)
-    print(writer.bold(message))
+    print(writer.format(message))
 
 
 def _render(src, dst, **kwargs):
@@ -77,6 +85,13 @@ def _manage_path(*path):
 def _project_path(*path):
     """Возвратить полный путь относительно проекта (settings.py)."""
     return os.path.join(PROJECT_PATH, *path)
+
+
+def _confirm(msg):
+    print(writer.start())
+    answer = confirm(msg)
+    print(writer.end())
+    return answer
 
 
 def make_virtualenv():
@@ -129,7 +144,7 @@ def create_manage_script(settings_module_path):
 
 
 def create_user_config_file():
-    if confirm('Создать новую конфигурацию проекта для разработки?'):
+    if _confirm('Создать новую конфигурацию проекта для разработки?'):
         username = prompt('Имя пользователя',
                           default=getpass.getuser(),
                           validate=r'^.*$')
@@ -158,11 +173,11 @@ def create_user_config_file():
 
 
 def ask_if_development_deployment():
-    return confirm('Проект разворачивается для локальной разработки?')
+    return _confirm('Проект разворачивается для локальной разработки?')
 
 
 def ask_if_install_crontabs():
-    return confirm('Установить задачи в крон от текущего пользователя?')
+    return _confirm('Установить задачи в крон от текущего пользователя?')
 
 
 def install_crontab(filepath):
@@ -188,8 +203,17 @@ def install_crontabs():
         install_crontab(crontab)
 
 
+def delete_common_files():
+    for fname in ['LICENSE.md', 'README.rst', 'todo.txt']:
+        try:
+            os.unlink(fname)
+        except OSError:
+            pass
+
+
 def bootstrap():
     """Разворачивает проект в виртуальном окружении."""
+    delete_common_files()
     make_virtualenv()
     development = ask_if_development_deployment()
     install_requirements(development)
