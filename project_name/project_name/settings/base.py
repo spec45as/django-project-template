@@ -10,10 +10,10 @@ import sys
 
 
 PROJECT_DIR = os.path.normpath(os.path.join(os.path.dirname(__file__), '..'))
-BASE_DIR = os.path.normpath(os.path.join(os.path.dirname(__file__), '../..'))
-ROOT_DIR = os.path.normpath(os.path.join(BASE_DIR, '..'))
+MANAGE_DIR = os.path.normpath(os.path.join(PROJECT_DIR, '..'))
+ROOT_DIR = os.path.normpath(os.path.join(MANAGE_DIR, '..'))
 
-SECRET_KEY = open(os.path.normpath(os.path.join(BASE_DIR, '../conf/secret'))).read().strip()
+SECRET_KEY = open(os.path.normpath(os.path.join(ROOT_DIR, 'conf/secret'))).read().strip()
 
 INSTALLED_APPS = [
     # django apps
