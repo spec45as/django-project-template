@@ -2,6 +2,7 @@ conf/secret
 #settings/local.py
 #*/settings/production.py
 manage
+vendor/
 
 .secret
 .idea
