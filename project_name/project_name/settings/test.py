@@ -10,7 +10,7 @@ except ImportError:  # python3
 from {{ project_name }}.settings.base import *
 
 cfg = ConfigParser()
-cfg.readfp(open(os.path.normpath(os.path.join(BASE_DIR, '../conf/config.ini'))))
+cfg.readfp(open(os.path.normpath(os.path.join(ROOT_DIR, 'conf/config.ini'))))
 
 DEBUG = True
 
