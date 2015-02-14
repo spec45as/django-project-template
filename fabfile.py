@@ -210,12 +210,17 @@ def delete_common_files():
             pass
 
 
+def setup_static():
+    local('bower install --save')
+
+
 def bootstrap():
     """Разворачивает проект в виртуальном окружении."""
     delete_common_files()
     make_virtualenv()
     development = ask_if_development_deployment()
     install_requirements(development)
+    setup_static()
     generate_secret()
     create_config_ini()
     if development and ask_if_create_new_development_configuration():

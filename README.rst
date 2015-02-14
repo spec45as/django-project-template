@@ -30,6 +30,8 @@ Requirements
 - fabric
 - jinja2
 - bash
+- nodejs
+- bower
 
 Последние версии pip и setuptools можно установить командой::
 
@@ -40,7 +42,7 @@ Quickstart
 ==========
 Для создания проекта необходимо выполнить действия:
 
-    django-admin.py startproject --template=https://github.com/asyncee/django-project-template/zipball/master --extension py,template,ini <имя проекта>
+    django-admin.py startproject --template=https://github.com/asyncee/django-project-template/zipball/master --extension py,template,ini,json,bowerrc <имя проекта>
 
 Для разворачивания проекта в виртуальном окружении необходимо
 выполнить команду::

@@ -7,26 +7,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Your project</title>
 
-    <!-- Bootstrap -->
-    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- CSS -->
+    <link href="{% static 'vendor/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
 
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <!-- End CSS -->
+
+    <!-- JS -->
+    <script src="{% static 'vendor/jquery/dist/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/dist/js/bootstrap.min.js' %}"></script>
 
     <!--[if lt IE 9]>
-      <script src="{% static 'vendor/html5shiv.js' %}"></script>
-      <script src="{% static 'vendor/respond.min.js' %}"></script>
+      <script src="{% static 'vendor/html5shiv/dist/html5shiv.min.js' %}"></script>
+      <script src="{% static 'vendor/respond/dest/respond.min.js' %}"></script>
     <![endif]-->
 
     <script src="{% static 'js/script.js' %}"></script>
+    <!-- End JS -->
   </head>
   <body>
+
     {% block content %}{% endblock %}
 
-    {% if DEBUG %}
-        <script src="{% static 'vendor/jquery/jquery-2.1.1.js' %}"></script>
-    {% else %}
-        <script src="{% static 'vendor/jquery/jquery-2.1.1.min.js' %}"></script>
-    {% endif %}
-    <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
   </body>
 </html>

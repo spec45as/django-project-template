@@ -1,2 +1,0 @@
-2. create test templates and remove default gap
-3. refactor project_dir, root_dir, etc in settings to more explicit

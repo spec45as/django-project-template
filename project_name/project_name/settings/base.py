@@ -154,5 +154,5 @@ LOGGING = {
 # debug toolbar
 DEBUG_TOOLBAR_PATCH_SETTINGS = False
 DEBUG_TOOLBAR_CONFIG = {
-    'JQUERY_URL': '/static/vendor/jquery/jquery-2.1.1.js',
+    'JQUERY_URL': '/static/vendor/jquery/dist/jquery.js',
 }
