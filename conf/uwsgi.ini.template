@@ -3,8 +3,8 @@ project_dir = %d
 settings_module = {{ project_name }}.settings.production
 
 virtualenv = %(project_dir)env
-pythonpath = ..
-chdir = %(project_dir)
+pythonpath = .
+chdir = %(project_dir)/{{ project_name }}
 
 env = DJANGO_SETTINGS_MODULE=%(settings_module)
 module = django.core.wsgi:get_wsgi_application()
