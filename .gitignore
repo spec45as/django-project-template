@@ -1,7 +1,5 @@
 conf/secret
-#settings/local.py
-#*/settings/production.py
-manage
+!conf/manage.py.template
 
 .secret
 .idea
@@ -13,6 +11,8 @@ media
 
 *.log
 *.pid
+*.sock
+*.socket
 
 /bin
 /lib
@@ -40,7 +40,6 @@ lib/
 lib64/
 parts/
 sdist/
-var/
 *.egg-info/
 .installed.cfg
 *.egg
