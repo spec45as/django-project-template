@@ -34,8 +34,9 @@ class Logger:
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
 
-    def __init__(self, color):
+    def __init__(self, color, force_defaults=False):
         self.color = color
+        self.force_defaults = force_defaults
 
     def start(self):
         return self.color
@@ -54,6 +55,9 @@ class Logger:
         self._log(self.format(msg))
 
     def confirm(self, msg):
+        if self.force_defaults:
+            return True
+
         self._log(self.start())
         answer = confirm(msg)
         self._log(self.end())
@@ -217,7 +221,7 @@ def setup_static():
     local('bower install --save')
 
 
-def development():
+def bootstrap_development():
     install_requirements('local.txt')
     settings_format = 'local_{}'
 
@@ -229,7 +233,7 @@ def development():
     return settings_format.format(getpass.getuser())
 
 
-def production():
+def bootstrap_production():
     settings = 'production'
     install_requirements('production.txt')
 
@@ -239,18 +243,20 @@ def production():
     return settings
 
 
-def bootstrap():
+def bootstrap(production=False, defaults=False):
     """Разворачивает проект в виртуальном окружении."""
+    logger.force_defaults = defaults
+
     delete_common_files()
     make_virtualenv()
     setup_static()
     update_manage_script()
     update_project_init()
 
-    if ask_if_development():
-        settings = development()
+    if not production and ask_if_development():
+        settings = bootstrap_development()
     else:
-        settings = production()
+        settings = bootstrap_production()
 
     create_env_file(
         settings_module=_make_config_pythonpath(settings),
