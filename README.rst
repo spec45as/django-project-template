@@ -74,24 +74,19 @@ Quickstart
 
 И отредактировать настройки проекта::
 
-    vim <название проекта>/settings/base.py          # общие настройки
-    vim <название проекта>/settings/production.py    # продакшен
-    vim <название проекта>/settings/local_<user>.py  # пользовательские настройки
+    vim project_name/settings/base.py          # общие настройки
+    vim project_name/settings/production.py    # продакшен
+    vim project_name/settings/local_<user>.py  # пользовательские настройки
 
-Инициализировать БД::
+Провести миграции и запустить сервер::
 
-    python manage.py migrate --settings=project_name.settings.local_username
+    project_name/manage.py migrate
+    project_name/manage.py runserver
 
-Чтобы запустить проект в режиме дебага::
-
-    # to run server
-    python manage.py runserver --settings=project_name.settings.local_username
-
-    # to syncdb
-    python manage.py migrate --settings=project_name.settings.local_username
 
 Параметр ``--settings`` можно опустить, так как после разворачивания
-скрипт сам обновит файл `manage.py`.
+сайт будет использовать переменные окружения, которые могут
+быть заданы извне, либо путём конфигурации в ``conf/env``.
 
 Чтобы запустить проект на боевом сервере, можно воспользоваться
 шаблонами конфигурации ``uwsgi`` и ``supervisor`` из директории
@@ -105,27 +100,13 @@ Configuration
 ``conf/env`` - конфигурация сайта, это переменные окружения
 ``<project_name>/settings/base.py`` - основной конфиг проекта
 ``<project_name>/settings/production.py`` - конфиг для продакшена
-``<project_name>/settings/local_user.py`` - конфиг для разработки
+``<project_name>/settings/local_<username>.py`` - конфиг для разработки
 
 Файл `conf/env` должен быть уникальным для production
 и development окружений и не должен храниться в VCS.
 Все конфигурационные файлы из директории `settings` могут (и должны)
 быть добавлены в систему контроля версий.
 
-
-Directory structure
--------------------
-Конфигруация директорий стандартна::
-
-    static/
-        css/
-        js/
-        img/
-        vendor/
-            bootstrap/
-
-Где vendor - директория для ресурсов от сторонних разработчиков,
-именно там можно найти установленный по-умолчанию twitter bootstrap.
 
 Testing
 -------
