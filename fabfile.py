@@ -23,7 +23,7 @@ MANAGE_PATH = os.path.join(BASE_PATH, PROJECT_NAME)
 PROJECT_PATH = os.path.join(MANAGE_PATH, PROJECT_NAME)
 
 SECRET_FILE = 'conf/secret'
-USER_CONFIG_FILE = 'conf/config.ini'
+ENV_FILE = 'conf/env'
 
 
 class Logger:
@@ -132,13 +132,13 @@ def generate_secret(length=512):
         _log('Сгенерирован секретный ключ: {}'.format(SECRET_FILE))
 
 
-def create_config_ini():
-    """Создать config.ini."""
+def create_env_file():
+    """Создать файл с настройками окружения `env`"""
     _render(
-        _base_path('conf/config.ini.template'),
-        _base_path('conf/config.ini'),
+        _base_path('conf/env.template'),
+        _base_path(ENV_FILE),
     )
-    _log('Создан файл {}'.format(USER_CONFIG_FILE))
+    _log('Создан файл {}'.format(ENV_FILE))
 
 
 def create_manage_script(settings_module_path):
@@ -222,7 +222,7 @@ def bootstrap():
     install_requirements(development)
     setup_static()
     generate_secret()
-    create_config_ini()
+    create_env_file()
     if development and ask_if_create_new_development_configuration():
         username = prompt('Имя пользователя', default=getpass.getuser())
         create_user_config_file(username)
@@ -235,7 +235,7 @@ def bootstrap():
 
     _log('Для запуска проекта осталось:')
     _log('\t - указать конфигурацию БД в {}'
-         .format(USER_CONFIG_FILE))
+         .format(ENV_FILE))
     manage_path = PROJECT_NAME + '/manage.py'
     _log('\t - выполнить {} migrate'.format(manage_path))
     _log('\t - выполнить {} runserver'.format(manage_path))

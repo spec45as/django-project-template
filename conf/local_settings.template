@@ -3,10 +3,9 @@ try:
 except ImportError:  # python3
     from configparser import ConfigParser
 
-from {{ project_name }}.settings.base import *
+import dj_database_url
 
-cfg = ConfigParser()
-cfg.readfp(open(os.path.normpath(os.path.join(ROOT_DIR, 'conf/config.ini'))))
+from {{ project_name }}.settings.base import *
 
 DEBUG = True
 
@@ -21,15 +20,7 @@ if DEBUG:
     )
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': cfg.get('db', 'db'),
-        'USER': cfg.get('db', 'user'),
-        'PASSWORD': cfg.get('db', 'password'),
-        'HOST': cfg.get('db', 'host'),
-        'PORT': cfg.get('db', 'port'),
-        'CONN_MAX_AGE': 0,
-    }
+    'default': dj_database_url.parse(e.get('DJANGO_DB')),
 }
 
 CACHES = {
