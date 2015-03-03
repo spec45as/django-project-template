@@ -1,4 +1,6 @@
 conf/secret
+conf/env
+
 vendor/
 
 .secret

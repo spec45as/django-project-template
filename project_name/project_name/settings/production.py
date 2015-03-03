@@ -7,10 +7,9 @@ try:
 except ImportError:  # python3
     from configparser import ConfigParser
 
-from {{ project_name }}.settings.base import *
+import dj_database_url
 
-cfg = ConfigParser()
-cfg.readfp(open(os.path.normpath(os.path.join(ROOT_DIR, 'conf/config.ini'))))
+from {{ project_name }}.settings.base import *
 
 ADMINS = (
     ('username', 'user@email'),
@@ -21,15 +20,7 @@ MANAGERS = ()
 ALLOWED_HOSTS = ['*']
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': cfg.get('db', 'db'),
-        'USER': cfg.get('db', 'user'),
-        'PASSWORD': cfg.get('db', 'password'),
-        'HOST': cfg.get('db', 'host'),
-        'PORT': cfg.get('db', 'port'),
-        'CONN_MAX_AGE': 60,
-    }
+    'default': dj_database_url.parse(e.get('DJANGO_DB')),
 }
 
 CACHES = {
@@ -43,12 +34,12 @@ CACHES = {
     }
 }
 
-DEFAULT_FROM_EMAIL = cfg.get('email', 'from_email')
+DEFAULT_FROM_EMAIL = e.get('DJANGO_FROM_EMAIL')
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
-EMAIL_HOST = cfg.get('email', 'host')
-EMAIL_PORT = cfg.get('email', 'port')
-EMAIL_HOST_USER = cfg.get('email', 'user')
-EMAIL_HOST_PASSWORD = cfg.get('email', 'password')
+EMAIL_HOST = e.get('DJANGO_EMAIL_HOST')
+EMAIL_PORT = e.get('DJANGO_EMAIL_PORT')
+EMAIL_HOST_USER = e.get('DJANGO_EMAIL_USER')
+EMAIL_HOST_PASSWORD = e.get('DJANGO_EMAIL_PASSWORD')
 EMAIL_SUBJECT_PREFIX = '{{ project_name }} '
 
 TEMPLATE_LOADERS = (

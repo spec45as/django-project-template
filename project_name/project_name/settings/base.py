@@ -8,12 +8,16 @@ from __future__ import print_function, unicode_literals, division
 import os
 import sys
 
+import envvars as e
+
 
 PROJECT_DIR = os.path.normpath(os.path.join(os.path.dirname(__file__), '..'))
 MANAGE_DIR = os.path.normpath(os.path.join(PROJECT_DIR, '..'))
 ROOT_DIR = os.path.normpath(os.path.join(MANAGE_DIR, '..'))
 
-SECRET_KEY = open(os.path.normpath(os.path.join(ROOT_DIR, 'conf/secret'))).read().strip()
+e.load(os.path.join(ROOT_DIR, 'conf/env'))
+
+SECRET_KEY = e.get('DJANGO_SECRET')
 
 INSTALLED_APPS = [
     # django apps
