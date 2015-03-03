@@ -1,17 +1,17 @@
 [uwsgi]
 project_dir = %d
-settings_module = {{ project_name }}.settings.production
 
 virtualenv = %(project_dir)env
 pythonpath = .
-chdir = %(project_dir)/{{ project_name }}
+chdir = %(project_dir){{ project_name }}
 
-env = DJANGO_SETTINGS_MODULE=%(settings_module)
-module = django.core.wsgi:get_wsgi_application()
+module = {{ project_name }}.wsgi:application
 
 pidfile = %(project_dir)var/pid/uwsgi.pid
 socket = %(project_dir)var/run/uwsgi.sock
 chmod-socket = 666
+
+thunder-lock = true
 
 workers = 3
 vacuum = true

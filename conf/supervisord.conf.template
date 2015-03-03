@@ -13,7 +13,6 @@ logfile_backups = 10
 loglevel = warn
 nodaemon = false
 identifier = str
-environment = DJANGO_SETTINGS_MODULE="{{ project_name }}.settings.production"
 
 [supervisorctl]
 serverurl = unix://%(here)s/var/run/supervisor.sock
