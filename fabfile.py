@@ -3,7 +3,6 @@
 from __future__ import print_function
 
 import os
-import base64
 import tempfile
 import glob
 import getpass
@@ -22,7 +21,6 @@ MANAGE_PATH = os.path.join(BASE_PATH, PROJECT_NAME)
 # Путь до директории проекта с файло settings.py
 PROJECT_PATH = os.path.join(MANAGE_PATH, PROJECT_NAME)
 
-SECRET_FILE = 'conf/secret'
 ENV_FILE = 'conf/env'
 
 
@@ -76,6 +74,9 @@ def _render(src, dst, **kwargs):
         dst - путь к выходному файлу
         **kwargs - параметры для передачи в шаблон
     """
+    kwargs.update({
+        'env_file': _base_path(ENV_FILE),
+    })
     with open(src) as f:
         template = jinja2.Template(f.read())
     with open(dst, 'w') as f:
@@ -106,7 +107,7 @@ def make_virtualenv():
     local('virtualenv env')
 
 
-def install_requirements(env):
+def install_requirements(reqs_file):
     """
     Установить зависимости в виртуальное окружение.
 
@@ -114,60 +115,57 @@ def install_requirements(env):
         env - окружение проекта. Если True - development, иначе
             production.
     """
-    if env:
-        req = 'local.txt'
-    else:
-        req = 'production.txt'
     cmd = ('source env/bin/activate && '
-           'pip install -r requirements/{}'.format(req))
+           'pip install -r requirements/{}'.format(reqs_file))
     local(cmd, shell='bash')
 
 
-def generate_secret(length=512):
-    """Сгенерировать секрет и записать в файл conf/secret."""
-
-    with open(_base_path(SECRET_FILE), 'w') as f:
-        secret_key = base64.urlsafe_b64encode(os.urandom(length))
-        f.write(secret_key)
-        _log('Сгенерирован секретный ключ: {}'.format(SECRET_FILE))
-
-
-def create_env_file():
+def create_env_file(*args, **kwargs):
     """Создать файл с настройками окружения `env`"""
     _render(
         _base_path('conf/env.template'),
         _base_path(ENV_FILE),
+        *args,
+        **kwargs
     )
     _log('Создан файл {}'.format(ENV_FILE))
 
 
-def create_manage_script(settings_module_path):
-    # Обновить manage.py для использования новых настроек
+def update_manage_script():
+    """Обновить manage.py для использования новых настроек."""
     new_manage_path = _manage_path('manage.py')
     _render(
         _base_path('conf/manage.py.template'),
         new_manage_path,
-        config_path=settings_module_path,
     )
     local('chmod +x {}'.format(new_manage_path))
     _log('Обновлён скрипт "manage.py"')
 
 
-def create_user_config_file(username):
+def update_project_init():
+    """Обновить __init__.py проекта для использования настроек."""
+    _render(
+        _base_path('conf/project__init__.py.template'),
+        _project_path('__init__.py'),
+    )
+    _log('Обновлён "__init__.py" проекта')
+
+
+def create_user_config_file(settings_module):
         src_settings = _base_path('conf/local_settings.template')
         dst_settings_path = os.path.join(
             PROJECT_NAME,
             'settings',
-            'local_{}.py'.format(username)
+            settings_module + '.py',
         )
         dst_settings = _manage_path(dst_settings_path)
 
-        # Создать local_<user>.py
+        # Создать локальные настройки пользователя
         _render(src_settings, dst_settings)
         _log('Создан файл {}'.format(dst_settings_path))
 
 
-def ask_if_development_deployment():
+def ask_if_development():
     return _confirm('Проект разворачивается для локальной разработки?')
 
 
@@ -177,6 +175,11 @@ def ask_if_install_crontabs():
 
 def ask_if_create_new_development_configuration():
     return _confirm('Создать новую конфигурацию проекта для разработки?')
+
+
+def ask_username(question=None):
+    return prompt(
+        question or 'Имя пользователя', default=getpass.getuser())
 
 
 def install_crontab(filepath):
@@ -214,24 +217,44 @@ def setup_static():
     local('bower install --save')
 
 
+def development():
+    install_requirements('local.txt')
+    settings_format = 'local_{}'
+
+    if ask_if_create_new_development_configuration():
+        settings = settings_format.format(ask_username())
+        create_user_config_file(settings)
+        return settings
+
+    return settings_format.format(getpass.getuser())
+
+
+def production():
+    settings = 'production'
+    install_requirements('production.txt')
+
+    if ask_if_install_crontabs():
+        install_crontabs()
+
+    return settings
+
+
 def bootstrap():
     """Разворачивает проект в виртуальном окружении."""
     delete_common_files()
     make_virtualenv()
-    development = ask_if_development_deployment()
-    install_requirements(development)
     setup_static()
-    generate_secret()
-    create_env_file()
-    if development and ask_if_create_new_development_configuration():
-        username = prompt('Имя пользователя', default=getpass.getuser())
-        create_user_config_file(username)
-        config_name = 'local_' + username
+    update_manage_script()
+    update_project_init()
+
+    if ask_if_development():
+        settings = development()
     else:
-        config_name = 'production'
-        if ask_if_install_crontabs():
-            install_crontabs()
-    create_manage_script(_make_config_pythonpath(config_name))
+        settings = production()
+
+    create_env_file(
+        settings_module=_make_config_pythonpath(settings),
+    )
 
     _log('Для запуска проекта осталось:')
     _log('\t - указать конфигурацию БД в {}'
