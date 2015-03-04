@@ -135,26 +135,6 @@ def create_env_file(*args, **kwargs):
     _log('Создан файл {}'.format(ENV_FILE))
 
 
-def update_manage_script():
-    """Обновить manage.py для использования новых настроек."""
-    new_manage_path = _manage_path('manage.py')
-    _render(
-        _base_path('conf/manage.py.template'),
-        new_manage_path,
-    )
-    local('chmod +x {}'.format(new_manage_path))
-    _log('Обновлён скрипт "manage.py"')
-
-
-def update_project_init():
-    """Обновить __init__.py проекта для использования настроек."""
-    _render(
-        _base_path('conf/project__init__.py.template'),
-        _project_path('__init__.py'),
-    )
-    _log('Обновлён "__init__.py" проекта')
-
-
 def create_user_config_file(settings_module):
         src_settings = _base_path('conf/local_settings.template')
         dst_settings_path = os.path.join(
@@ -250,8 +230,6 @@ def bootstrap(production=False, defaults=False):
     delete_common_files()
     make_virtualenv()
     setup_static()
-    update_manage_script()
-    update_project_init()
 
     if not production and ask_if_development():
         settings = bootstrap_development()

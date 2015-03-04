@@ -2,6 +2,13 @@
 
 from __future__ import print_function, unicode_literals, division
 
+from os import path as p
+
+import envvars as env
+
+env_file = p.normpath(p.join(p.abspath(p.dirname(__file__)), "../../conf/env"))
+env.load(env_file)
+
 # This will make sure the app is always imported when
 # Django starts so that shared_task will use this app.
 try:
