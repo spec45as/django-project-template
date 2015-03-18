@@ -20,6 +20,9 @@ Django project template
 
 Вместе с проектом поставляется twitter bootstrap 3.
 
+Используется регистрация с подтверждением по электропочте,
+благодаря `django-allauth`.
+
 
 Requirements
 ============
