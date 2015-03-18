@@ -10,3 +10,5 @@ ipython
 celery
 redis
 hiredis
+
+django-allauth
