@@ -16,6 +16,7 @@ project_urlpatterns = patterns('{{ project_name }}.views',
 
 apps_patterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^accounts/', include('allauth.urls')),
 )
 
 urlpatterns = project_urlpatterns + apps_patterns
