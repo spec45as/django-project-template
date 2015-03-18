@@ -1,4 +1,4 @@
 {% load i18n %}
 {% autoescape off %}
-{% blocktrans %}Confirm E-mail Address{% endblocktrans %}
+{% blocktrans %}Подтверждение адреса электронной почты{% endblocktrans %}
 {% endautoescape %}
