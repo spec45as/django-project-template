@@ -30,6 +30,8 @@ INSTALLED_APPS = [
     'django.contrib.sites',
 
     # third-party apps
+    'allauth',
+    'allauth.account',
 
     # project apps
     'core',
@@ -75,12 +77,23 @@ LOCALE_PATHS = [
 ]
 
 TEMPLATE_CONTEXT_PROCESSORS = (
+    # django builtin processors
     'django.contrib.auth.context_processors.auth',
     'django.core.context_processors.i18n',
     'django.core.context_processors.static',
     'django.core.context_processors.media',
     'django.core.context_processors.request',
     'django.contrib.messages.context_processors.messages',
+    # django-allauth
+    "allauth.account.context_processors.account",
+    "allauth.socialaccount.context_processors.socialaccount",
+)
+
+AUTHENTICATION_BACKENDS = (
+    # default django backend
+    "django.contrib.auth.backends.ModelBackend",
+    # django-allauth
+    "allauth.account.auth_backends.AuthenticationBackend",
 )
 
 STATICFILES_FINDERS = (
@@ -160,3 +173,27 @@ DEBUG_TOOLBAR_PATCH_SETTINGS = False
 DEBUG_TOOLBAR_CONFIG = {
     'JQUERY_URL': '/static/vendor/jquery/dist/jquery.js',
 }
+
+# django-allauth
+ACCOUNT_ADAPTER = "allauth.account.adapter.DefaultAccountAdapter"
+ACCOUNT_AUTHENTICATION_METHOD = "username_email"
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = LOGIN_URL
+ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = None
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 3
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+ACCOUNT_DEFAULT_HTTP_PROTOCOL = "http"
+ACCOUNT_FORMS = {}
+ACCOUNT_LOGOUT_ON_GET = False
+ACCOUNT_LOGOUT_REDIRECT_URL = "/"
+ACCOUNT_SIGNUP_FORM_CLASS = None
+ACCOUNT_SIGNUP_PASSWORD_VERIFICATION = False  # одно поле для пароля
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_USERNAME_MIN_LENGTH = 1
+ACCOUNT_USERNAME_BLACKLIST = ['admin', 'administrator', 'superuser']
+ACCOUNT_USERNAME_REQUIRED = True
+ACCOUNT_PASSWORD_INPUT_RENDER_VALUE = True
+ACCOUNT_PASSWORD_MIN_LENGTH = 3
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+ACCOUNT_SESSION_REMEMBER = True
