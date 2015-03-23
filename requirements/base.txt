@@ -12,3 +12,5 @@ redis
 hiredis
 
 django-allauth
+django-cmstemplates
+django-codemirror-widget

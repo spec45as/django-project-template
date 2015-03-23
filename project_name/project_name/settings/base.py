@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     # third-party apps
     'allauth',
     'allauth.account',
+    'cmstemplates',
 
     # project apps
     'core',
@@ -197,3 +198,11 @@ ACCOUNT_PASSWORD_INPUT_RENDER_VALUE = True
 ACCOUNT_PASSWORD_MIN_LENGTH = 3
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 ACCOUNT_SESSION_REMEMBER = True
+
+# django-cmstemplates
+CMSTEMPLATES_USE_CODEMIRROR = True
+
+# django-codemirror-widget
+CODEMIRROR_PATH = 'vendor/codemirror'
+CODEMIRROR_THEME = 'default'
+CODEMIRROR_CONFIG = {'lineNumbers': True}
