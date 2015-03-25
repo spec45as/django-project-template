@@ -126,8 +126,8 @@ SESSION_COOKIE_NAME = '__sid'
 USE_ETAGS = False
 
 LOGIN_REDIRECT_URL = '/'
-LOGIN_URL = 'auth_login'
-LOGOUT_URL = 'auth_logout'
+LOGIN_URL = 'account_login'
+LOGOUT_URL = 'account_logout'
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
