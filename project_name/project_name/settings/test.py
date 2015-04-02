@@ -13,8 +13,6 @@ from {{ project_name }}.settings.base import *
 
 DEBUG = True
 
-TEMPLATE_DEBUG = True
-
 SECRET_KEY = 'test_key'
 
 DATABASES = {
@@ -30,9 +28,3 @@ CACHES = {
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 INTERNAL_IPS = ['127.0.0.1']
-
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-    'django.template.loaders.eggs.Loader',
-)
