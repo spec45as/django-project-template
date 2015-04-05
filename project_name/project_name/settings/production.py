@@ -42,14 +42,6 @@ EMAIL_HOST_USER = e.get('DJANGO_EMAIL_USER')
 EMAIL_HOST_PASSWORD = e.get('DJANGO_EMAIL_PASSWORD')
 EMAIL_SUBJECT_PREFIX = '{{ project_name }} '
 
-TEMPLATE_LOADERS = (
-    ('django.template.loaders.cached.Loader', (
-        'django.template.loaders.filesystem.Loader',
-        'django.template.loaders.app_directories.Loader',
-        'django.template.loaders.eggs.Loader',
-    )),
-)
-
 # celery configuration
 BROKER_URL = 'redis://localhost:6379/0'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
