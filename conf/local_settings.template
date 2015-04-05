@@ -9,8 +9,6 @@ from {{ project_name }}.settings.base import *
 
 DEBUG = True
 
-TEMPLATE_DEBUG = True
-
 if DEBUG:
     INSTALLED_APPS += ('debug_toolbar',)
     MIDDLEWARE_CLASSES = (
@@ -33,14 +31,6 @@ CACHES = {
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 INTERNAL_IPS = ['127.0.0.1']
-
-TEMPLATE_CONTEXT_PROCESSORS += ("django.core.context_processors.debug",)
-
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-    'django.template.loaders.eggs.Loader',
-)
 
 # celery configuration
 BROKER_URL = 'redis://localhost:6379/0'
