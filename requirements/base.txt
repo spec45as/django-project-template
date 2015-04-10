@@ -1,6 +1,7 @@
 # always pin versions in this document
 
-django>=1.7,<=1.8
+wheel
+django>=1.8,<1.9
 envvars
 dj-database-url
 psycopg2
