@@ -2,11 +2,6 @@
 
 from __future__ import print_function, unicode_literals, division
 
-try:
-    from ConfigParser import ConfigParser
-except ImportError:  # python3
-    from configparser import ConfigParser
-
 import dj_database_url
 
 from {{ project_name }}.settings.base import *
