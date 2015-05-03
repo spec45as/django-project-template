@@ -1,7 +1,4 @@
-try:
-    from ConfigParser import ConfigParser
-except ImportError:  # python3
-    from configparser import ConfigParser
+# coding: utf-8
 
 import dj_database_url
 
