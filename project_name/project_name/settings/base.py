@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'cmstemplates',
+    'django_pgcli',
 
     # project apps
     'core',
