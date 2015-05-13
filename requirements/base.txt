@@ -15,3 +15,4 @@ hiredis
 django-allauth
 django-cmstemplates
 django-codemirror-widget
+django-pgcli
