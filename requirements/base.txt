@@ -11,8 +11,11 @@ ipython
 celery
 redis
 hiredis
+lxml
 
 django-allauth
 django-cmstemplates
 django-codemirror-widget
 django-pgcli
+django-compressor
+django-libsass

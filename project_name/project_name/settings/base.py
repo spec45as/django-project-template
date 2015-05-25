@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'cmstemplates',
     'django_pgcli',
+    'compressor',
 
     # project apps
     'core',
@@ -109,6 +110,7 @@ AUTHENTICATION_BACKENDS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
 )
 
 STATIC_URL = '/static/'
@@ -217,3 +219,13 @@ CMSTEMPLATES_USE_CODEMIRROR = True
 CODEMIRROR_PATH = 'vendor/codemirror'
 CODEMIRROR_THEME = 'default'
 CODEMIRROR_CONFIG = {'lineNumbers': True}
+
+# django-compressor
+COMPRESS_PRECOMPILERS = (
+    ('text/coffeescript', 'coffee --compile --stdio'),
+    ('text/less', 'lessc {infile} {outfile}'),
+    ('text/x-sass', 'sass {infile} {outfile}'),
+    ('text/x-scss', 'sass --scss {infile} {outfile}'),
+    ('text/stylus', 'stylus < {infile} > {outfile}'),
+    ('text/x-scss', 'django_libsass.SassCompiler'),
+)

@@ -6,6 +6,7 @@ vendor/
 .secret
 .idea
 media
+CACHE
 
 *.ini
 !tox.ini
