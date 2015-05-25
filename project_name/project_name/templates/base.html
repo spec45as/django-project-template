@@ -1,4 +1,4 @@
-{% load static account %}
+{% load static account account %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -32,7 +32,9 @@
     <!-- CSS -->
     <link href="{% static 'vendor/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
 
-    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    {% compress css %}
+        <link rel="stylesheet" type="text/x-scss" href="{% static "css/main.scss" %}" />
+    {% endcompress %}
     <!-- End CSS -->
 
     <!-- JS -->
@@ -45,7 +47,9 @@
       <script src="{% static 'vendor/respond/dest/respond.min.js' %}"></script>
     <![endif]-->
 
-    <script src="{% static 'js/script.js' %}"></script>
+    {% compress js %}
+        <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+    {% endcompress %}
     <!-- End JS -->
   </head>
   <body>

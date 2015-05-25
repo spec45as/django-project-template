@@ -19,7 +19,9 @@ Django project template
 установить кронтабы из директории ``crontabs`` (для продакшена).
 
 Зависимости для фронтенда ставятся через bower в директорию
-``project_name/static/vendor``.
+``project_name/static/vendor``. По-умолчанию используется
+scss (``project_name/static/css/main.scss``), компилируется
+при помощи django-compressor + django-libsass.
 
 Используется регистрация с подтверждением по электропочте,
 благодаря `django-allauth`.
