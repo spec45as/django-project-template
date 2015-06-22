@@ -1,4 +1,3 @@
 Add applications and make them default:
-- django-compressor with scss support and sane default settings
 - django-activeurl
 - django-js-reverse
