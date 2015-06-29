@@ -1,17 +1,21 @@
+#!/usr/bin/python
+
 # coding: utf-8
 
 from __future__ import print_function
 
 import os
+import sys
 import tempfile
 import glob
 import getpass
 
 import jinja2
 
-from fabric.operations import local, prompt
-from fabric.contrib.console import confirm
+from deploy import local, prompt, confirm
 
+
+PYTHON_VERSION = sys.version_info.major
 
 PROJECT_NAME = '{{ project_name }}'
 # Путь до корня проекта
@@ -107,6 +111,18 @@ def _make_config_pythonpath(config_name):
 
 
 def make_virtualenv():
+    if PYTHON_VERSION == 2:
+        make_virtualenv_python2()
+    else:
+        make_virtualenv_python3()
+
+
+def make_virtualenv_python3():
+    import venv
+    venv.create('env', clear=True, with_pip=True)
+
+
+def make_virtualenv_python2():
     """Создать виртуальное окружение."""
     local('virtualenv env')
 
@@ -136,17 +152,17 @@ def create_env_file(*args, **kwargs):
 
 
 def create_user_config_file(settings_module):
-        src_settings = _base_path('conf/local_settings.template')
-        dst_settings_path = os.path.join(
-            PROJECT_NAME,
-            'settings',
-            settings_module + '.py',
-        )
-        dst_settings = _manage_path(dst_settings_path)
+    src_settings = _base_path('conf/local_settings.template')
+    dst_settings_path = os.path.join(
+        PROJECT_NAME,
+        'settings',
+        settings_module + '.py',
+    )
+    dst_settings = _manage_path(dst_settings_path)
 
-        # Создать локальные настройки пользователя
-        _render(src_settings, dst_settings)
-        _log('Создан файл {}'.format(dst_settings_path))
+    # Создать локальные настройки пользователя
+    _render(src_settings, dst_settings)
+    _log('Создан файл {}'.format(dst_settings_path))
 
 
 def ask_if_development():
@@ -246,3 +262,7 @@ def bootstrap(production=False, defaults=False):
     manage_path = PROJECT_NAME + '/manage.py'
     _log('\t - выполнить {} migrate'.format(manage_path))
     _log('\t - выполнить {} runserver'.format(manage_path))
+
+
+if __name__ == '__main__':
+    bootstrap()
