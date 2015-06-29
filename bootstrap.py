@@ -16,18 +16,6 @@ from deploy import (
 from deploy.settings import ENV_FILE, PROJECT_NAME
 
 
-def ask_if_development():
-    return confirm('Проект разворачивается для локальной разработки?')
-
-
-def ask_if_install_crontabs():
-    return confirm('Установить задачи в крон от текущего пользователя?')
-
-
-def ask_if_create_new_development_configuration():
-    return confirm('Создать новую конфигурацию проекта для разработки?')
-
-
 def ask_username(question=None):
     return prompt(
         question or 'Имя пользователя', default=getpass.getuser())
@@ -40,7 +28,7 @@ def bootstrap_production():
 
     install_requirements('production.txt')
 
-    if ask_if_install_crontabs():
+    if confirm('Установить задачи в крон от текущего пользователя?'):
         install_crontabs()
 
     create_env_file(
@@ -56,7 +44,7 @@ def bootstrap_development():
     install_requirements('local.txt')
     settings_format = 'local_{}'
 
-    if ask_if_create_new_development_configuration():
+    if confirm('Создать новую конфигурацию проекта для разработки?'):
         settings = settings_format.format(ask_username())
         create_user_config_file(settings)
     else:
