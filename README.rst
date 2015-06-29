@@ -34,7 +34,7 @@ System
 ------
 
 - bash
-- python >= 2.7
+- python 2.7, 3.4
 - nodejs
 
 Python packages
@@ -42,8 +42,7 @@ Python packages
 
 - pip
 - django >= 1.6
-- virtualenv
-- fabric
+- virtualenv (только для python 2.7)
 - jinja2
 
 Node packages
@@ -65,10 +64,15 @@ Quickstart
 
     django-admin.py startproject --template=https://github.com/asyncee/django-project-template/zipball/master --extension py,template,ini,json,bowerrc <имя проекта>
 
-Для разворачивания проекта в виртуальном окружении необходимо
-выполнить команду::
+Для разворачивания проекта в виртуальном окружении
+**для разработки** необходимо выполнить команду::
 
-    fab bootstrap
+    python bootstrap.py
+
+Для разворачивания проекта **для продакшена** необходимо
+добавить флаг ``--production`` (``-p``).
+
+    python bootstrap.py --production
 
 Произойдёт создание виртуального окружения, генерация секретного
 ключа проекта, установка зависимостей и создание конфигурационных
