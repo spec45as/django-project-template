@@ -19,3 +19,4 @@ django-codemirror-widget
 django-pgcli
 django-compressor
 django-libsass
+django-widget-tweaks
