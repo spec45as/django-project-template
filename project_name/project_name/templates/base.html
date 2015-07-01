@@ -54,18 +54,22 @@
   </head>
   <body>
 
-    {% if request.user.is_authenticated %}
-        Добро пожаловать, {% user_display request.user %}
-        <form method="post" action="{% url 'account_logout' %}">
-            {% csrf_token %}
-            <input class="btn btn-default" type="submit" value="Выход">
-        </form>
-    {% else %}
-        <a class="btn btn-default" href="{% url 'account_login' %}">Вход</a>
-        <a class="btn btn-default" href="{% url 'account_signup' %}">Регистрация</a>
-    {% endif %}
+    <div class="container">
+        {% include "includes/bootstrap/messages.html" %}
 
-    {% block content %}{% endblock %}
+        {% if request.user.is_authenticated %}
+            Добро пожаловать, {% user_display request.user %}
+            <form method="post" action="{% url 'account_logout' %}">
+                {% csrf_token %}
+                <input class="btn btn-default" type="submit" value="Выход">
+            </form>
+        {% else %}
+            <a class="btn btn-default" href="{% url 'account_login' %}">Вход</a>
+            <a class="btn btn-default" href="{% url 'account_signup' %}">Регистрация</a>
+        {% endif %}
+
+        {% block content %}{% endblock %}
+    </div>
 
   </body>
 </html>
