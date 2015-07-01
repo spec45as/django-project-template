@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'cmstemplates',
     'django_pgcli',
     'compressor',
+    'widget_tweaks',
 
     # project apps
     'core',
