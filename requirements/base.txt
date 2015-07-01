@@ -4,14 +4,14 @@ wheel
 django>=1.8,<1.9
 envvars
 dj-database-url
-psycopg2
+psycopg2  # libpq-dev
 pytils
-Pillow
+Pillow  # libjpeg8 libjpeg8-dev libfreetype6 libfreetype6-dev zlib1g-dev
 ipython
 celery
 redis
 hiredis
-lxml
+lxml  # libxml2-dev libxslt-dev
 
 django-allauth
 django-cmstemplates
