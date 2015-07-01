@@ -24,7 +24,8 @@ scss (``project_name/static/css/main.scss``), компилируется
 при помощи django-compressor + django-libsass.
 
 Используется регистрация с подтверждением по электропочте,
-благодаря `django-allauth`.
+благодаря `django-allauth`. В проекте используются инклюды
+для вывода полей и форм в разметке Bootstrap 3.
 
 
 Requirements
