@@ -27,9 +27,7 @@ def bootstrap_production():
     setup_static()
 
     install_requirements('production.txt')
-
-    if confirm('Установить задачи в крон от текущего пользователя?'):
-        install_crontabs()
+    install_crontabs()
 
     create_env_file(
         settings_module=config_path('production'),
