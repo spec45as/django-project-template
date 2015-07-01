@@ -10,6 +10,8 @@ import sys
 
 import envvars as e
 
+from django.contrib.messages import constants as messages
+
 
 PROJECT_DIR = os.path.normpath(os.path.join(os.path.dirname(__file__), '..'))
 MANAGE_DIR = os.path.normpath(os.path.join(PROJECT_DIR, '..'))
@@ -35,6 +37,7 @@ INSTALLED_APPS = [
     'cmstemplates',
     'django_pgcli',
     'compressor',
+    'widget_tweaks',
 
     # project apps
     'core',
@@ -180,6 +183,10 @@ LOGGING = {
             'propagate': True,
         },
     }
+}
+
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',
 }
 
 # debug toolbar
