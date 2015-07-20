@@ -18,7 +18,6 @@
     "bootstrap": "latest",
     "html5shiv": "latest",
     "respond": "latest",
-    "ractive": "latest",
     "codemirror": "latest"
   }
 }
