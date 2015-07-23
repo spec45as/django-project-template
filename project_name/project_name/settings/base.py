@@ -236,3 +236,4 @@ COMPRESS_PRECOMPILERS = (
     ('text/stylus', 'stylus < {infile} > {outfile}'),
     ('text/x-scss', 'django_libsass.SassCompiler'),
 )
+COMPRESS_CSS_FILTERS = []
