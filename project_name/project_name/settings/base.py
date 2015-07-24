@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django_pgcli',
     'compressor',
     'widget_tweaks',
+    'ckeditor',
 
     # project apps
     'core',
@@ -237,3 +238,14 @@ COMPRESS_PRECOMPILERS = (
     ('text/x-scss', 'django_libsass.SassCompiler'),
 )
 COMPRESS_CSS_FILTERS = []
+
+# django-ckeditor
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_IMAGE_BACKEND = 'pillow'
+CKEDITOR_JQUERY_URL = os.path.join(STATIC_URL, 'vendor/jquery/dist/jquery.min.js')
+CKEDITOR_RESTRICT_BY_USER = True
+
+#CKEDITOR_CONFIGS = {
+#    'default': {}
+#}
+
