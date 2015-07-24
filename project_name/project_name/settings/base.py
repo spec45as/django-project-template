@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'django.contrib.flatpages',
 
     # third-party apps
     'allauth',
@@ -38,6 +39,7 @@ INSTALLED_APPS = [
     'django_pgcli',
     'compressor',
     'widget_tweaks',
+    'ckeditor',
 
     # project apps
     'core',
@@ -54,6 +56,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sites.middleware.CurrentSiteMiddleware',
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 )
 
 SITE_ID = 1
@@ -92,8 +95,6 @@ TEMPLATES = [
                 "django.template.context_processors.static",
                 "django.template.context_processors.tz",
                 "django.contrib.messages.context_processors.messages",
-                # django-allauth
-                "allauth.account.context_processors.account",
             )
         }
     },
@@ -237,3 +238,14 @@ COMPRESS_PRECOMPILERS = (
     ('text/x-scss', 'django_libsass.SassCompiler'),
 )
 COMPRESS_CSS_FILTERS = []
+
+# django-ckeditor
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_IMAGE_BACKEND = 'pillow'
+CKEDITOR_JQUERY_URL = os.path.join(STATIC_URL, 'vendor/jquery/dist/jquery.min.js')
+CKEDITOR_RESTRICT_BY_USER = True
+
+#CKEDITOR_CONFIGS = {
+#    'default': {}
+#}
+
