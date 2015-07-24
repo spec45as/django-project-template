@@ -20,3 +20,4 @@ django-pgcli
 django-compressor
 django-libsass
 django-widget-tweaks
+django-ckeditor
