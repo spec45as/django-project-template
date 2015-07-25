@@ -65,7 +65,7 @@ Node можно установить из репозитория.
 
 Quickstart
 ==========
-Для создания проекта необходимо выполнить действия:
+Для создания проекта необходимо выполнить действия::
 
     django-admin.py startproject --template=https://github.com/asyncee/django-project-template/zipball/master --extension py,template,ini,json,bowerrc <имя проекта>
 
@@ -75,7 +75,7 @@ Quickstart
     python bootstrap.py
 
 Для разворачивания проекта **для продакшена** необходимо
-добавить флаг ``--production`` (``-p``).
+добавить флаг ``--production`` (``-p``)::
 
     python bootstrap.py --production
 
