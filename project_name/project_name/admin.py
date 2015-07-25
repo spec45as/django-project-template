@@ -1,3 +1,5 @@
+# coding: utf-8
+
 from django.contrib import admin
 from django.contrib.flatpages.models import FlatPage
 from django.contrib.flatpages.admin import FlatPageAdmin as FlatPageAdminOld
