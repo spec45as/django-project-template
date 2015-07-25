@@ -1,3 +1,0 @@
-Add applications and make them default:
-- django-activeurl
-- django-js-reverse
