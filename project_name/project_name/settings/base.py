@@ -3,8 +3,6 @@
 Settings for {{ project_name }} project.
 """
 
-from __future__ import print_function, unicode_literals, division
-
 import os
 import sys
 
