@@ -27,6 +27,11 @@ scss (``project_name/static/css/main.scss``), компилируется
 благодаря `django-allauth`. В проекте используются инклюды
 для вывода полей и форм в разметке Bootstrap 3.
 
+По-умолчанию установлено приложение ``django.contrib.flatpages``
+с ``ckeditor`` на борту.
+
+Проект предназначен для разработки на **Python 3.4+**.
+
 
 Requirements
 ============
@@ -35,7 +40,7 @@ System
 ------
 
 - bash
-- python 2.7, 3.4
+- python 3.4+
 - nodejs
 
 Python packages
@@ -43,7 +48,6 @@ Python packages
 
 - pip
 - django >= 1.6
-- virtualenv (только для python 2.7)
 - jinja2
 
 Node packages
