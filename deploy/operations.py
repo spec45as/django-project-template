@@ -1,9 +1,6 @@
 # coding: utf-8
 
-from __future__ import unicode_literals
-
 import os
-import sys
 import glob
 import tempfile
 
@@ -14,23 +11,9 @@ from .path import base_path, manage_path
 from .templates import render
 
 
-PYTHON_VERSION = sys.version_info.major
-
-
 def create_virtualenv():
-    if PYTHON_VERSION == 2:
-        create_virtualenv_python2()
-    else:
-        create_virtualenv_python3()
-
-
-def create_virtualenv_python3():
     import venv
     venv.create('env', clear=True, with_pip=True)
-
-
-def create_virtualenv_python2():
-    local('virtualenv env')
 
 
 def install_requirements(reqs_file):

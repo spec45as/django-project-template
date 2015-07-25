@@ -1,7 +1,5 @@
 # coding: utf-8
 
-from __future__ import print_function, unicode_literals, division
-
 import dj_database_url
 
 from {{ project_name }}.settings.base import *

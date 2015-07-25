@@ -1,8 +1,4 @@
-import sys
 import subprocess
-
-
-PYTHON_VERSION = sys.version_info.major
 
 
 def local(cmd, shell=None):
@@ -20,14 +16,11 @@ def prompt(text, default=''):
     if default == '':
         prompt_text = text
     else:
-        prompt_text = u'{} [{}]'.format(text.strip(), default)
+        prompt_text = '{} [{}]'.format(text.strip(), default)
 
     value = None
     while value is None:
-        if PYTHON_VERSION == 2:
-            value = raw_input(prompt_text) or default
-        else:
-            value = input(prompt_text) or default
+        value = input(prompt_text) or default
 
     return value
 
