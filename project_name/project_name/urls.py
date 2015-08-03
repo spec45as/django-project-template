@@ -19,6 +19,12 @@ apps_urls = [
     url(r'^pages/', include('django.contrib.flatpages.urls')),
     url(r'^ckeditor/', include('ckeditor.urls')),
     url(r'^accounts/', include('allauth.urls')),
+
+    # wagtail
+    url(r'^editor/', include(wagtailadmin_urls)),
+    url(r'^search/', include(wagtailsearch_urls)),
+    url(r'^documents/', include(wagtaildocs_urls)),
+    url(r'', include(wagtail_urls)),
 ]
 
 urlpatterns = project_urls + apps_urls

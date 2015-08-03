@@ -21,3 +21,5 @@ django-compressor
 django-libsass
 django-widget-tweaks
 django-ckeditor
+
+wagtail

@@ -39,6 +39,22 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'ckeditor',
 
+    # wagtail
+    'taggit',
+    'modelcluster',
+
+    'wagtail.wagtailcore',
+    'wagtail.wagtailadmin',
+    'wagtail.wagtaildocs',
+    'wagtail.wagtailsnippets',
+    'wagtail.wagtailusers',
+    'wagtail.wagtailimages',
+    'wagtail.wagtailembeds',
+    'wagtail.wagtailsearch',
+    'wagtail.wagtailsites',
+    'wagtail.wagtailredirects',
+    'wagtail.wagtailforms',
+
     # project apps
     'core',
 ]
@@ -55,6 +71,10 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sites.middleware.CurrentSiteMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
+
+    # wagtail
+    'wagtail.wagtailcore.middleware.SiteMiddleware',
+    'wagtail.wagtailredirects.middleware.RedirectMiddleware',
 )
 
 SITE_ID = 1
@@ -248,5 +268,17 @@ CKEDITOR_RESTRICT_BY_USER = True
 #}
 
 # celery
-# таймаут для задач - 1 минута
-CELERYD_TASK_SOFT_TIME_LIMIT = 60
+CELERYD_TASK_SOFT_TIME_LIMIT = 60  # default tasks timeout
+
+# wagtail
+WAGTAIL_SITE_NAME = '{{ project_name }}'
+WAGTAILSEARCH_BACKENDS = {
+    'default': {
+        'BACKEND': 'wagtail.wagtailsearch.backends.db.DBSearch',
+        'INDEX': '{{ project_name }}',
+        #'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch',
+        #'URLS': ['http://localhost:9200'],
+        #'TIMEOUT': 5,
+    }
+}
+WAGTAIL_ENABLE_UPDATE_CHECK = False
