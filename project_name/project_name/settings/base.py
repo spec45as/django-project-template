@@ -247,3 +247,6 @@ CKEDITOR_RESTRICT_BY_USER = True
 #    'default': {}
 #}
 
+# celery
+# таймаут для задач - 1 минута
+CELERYD_TASK_SOFT_TIME_LIMIT = 60
