@@ -42,7 +42,7 @@ stderr_logfile=%(here)s/var/log/gunicorn_err.log
 autorestart=true
 
 [program:celery]
-command = %(here)s/env/bin/celery worker --app={{ project_name }} -l info
+command = %(here)s/env/bin/celery worker --app={{ project_name }} -O fair -l info
 stdout_logfile = %(here)s/var/log/celery.log
 stdout_logfile_maxbytes = 1MB
 stdout_logfile_backups = 10
