@@ -9,7 +9,7 @@ from deploy import (
     prompt, confirm, config_path,
     create_virtualenv, install_requirements,
     create_env_file, install_crontabs, create_user_config_file,
-    setup_static, delete_common_files, logger,
+    setup_static, delete_common_files, logger, install_flake8_hook,
 )
 from deploy.settings import ENV_FILE, PROJECT_NAME
 
@@ -49,6 +49,8 @@ def bootstrap_development():
     create_env_file(
         settings_module=config_path(settings),
     )
+
+    install_flake8_hook()
 
     logger.info('Для запуска проекта осталось:')
     logger.info('\t - указать конфигурацию БД в {}'

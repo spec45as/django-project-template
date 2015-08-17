@@ -1,6 +1,7 @@
 # always pin versions in this document
 
 wheel
+flake8
 django>=1.8,<1.9
 envvars
 dj-database-url
