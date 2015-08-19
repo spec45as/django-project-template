@@ -55,7 +55,9 @@ Python packages
 Node packages
 -------------
 
+- npm
 - bower
+- gulp
 
 
 Последние версии pip и setuptools можно установить командой::
@@ -108,6 +110,13 @@ Quickstart
 Чтобы запустить проект на боевом сервере, можно воспользоваться
 шаблонами конфигурации ``uwsgi`` и ``supervisor`` из директории
 **templates**.
+
+После запуска проекта, необходимо собрать статику с помощью ``gulp``::
+
+    gulp
+    gulp sass
+    gulp js
+    gulp watch
 
 
 Configuration
