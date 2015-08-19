@@ -1,4 +1,4 @@
-{% load static account %}
+{% load static account core_tags %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -29,7 +29,7 @@
     </title>
 
     <!-- CSS -->
-    <link rel="stylesheet" type="text/css" href="{% static "build/bundle.css" %}" />
+    <link rel="stylesheet" type="text/css" href="{% static "build/bundle.css" %}?ver={% file_version 'build/bundle.css' %}" />
     <!-- End CSS -->
 
     <!-- JS -->
@@ -41,7 +41,7 @@
       <script src="{% static 'vendor/respond/dest/respond.min.js' %}"></script>
     <![endif]-->
 
-    <script type="text/javascript" src="{% static 'build/bundle.js' %}"></script>
+    <script type="text/javascript" src="{% static 'build/bundle.js' %}?ver={% file_version 'build/bundle.js' %}"></script>
     <!-- End JS -->
   </head>
   <body>
