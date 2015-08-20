@@ -95,8 +95,3 @@ def delete_common_files():
             os.unlink(fname)
         except OSError:
             pass
-
-def install_flake8_hook():
-    logger.info('Установка flake8 git-hook')
-    local('flake8 --install-hook', shell='/bin/bash')
-    local('git config flake8.strict true', shell='/bin/bash')
