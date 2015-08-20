@@ -40,8 +40,6 @@
       <script src="{% static 'vendor/html5shiv/dist/html5shiv.min.js' %}"></script>
       <script src="{% static 'vendor/respond/dest/respond.min.js' %}"></script>
     <![endif]-->
-
-    <script type="text/javascript" src="{% static 'build/bundle.js' %}?ver={% file_version 'build/bundle.js' %}"></script>
     <!-- End JS -->
   </head>
   <body>
@@ -63,5 +61,7 @@
         {% block content %}{% endblock %}
     </div>
 
+    <!-- application bundle -->
+    <script type="text/javascript" src="{% static 'build/bundle.js' %}?ver={% file_version 'build/bundle.js' %}"></script>
   </body>
 </html>
