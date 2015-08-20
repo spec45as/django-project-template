@@ -10,7 +10,7 @@ from deploy import (
     create_virtualenv, install_requirements,
     create_env_file, install_crontabs, create_user_config_file,
     setup_static, delete_common_files, logger, install_flake8_hook,
-    setup_npm_tools, setup_gulpfile,
+    setup_npm_tools, setup_npm_tools_configs,
 )
 from deploy.settings import ENV_FILE, PROJECT_NAME
 
@@ -36,7 +36,7 @@ def bootstrap_production():
 def bootstrap_development():
     delete_common_files()
     setup_npm_tools()
-    setup_gulpfile()
+    setup_npm_tools_configs()
     create_virtualenv()
     setup_static()
 
