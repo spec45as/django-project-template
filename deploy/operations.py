@@ -79,7 +79,7 @@ def setup_npm_tools():
     local('npm install')
 
 
-def setup_gulpfile(*args, **kwargs):
+def setup_npm_tools_configs(*args, **kwargs):
     render(
         base_path('conf/gulpfile.js.template'),
         base_path('gulpfile.js'),
