@@ -1,0 +1,88 @@
+'use strict';
+
+var gulp = require('gulp');
+var sass = require('gulp-sass');
+var rename = require('gulp-rename');
+var sourcemaps = require('gulp-sourcemaps');
+var autoprefixer = require('gulp-autoprefixer');
+var webpack = require("webpack");
+var webpackStream = require("webpack-stream");
+var BowerWebpackPlugin = require("bower-webpack-plugin");
+
+
+var BASE_DIR = './{{ project_name }}';
+var PROJECT_DIR = BASE_DIR + '/{{ project_name }}';
+var STATIC_DIR = PROJECT_DIR + '/static';
+var VENDOR_DIR = STATIC_DIR + '/vendor';
+var BUILD_DIR = STATIC_DIR + '/build/';
+var JS_PATH = BASE_DIR + '/**/static/assets/js/**/*.js';
+var CSS_PATH = BASE_DIR + '/**/static/assets/styles/**/*.scss';
+var WEBPACK_ENTRY = STATIC_DIR + '/assets/js/main.js'
+
+
+var webpackConfig = {
+    context: __dirname,
+    entry: {
+        app: WEBPACK_ENTRY,
+        vendor: ['react']
+    },
+    output: {
+        filename: 'bundle.js'
+    },
+    devtool: 'source-map',
+    module: {
+        loaders: [
+            {
+                test: /\.jsx?$/,
+                exclude: [/node_modules/, /vendor/],
+                loader: "babel-loader",
+                query: {
+                    optional: ["es7.classProperties"],
+                    comments: false
+                }
+            }
+        ],
+        noParse: [
+            new RegExp('.*vendor.*')
+        ]
+    },
+    plugins: [
+        new BowerWebpackPlugin({modulesDirectories: [VENDOR_DIR]}),
+        new webpack.optimize.CommonsChunkPlugin("vendor", "vendor.bundle.js")
+    ]
+}
+
+
+gulp.task('sass', function () {
+  var options = {
+        includePaths: [STATIC_DIR],
+        outputStyle: 'compressed'
+  };
+
+  gulp.src(CSS_PATH)
+    .pipe(sourcemaps.init())
+    .pipe(sass(options).on('error', sass.logError))
+    .pipe(rename('bundle.css'))
+    .pipe(autoprefixer({
+      browsers: ['last 10 versions'],
+      cascade: false
+    }))
+    .pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest(BUILD_DIR));
+});
+
+
+gulp.task('js', function () {
+  return gulp.src(WEBPACK_ENTRY)
+    .pipe(webpackStream(webpackConfig))
+    .pipe(gulp.dest(BUILD_DIR));
+});
+
+
+gulp.task('watch', function() {
+  gulp.watch(CSS_PATH, ['sass']);
+  gulp.watch(JS_PATH, ['js']);
+});
+
+
+gulp.task('default', ['watch', 'sass', 'js']);
