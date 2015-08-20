@@ -61,7 +61,8 @@
         {% block content %}{% endblock %}
     </div>
 
-    <!-- application bundle -->
+    <!-- bundles -->
+    <script type="text/javascript" src="{% static 'build/vendor.bundle.js' %}?ver={% file_version 'build/vendor.bundle.js' %}"></script>
     <script type="text/javascript" src="{% static 'build/bundle.js' %}?ver={% file_version 'build/bundle.js' %}"></script>
   </body>
 </html>
