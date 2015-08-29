@@ -17,8 +17,6 @@ django-allauth
 django-cmstemplates
 django-codemirror-widget
 django-pgcli
-django-compressor
-django-libsass
 django-widget-tweaks
 django-ckeditor
 

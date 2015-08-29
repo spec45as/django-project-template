@@ -15,9 +15,10 @@
   ],
   "dependencies": {
     "jquery": "latest",
-    "bootstrap": "latest",
+    "bootstrap-sass": "latest",
     "html5shiv": "latest",
     "respond": "latest",
-    "codemirror": "latest"
+    "codemirror": "latest",
+    "react": "latest"
   }
 }
