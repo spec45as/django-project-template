@@ -21,8 +21,9 @@ Django project template
 
 Зависимости для фронтенда ставятся через bower в директорию
 ``project_name/static/vendor``. По-умолчанию используется
-scss (``project_name/static/css/main.scss``), компилируется
-при помощи django-compressor + django-libsass.
+scss (``project_name/static/assets/styles/main.scss``), компилируется
+при помощи gulp-sass. Сборка es6 javascript производится с помощью webpack +
+babel. Вся конфигурация сборки фронтенда описана в gulpfile.
 
 Используется регистрация с подтверждением по электропочте,
 благодаря `django-allauth`. В проекте используются инклюды
