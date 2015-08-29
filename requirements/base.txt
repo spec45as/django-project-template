@@ -1,7 +1,6 @@
 # always pin versions in this document
 
 wheel
-flake8
 django>=1.8,<1.9
 envvars
 dj-database-url
@@ -18,7 +17,5 @@ django-allauth
 django-cmstemplates
 django-codemirror-widget
 django-pgcli
-django-compressor
-django-libsass
 django-widget-tweaks
 django-ckeditor
