@@ -2,6 +2,7 @@ conf/secret
 conf/env
 
 vendor/
+node_modules/
 
 .secret
 .idea

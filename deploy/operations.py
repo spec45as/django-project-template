@@ -75,14 +75,23 @@ def setup_static():
     local('bower install --save')
 
 
+def setup_npm_tools():
+    local('npm install')
+
+
+def setup_npm_tools_configs(*args, **kwargs):
+    render(
+        base_path('conf/gulpfile.js.template'),
+        base_path('gulpfile.js'),
+        *args,
+        **kwargs
+    )
+    logger.info('Создан gulpfile.js')
+
+
 def delete_common_files():
     for fname in ['LICENSE.md', 'README.rst', 'todo.txt']:
         try:
             os.unlink(fname)
         except OSError:
             pass
-
-def install_flake8_hook():
-    logger.info('Установка flake8 git-hook')
-    local('flake8 --install-hook', shell='/bin/bash')
-    local('git config flake8.strict true', shell='/bin/bash')

@@ -35,7 +35,6 @@ INSTALLED_APPS = [
     'allauth.account',
     'cmstemplates',
     'django_pgcli',
-    'compressor',
     'widget_tweaks',
     'ckeditor',
 
@@ -112,7 +111,6 @@ AUTHENTICATION_BACKENDS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'compressor.finders.CompressorFinder',
 )
 
 STATIC_URL = '/static/'
@@ -120,10 +118,9 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
 
 STATICFILES_DIRS = (
-    ('css', os.path.join(STATIC_ROOT, 'css')),
-    ('js', os.path.join(STATIC_ROOT, 'js')),
-    ('img', os.path.join(STATIC_ROOT, 'img')),
+    ('assets', os.path.join(STATIC_ROOT, 'assets')),
     ('vendor', os.path.join(STATIC_ROOT, 'vendor')),
+    ('build', os.path.join(STATIC_ROOT, 'build')),
 )
 
 MEDIA_URL = '/media/'
@@ -225,17 +222,6 @@ CMSTEMPLATES_USE_CODEMIRROR = True
 CODEMIRROR_PATH = 'vendor/codemirror'
 CODEMIRROR_THEME = 'default'
 CODEMIRROR_CONFIG = {'lineNumbers': True}
-
-# django-compressor
-COMPRESS_PRECOMPILERS = (
-    ('text/coffeescript', 'coffee --compile --stdio'),
-    ('text/less', 'lessc {infile} {outfile}'),
-    ('text/x-sass', 'sass {infile} {outfile}'),
-    ('text/x-scss', 'sass --scss {infile} {outfile}'),
-    ('text/stylus', 'stylus < {infile} > {outfile}'),
-    ('text/x-scss', 'django_libsass.SassCompiler'),
-)
-COMPRESS_CSS_FILTERS = []
 
 # django-ckeditor
 CKEDITOR_UPLOAD_PATH = "uploads/"
