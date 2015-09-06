@@ -4,6 +4,10 @@ conf/env
 vendor/
 node_modules/
 
+**/static/admin/
+**/static/wagtail/
+**/static/ckeditor/
+
 .secret
 .idea
 media
