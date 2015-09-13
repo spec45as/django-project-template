@@ -34,7 +34,6 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'cmstemplates',
-    'django_pgcli',
     'widget_tweaks',
     'ckeditor',
 
