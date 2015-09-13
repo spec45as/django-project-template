@@ -37,7 +37,3 @@ EMAIL_USE_TLS = e.get('DJANGO_EMAIL_USE_TLS')
 EMAIL_USE_SSL = e.get('DJANGO_EMAIL_USE_SSL')
 EMAIL_SUBJECT_PREFIX = '{{ project_name }} '
 
-# celery configuration
-BROKER_URL = 'redis://localhost:6379/0'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
-
