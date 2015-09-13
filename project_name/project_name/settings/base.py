@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'cmstemplates',
     'widget_tweaks',
     'ckeditor',
+    'ckeditor_uploader',
 
     # project apps
     'core',
