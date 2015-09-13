@@ -103,8 +103,8 @@ Quickstart
 
 Провести миграции и запустить сервер::
 
-    project_name/manage.py migrate
-    project_name/manage.py runserver
+    src/manage.py migrate
+    src/manage.py runserver
 
 
 Параметр ``--settings`` можно опустить, так как после разворачивания
