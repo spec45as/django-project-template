@@ -8,7 +8,7 @@ BASE_PATH = os.path.abspath(
     os.path.join(os.path.dirname(__file__), '..')
 )
 # Путь до manage.py
-MANAGE_PATH = os.path.join(BASE_PATH, PROJECT_NAME)
+MANAGE_PATH = os.path.join(BASE_PATH, 'src')
 # Путь до директории проекта с файлом settings.py
 PROJECT_PATH = os.path.join(MANAGE_PATH, PROJECT_NAME)
 

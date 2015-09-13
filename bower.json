@@ -9,7 +9,7 @@
     "**/.*",
     "node_modules",
     "bower_components",
-    "{{ project_name }}/{{ project_name }}/static/vendor",
+    "src/{{ project_name }}/static/vendor",
     "test",
     "tests"
   ],
