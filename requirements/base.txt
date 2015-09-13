@@ -5,9 +5,7 @@ django>=1.8,<1.9
 envvars
 dj-database-url
 psycopg2  # libpq-dev
-pytils
 Pillow  # libjpeg8 libjpeg8-dev libfreetype6 libfreetype6-dev zlib1g-dev
-ipython
 celery
 redis
 hiredis
@@ -19,3 +17,8 @@ django-codemirror-widget
 django-pgcli
 django-widget-tweaks
 django-ckeditor
+
+ipython
+pytils
+pymorphy2[fast]
+pymorphy2-dicts-ru
