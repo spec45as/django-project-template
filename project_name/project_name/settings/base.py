@@ -239,6 +239,8 @@ CKEDITOR_RESTRICT_BY_USER = True
 # celery
 # таймаут для задач - 1 минута
 CELERYD_TASK_SOFT_TIME_LIMIT = 60
+BROKER_URL = e.get('CELERY_BROKER_URL')
+CELERY_RESULT_BACKEND = e.get('CELERY_RESULT_BACKEND')
 
 # pymorphy
 import pymorphy2
