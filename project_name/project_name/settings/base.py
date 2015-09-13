@@ -236,3 +236,7 @@ CKEDITOR_RESTRICT_BY_USER = True
 # celery
 # таймаут для задач - 1 минута
 CELERYD_TASK_SOFT_TIME_LIMIT = 60
+
+# pymorphy
+import pymorphy2
+MORPH = pymoprhy2.MorphAnalyzer()
