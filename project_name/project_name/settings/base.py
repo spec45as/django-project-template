@@ -34,13 +34,16 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'cmstemplates',
-    'django_pgcli',
     'widget_tweaks',
     'ckeditor',
+    'ckeditor_uploader',
 
     # project apps
     'core',
+    'users',
 ]
+
+AUTH_USER_MODEL = 'users.User'
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.gzip.GZipMiddleware',
@@ -239,4 +242,4 @@ CELERYD_TASK_SOFT_TIME_LIMIT = 60
 
 # pymorphy
 import pymorphy2
-MORPH = pymoprhy2.MorphAnalyzer()
+MORPH = pymorphy2.MorphAnalyzer()
