@@ -3,7 +3,7 @@ project_dir = %d
 
 virtualenv = %(project_dir)env
 pythonpath = .
-chdir = %(project_dir){{ project_name }}
+chdir = %(project_dir)src
 
 module = {{ project_name }}.wsgi:application
 
