@@ -238,4 +238,4 @@ CELERYD_TASK_SOFT_TIME_LIMIT = 60
 
 # pymorphy
 import pymorphy2
-MORPH = pymoprhy2.MorphAnalyzer()
+MORPH = pymorphy2.MorphAnalyzer()
