@@ -124,10 +124,10 @@ Configuration
 -------------
 Файлы конфигруации располагаются следующим образом:
 
-``conf/env`` - конфигурация сайта, это переменные окружения
-``<project_name>/settings/base.py`` - основной конфиг проекта
-``<project_name>/settings/production.py`` - конфиг для продакшена
-``<project_name>/settings/local_<username>.py`` - конфиг для разработки
+- ``conf/env`` - конфигурация сайта, это переменные окружения
+- ``<project_name>/settings/base.py`` - основной конфиг проекта
+- ``<project_name>/settings/production.py`` - конфиг для продакшена
+- ``<project_name>/settings/local_<username>.py`` - конфиг для разработки
 
 Файл `conf/env` должен быть уникальным для production
 и development окружений и не должен храниться в VCS.
