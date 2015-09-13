@@ -2,6 +2,7 @@
 
 # coding: utf-8
 
+import os
 import argparse
 import getpass
 
@@ -12,7 +13,7 @@ from deploy import (
     setup_static, delete_common_files, logger,
     setup_npm_tools, setup_npm_tools_configs,
 )
-from deploy.settings import ENV_FILE, PROJECT_NAME
+from deploy.settings import ENV_FILE, PROJECT_NAME, SOURCES_DIR
 
 
 def ask_username(question=None):
@@ -56,7 +57,7 @@ def bootstrap_development():
     logger.info('Для запуска проекта осталось:')
     logger.info('\t - указать конфигурацию БД в {}'
          .format(ENV_FILE))
-    managepy_path = PROJECT_NAME + '/manage.py'
+    managepy_path = os.path.join(SOURCES_DIR, 'manage.py')
     logger.info('\t - выполнить {} migrate'.format(managepy_path))
     logger.info('\t - выполнить {} runserver'.format(managepy_path))
 
