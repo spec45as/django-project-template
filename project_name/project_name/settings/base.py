@@ -253,9 +253,6 @@ CKEDITOR_RESTRICT_BY_USER = True
 #    'default': {}
 #}
 
-# celery
-CELERYD_TASK_SOFT_TIME_LIMIT = 60  # default tasks timeout
-
 # wagtail
 WAGTAIL_SITE_NAME = '{{ project_name }}'
 WAGTAILSEARCH_BACKENDS = {
@@ -268,3 +265,10 @@ WAGTAILSEARCH_BACKENDS = {
     }
 }
 WAGTAIL_ENABLE_UPDATE_CHECK = False
+
+# таймаут для задач - 1 минута
+CELERYD_TASK_SOFT_TIME_LIMIT = 60
+
+# pymorphy
+import pymorphy2
+MORPH = pymoprhy2.MorphAnalyzer()
