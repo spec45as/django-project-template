@@ -18,7 +18,6 @@
     "bootstrap-sass": "latest",
     "html5shiv": "latest",
     "respond": "latest",
-    "codemirror": "latest",
-    "react": "latest"
+    "codemirror": "latest"
   }
 }
