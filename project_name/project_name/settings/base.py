@@ -40,7 +40,10 @@ INSTALLED_APPS = [
 
     # project apps
     'core',
+    'users',
 ]
+
+AUTH_USER_MODEL = 'users.User'
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.gzip.GZipMiddleware',
