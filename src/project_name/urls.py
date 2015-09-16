@@ -22,7 +22,7 @@ project_urls = [
 apps_urls = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^pages/', include('django.contrib.flatpages.urls')),
-    url(r'^ckeditor/', include('ckeditor.urls')),
+    url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     url(r'^accounts/', include('allauth.urls')),
 
     # wagtail

@@ -34,9 +34,9 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'cmstemplates',
-    'django_pgcli',
     'widget_tweaks',
     'ckeditor',
+    'ckeditor_uploader',
 
     # wagtail
     'taggit',
@@ -56,7 +56,10 @@ INSTALLED_APPS = [
 
     # project apps
     'core',
+    'users',
 ]
+
+AUTH_USER_MODEL = 'users.User'
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.gzip.GZipMiddleware',
@@ -268,7 +271,9 @@ WAGTAIL_ENABLE_UPDATE_CHECK = False
 
 # таймаут для задач - 1 минута
 CELERYD_TASK_SOFT_TIME_LIMIT = 60
+BROKER_URL = e.get('CELERY_BROKER_URL')
+CELERY_RESULT_BACKEND = e.get('CELERY_RESULT_BACKEND')
 
 # pymorphy
 import pymorphy2
-MORPH = pymoprhy2.MorphAnalyzer()
+MORPH = pymorphy2.MorphAnalyzer()

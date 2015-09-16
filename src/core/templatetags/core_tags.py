@@ -21,19 +21,23 @@ def file_version(path):
 @register.simple_tag(takes_context=True)
 def is_view(context, view_name=None, namespace=None, output='active', **kwargs):
     """
-    Вернуть `value`, если название текущего view совпадает с заданным
+    Вернуть `output`, если название текущего view совпадает с заданным
     значенем.
 
     Используется в для задания активного элемента меню.
 
-        {% is_view "homepage" %}
+    Аргументы:
+        view_name - вернёт `output`, если текущий
+            view обрабатывается функцией 'homepage'.
 
-    вернёт "active", если текущий view обрабатывается функцией 'homepage'.
+        namespace - вернёт `output`, если view, обрабатывающий запрос
+            находится в приложении с пространством имёт `namespace`.
 
-        {% is_view namespace="forum" %}
+        output - строка, которую необходимо вернуть
 
-    вернёт "active", если view, обрабатывающий запрос находится в приложении
-    с пространством имёт `namespace`.
+        kwargs - дополнительные параметры для view (например, slug='123').
+            Если задан этот параметр, совпадение будет только в том случае,
+            если текущий view имеет параметры, переданные в kwargs.
     """
     resolver_match = resolve(context['request'].path)
 
@@ -46,8 +50,6 @@ def is_view(context, view_name=None, namespace=None, output='active', **kwargs):
     return ''
 
 
-
-
 @register.filter
 def chunked_by(it, n):
     """
@@ -58,7 +60,10 @@ def chunked_by(it, n):
     >>> chunked_by(x, 2)
     [[1,2], [3,4], [5,6], [7,8], [9]]
 
-    Использование в шаблоне:
+    Использование в шаблоне (игнорируйте тег `verbatim`,
+    он нужен для корректного создания проекта):
+
+    {% verbatim %}
 
     {% for chunk in x|chunked_by:"2" %}
         {% for item in chunk %}
@@ -66,12 +71,12 @@ def chunked_by(it, n):
         {% endfor %},
     {% endfor %}
 
+    {% endverbatim %}
+
     Выведет: "0 1, 2 3, 4 5, 6 7, 8 9"
     """
     n = int(n)
-    return (it[i:i+n] for i in xrange(0, len(it), n))
-
-
+    return (it[i:i+n] for i in range(0, len(it), n))
 
 
 @register.filter
