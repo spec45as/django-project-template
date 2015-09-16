@@ -76,7 +76,7 @@ def chunked_by(it, n):
     Выведет: "0 1, 2 3, 4 5, 6 7, 8 9"
     """
     n = int(n)
-    return (it[i:i+n] for i in xrange(0, len(it), n))
+    return (it[i:i+n] for i in range(0, len(it), n))
 
 
 @register.filter
