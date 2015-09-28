@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     # wagtail
     'taggit',
     'modelcluster',
+    'compressor',
 
     'wagtail.wagtailcore',
     'wagtail.wagtailadmin',
@@ -135,6 +136,9 @@ AUTHENTICATION_BACKENDS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+
+    # django-compressor
+    'compressor.finders.CompressorFinder',
 )
 
 STATIC_URL = '/static/'
