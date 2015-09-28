@@ -16,6 +16,7 @@ django-cmstemplates
 django-codemirror-widget
 django-widget-tweaks
 django-ckeditor
+django-endless-pagination
 
 wagtail
 
