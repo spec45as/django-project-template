@@ -19,6 +19,7 @@ django-ckeditor
 django-endless-pagination
 
 wagtail
+elasticsearch  # needed by wagtail
 
 ipython
 pytils
