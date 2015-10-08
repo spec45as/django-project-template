@@ -1,8 +1,8 @@
 {
   "name": "{{ project_name }}",
   "dependencies": {
-    "react": "^0.14.0-rc1",
-    "react-dom": "^0.14.0-rc1"
+    "react": "latest",
+    "react-dom": "latest"
   },
   "devDependencies": {
     "gulp": "^3.9.0",
