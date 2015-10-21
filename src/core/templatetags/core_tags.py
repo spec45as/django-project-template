@@ -82,7 +82,19 @@ def chunked_by(it, n):
 
 @register.filter
 def make_agree_with_number(word, number):
-    """Согласовать указанное слово `word` с числительным `number`."""
+    """
+    Согласовать указанное слово `word` с числительным `number`.
+
+    {% verbatim %}
+
+    Использование в шаблоне:
+
+        {{ 'человек'|make_agree_with_number:1 }} => человек
+        {{ 'человек'|make_agree_with_number:2 }} => человека
+
+    {% endverbatim %}
+
+    """
     try:
         parsed_word = settings.MORPH.parse(word)[0]
         result = parsed_word.make_agree_with_number(int(number)).word
