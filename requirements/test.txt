@@ -1,7 +1,7 @@
 -r base.txt
 pytest
 pytest-django
-pytest-cov
-#coverage
+#pytest-cov
+coverage
 tox
 mock
