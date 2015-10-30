@@ -11,3 +11,15 @@ class DateTimeMixin(models.Model):
 
     class Meta:
         abstract = True
+
+
+class MetaFieldsMixin(models.Model):
+    meta_title = models.DateTimeField(
+        'Тег <title>', max_length=255, blank=True, default='')
+    meta_keywords = models.TextField(
+        'Тег <keywords>', blank=True, default='')
+    meta_description = models.TextField(
+        'Тег <description>', blank=True, default='')
+
+    class Meta:
+        abstract = True
