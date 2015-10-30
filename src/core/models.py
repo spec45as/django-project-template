@@ -14,7 +14,7 @@ class DateTimeMixin(models.Model):
 
 
 class MetaFieldsMixin(models.Model):
-    meta_title = models.DateTimeField(
+    meta_title = models.CharField(
         'Тег <title>', max_length=255, blank=True, default='')
     meta_keywords = models.TextField(
         'Тег <keywords>', blank=True, default='')
