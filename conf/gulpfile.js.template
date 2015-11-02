@@ -17,17 +17,18 @@ var VENDOR_DIR = STATIC_DIR + '/vendor';
 var BUILD_DIR = STATIC_DIR + '/build/';
 var JS_PATH = BASE_DIR + '/**/static/assets/**/*.js';
 var CSS_PATH = BASE_DIR + '/**/static/assets/**/*.scss';
-var WEBPACK_ENTRY = STATIC_DIR + '/assets/js/main.js'
+var BUNDLE_ENTRY = STATIC_DIR + '/assets/js/main.js'
 
 
 var webpackConfig = {
     context: __dirname,
     entry: {
-        app: WEBPACK_ENTRY,
+        bundle: BUNDLE_ENTRY,
         vendor: ['react']
     },
     output: {
-        filename: 'bundle.js'
+        filename: '[name].js',
+        library: '[name]'
     },
     devtool: 'source-map',
     module: {
@@ -48,6 +49,7 @@ var webpackConfig = {
     },
     plugins: [
         new BowerWebpackPlugin({modulesDirectories: [VENDOR_DIR]}),
+        new webpack.optimize.UglifyJsPlugin(),
         new webpack.optimize.CommonsChunkPlugin("vendor", "vendor.bundle.js")
     ]
 }
