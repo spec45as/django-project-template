@@ -8,20 +8,15 @@ from django.contrib import admin
 from {{ project_name }} import views
 
 
-project_urls = [
+urlpatterns = [
     url(r'^$', views.home, name='home'),
     url(r'^robots.txt$', views.robots_txt, name='robots_txt'),
-]
 
-
-apps_urls = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^pages/', include('django.contrib.flatpages.urls')),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     url(r'^accounts/', include('allauth.urls')),
 ]
-
-urlpatterns = project_urls + apps_urls
 
 
 if settings.DEBUG:
