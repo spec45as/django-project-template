@@ -9,5 +9,4 @@ https://docs.djangoproject.com/en/1.9/ref/applications/#configuring-applications
 
 
 Check:
-1. core_tags builins in template
 2. logging configuration
