@@ -52,7 +52,7 @@ Python packages
 ---------------
 
 - pip
-- django >= 1.6
+- django
 - jinja2
 - flake8
 
