@@ -1,0 +1,16 @@
+1. refactor usage of default_app_config (app template)
+https://docs.djangoproject.com/en/1.9/ref/applications/#configuring-applications-ref
+
+2. refactor INSTALLED APPS
+
+3. check CSRF_COOKIE_DOMAIN, CSRF_TRUSTED_ORIGINS
+
+4. check django.db.backends.postgresql
+
+5. check TEMPLATE OPTIONS to register builtins tags
+
+6. logging configuration
+
+7. application template: urls.py - add app_name variable and refactor includes
+    namespaces (https://docs.djangoproject.com/en/1.9/ref/urls/#django.conf.urls.include)
+    refactor inclusion of admin.site.urls
