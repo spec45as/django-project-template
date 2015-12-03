@@ -13,5 +13,3 @@ try:
     from .celery import app as celery_app
 except ImportError as e:
     print('{{ project_name }}/__init__.py: celery import error, ignoring')
-
-from . import admin
