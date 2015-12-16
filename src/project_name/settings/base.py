@@ -163,6 +163,16 @@ LOGGING = {
             '()': 'django.utils.log.RequireDebugFalse'
         }
     },
+    'formatters': {
+        'simple': {
+            'format': '[%(asctime)s] %(levelname)s %(message)s',
+            'datefmt': '%Y-%m-%d %H:%M:%S'
+        },
+        'verbose': {
+            'format': '[%(asctime)s] %(levelname)s [%(name)s.%(funcName)s:%(lineno)d] %(message)s',
+            'datefmt': '%Y-%m-%d %H:%M:%S'
+        },
+    },
     'handlers': {
         'mail_admins': {
             'level': 'ERROR',
@@ -170,20 +180,24 @@ LOGGING = {
             'class': 'django.utils.log.AdminEmailHandler',
             'include_html': True,
         },
-        'file_error_log': {
+        'logfile': {
             'level': 'ERROR',
-            'class': 'logging.FileHandler',
+            'formatter': 'verbose',
+            'class': 'logging.handlers.TimedRotatingFileHandler',
             'filename': os.path.join(ROOT_DIR, 'var/log/error.log'),
+            'when': 'D',
+            'backupCount': 10,
         },
         'stdout': {
             'level': 'DEBUG',
+            'formatter': 'verbose',
             'class': 'logging.StreamHandler',
             'stream': sys.stdout,
         },
     },
     'loggers': {
-        'django.request': {
-            'handlers': ['mail_admins', 'file_error_log'],
+        'django': {
+            'handlers': ['mail_admins', 'logfile'],
             'level': 'ERROR',
             'propagate': True,
         },
