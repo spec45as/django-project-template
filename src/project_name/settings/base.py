@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'ckeditor',
     'ckeditor_uploader',
-    'endless_pagination',
+    'el_pagination',
 
     # project apps
     'core',
@@ -98,7 +98,10 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
             ),
             'libraries': {},
-            'builtins': ['core.templatetags.builtins'],
+            'builtins': [
+                'core.templatetags.builtins',
+                'el_pagination.templatetags.el_pagination_tags',
+            ],
         }
     },
 ]
