@@ -75,7 +75,7 @@ gulp.task('sass', function () {
 
 
 gulp.task('js', function () {
-  return gulp.src(WEBPACK_ENTRY)
+  return gulp.src(BUNDLE_ENTRY)
     .pipe(webpackStream(webpackConfig))
     .pipe(gulp.dest(BUILD_DIR));
 });
