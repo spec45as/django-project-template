@@ -17,6 +17,7 @@ CACHE
 !tox.ini
 !pytest.ini
 
+*.log.????-??-??
 *.log
 *.pid
 *.sock
