@@ -148,7 +148,8 @@ LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = 'account_login'
 LOGOUT_URL = 'account_logout'
 
-SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+SESSION_ENGINE = 'django.contrib.sessions.backends.file'
+SESSION_COOKIE_HTTPONLY = True
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
