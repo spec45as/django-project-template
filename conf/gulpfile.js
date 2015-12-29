@@ -11,13 +11,13 @@ var BowerWebpackPlugin = require("bower-webpack-plugin");
 
 
 var BASE_DIR = './src';
-var PROJECT_DIR = BASE_DIR + '/{{ project_name }}';
+var PROJECT_DIR = BASE_DIR + '/dom';
 var STATIC_DIR = PROJECT_DIR + '/static';
 var VENDOR_DIR = STATIC_DIR + '/vendor';
 var BUILD_DIR = STATIC_DIR + '/build/';
 var JS_PATH = BASE_DIR + '/**/static/assets/**/*.js';
 var CSS_PATH = BASE_DIR + '/**/static/assets/**/*.scss';
-var BUNDLE_ENTRY = STATIC_DIR + '/assets/js/main.js'
+var BUNDLE_ENTRY = STATIC_DIR + '/assets/js/main.js';
 
 
 var NODE_ENV = process.env.NODE_ENV || 'development';
@@ -67,7 +67,7 @@ var webpackConfig = {
         ]
     },
     plugins: webpackPlugins
-}
+};
 
 
 gulp.task('sass', function () {
