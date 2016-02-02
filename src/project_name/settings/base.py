@@ -138,6 +138,8 @@ MEDIA_ROOT = os.path.join(PROJECT_DIR, 'media')
 
 CSRF_COOKIE_NAME = '__csrf'
 
+CSRF_FAILURE_VIEW = 'core.views.csrf_failure'
+
 LANGUAGE_COOKIE_NAME = '__lang'
 
 SESSION_COOKIE_NAME = '__sid'
