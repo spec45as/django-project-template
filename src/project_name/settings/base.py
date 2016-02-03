@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'el_pagination',
+    'easy_thumbnails',
+    'django_cleanup',
 
     # project apps
     'core',
