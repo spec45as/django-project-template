@@ -17,6 +17,8 @@ django-codemirror-widget
 django-widget-tweaks
 django-ckeditor
 django-el-pagination
+easy-thumbnails
+django-cleanup
 
 ipython
 pytils
