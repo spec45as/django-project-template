@@ -1,7 +1,7 @@
 {% load static account %}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,7 +29,8 @@
     </title>
 
     <!-- CSS -->
-    <link rel="stylesheet" type="text/css" href="{% static "build/bundle.css" %}?ver={% file_version 'build/bundle.css' %}" />
+    <link rel="stylesheet" type="text/css"
+          href="{% static "build/bundle.css" %}?ver={% file_version 'build/bundle.css' %}"/>
     <!-- End CSS -->
 
     <!-- JS -->
@@ -41,28 +42,31 @@
       <script src="{% static 'vendor/respond/dest/respond.min.js' %}"></script>
     <![endif]-->
     <!-- End JS -->
-  </head>
-  <body>
+</head>
+<body>
 
     <div class="container">
         {% include "includes/bootstrap/messages.html" %}
 
         {% if request.user.is_authenticated %}
             Добро пожаловать, {% user_display request.user %}
-            <form method="post" action="{% url 'account_logout' %}">
+            <form class="form-inline" method="post" action="{% url 'account_logout' %}">
                 {% csrf_token %}
-                <input class="btn btn-default" type="submit" value="Выход">
+                <input class="btn btn-link" type="submit" value="Выход">
             </form>
         {% else %}
-            <a class="btn btn-default" href="{% url 'account_login' %}">Вход</a>
-            <a class="btn btn-default" href="{% url 'account_signup' %}">Регистрация</a>
+            <a class="btn btn-link" href="{% url 'account_login' %}">Вход</a>
+            <a class="btn btn-link" href="{% url 'account_signup' %}">Регистрация</a>
         {% endif %}
 
         {% block content %}{% endblock %}
     </div>
 
     <!-- bundles -->
-    <script type="text/javascript" src="{% static 'build/vendor.bundle.js' %}?ver={% file_version 'build/vendor.bundle.js' %}"></script>
-    <script type="text/javascript" src="{% static 'build/bundle.js' %}?ver={% file_version 'build/bundle.js' %}"></script>
-  </body>
+    <script type="text/javascript"
+            src="{% static 'build/vendor.bundle.js' %}?ver={% file_version 'build/vendor.bundle.js' %}"></script>
+    <script type="text/javascript"
+            src="{% static 'build/bundle.js' %}?ver={% file_version 'build/bundle.js' %}"></script>
+
+</body>
 </html>
