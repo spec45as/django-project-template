@@ -150,7 +150,7 @@ LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = 'account_login'
 LOGOUT_URL = 'account_logout'
 
-SESSION_ENGINE = 'django.contrib.sessions.backends.file'
+SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
 SESSION_COOKIE_HTTPONLY = True
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 
