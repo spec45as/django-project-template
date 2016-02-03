@@ -4,14 +4,14 @@ from hashlib import md5
 
 from django.test import TestCase
 
-from . import utils as u
+from core import utils as u
 
 
 class UploadToTestCase(TestCase):
 
     def setUp(self):
         self.filename = 'image.jpg'
-        self.hash = md5(self.filename)
+        self.hash = md5(self.filename.encode('utf-8')).hexdigest()
         self.upload_path = '/'.join(
             [self.hash[:2], self.hash[2:4], self.hash + '.jpg'])
 
