@@ -24,7 +24,6 @@ def ask_username(question=None):
 def bootstrap_production():
     delete_common_files()
     create_virtualenv()
-    setup_static()
 
     install_requirements('production.txt')
     install_crontabs()
