@@ -60,6 +60,9 @@ var webpackConfig = {
                     optional: ["es7.classProperties"],
                     comments: false
                 }
+            }, {
+                test: /\.css$/,
+                loader: 'style!css'
             }
         ],
         noParse: [
