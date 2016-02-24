@@ -1,4 +1,4 @@
-{% load static account %}
+{% load static account cmstemplates_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,6 +60,10 @@
         {% endif %}
 
         {% block content %}{% endblock %}
+    </div>
+
+    <div class="footer">
+        {% cms_group "counters" "Счётчики Yandex / Google" %}
     </div>
 
     <!-- bundles -->
