@@ -1,0 +1,49 @@
+[circus]
+check_delay = 5
+logoutput = var/log/circusd.log
+
+[env]
+PYTHONUNBUFFERED = 1  # to make print() get in logs
+
+[watcher:uwsgi]
+cmd = uwsgi --ini uwsgi.ini
+
+stderr_stream.class = FileStream
+stderr_stream.filename = var/log/uwsgi_err.log
+stderr_stream.max_bytes = 1048576  # 1Mb
+stderr_stream.backup_count = 2
+
+stdout.class = FileStream
+stdout.filename = var/log/uwsgi.log
+stdout.max_bytes = 1048576  # 1Mb
+stdout.backup_count = 2
+
+
+[watcher:celery]
+cmd = env/bin/celery worker --app={{ project_name }} -O fair -l info
+
+stderr_stream.class = FileStream
+stderr_stream.filename = var/log/celery_err.log
+stderr_stream.max_bytes = 1048576  # 1Mb
+stderr_stream.backup_count = 2
+
+stdout.class = FileStream
+stdout.filename = var/log/celery.log
+stdout.max_bytes = 1048576  # 1Mb
+stdout.backup_count = 2
+
+max_age = 86400  # restart 1 time in a day
+
+
+[watcher:elastic]
+cmd = elasticsearch/bin/elasticsearch
+
+stderr_stream.class = FileStream
+stderr_stream.filename = var/log/elastic_err.log
+stderr_stream.max_bytes = 1048576  # 1Mb
+stderr_stream.backup_count = 2
+
+stdout.class = FileStream
+stdout.filename = var/log/elastic.log
+stdout.max_bytes = 1048576  # 1Mb
+stdout.backup_count = 2
