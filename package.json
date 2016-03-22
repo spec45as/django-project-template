@@ -14,7 +14,7 @@
     "webpack-stream": "latest",
     "babel-core": "latest",
     "babel-loader": "latest",
-    "bower-webpack-plugin": "latest"
+    "bower-webpack-plugin": "latest",
     "css-loader": "latest",
     "style-loader": "latest"
   }
