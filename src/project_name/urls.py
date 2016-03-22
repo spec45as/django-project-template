@@ -5,6 +5,7 @@ from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
 
+from core import views as core_views
 from {{ project_name }} import views
 
 
@@ -32,11 +33,11 @@ if settings.DEBUG:
     )
 
     urlpatterns += [
-        url(r'^400/$', 'core.views.bad_request', {'exception': 'test'}),
-        url(r'^403/$', 'core.views.permission_denied', {'exception': 'test'}),
-        url(r'^403_csrf/$', 'core.views.csrf_failure', {'force_display': True}),
-        url(r'^404/$', 'core.views.page_not_found', {'exception': 'test'}),
-        url(r'^500/$', 'core.views.server_error'),
+        url(r'^400/$', core_views.bad_request, {'exception': 'test'}),
+        url(r'^403/$', core_views.permission_denied, {'exception': 'test'}),
+        url(r'^403_csrf/$', core_views.csrf_failure, {'force_display': True}),
+        url(r'^404/$', core_views.page_not_found, {'exception': 'test'}),
+        url(r'^500/$', core_views.server_error),
     ]
 
     import debug_toolbar
