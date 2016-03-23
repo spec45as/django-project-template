@@ -16,3 +16,29 @@ def upload_to(directory=None):
         return '/'.join(parts)
 
     return uploader
+
+
+def send_mail(email, subject, template_html, template_txt, context, **kwargs):
+    """
+    Отправить email пользователю.
+
+    Аргументы:
+        email - адрес электронной почты
+        subject - заголовок письма
+        template_html - путь до шаблона с html разметкой
+        template_txt - путь до текстового шаблона
+        context - словарь с данными, с которыми будут отрендерены шаблоны
+    """
+    email_html = render_to_string(template_html, context)
+    email_text = render_to_string(template_txt, context)
+    send_mail(
+        auth_user=settings.EMAIL_HOST_USER,
+        auth_password=settings.EMAIL_HOST_PASSWORD,
+        from_email=settings.DEFAULT_FROM_EMAIL,
+        subject=subject,
+        recipient_list=[email],
+        fail_silently=kwargs.pop('fail_silently', True),
+        html_message=email_html,
+        message=email_text,
+        **kwargs,
+    )
