@@ -26,6 +26,7 @@ CACHE
 /lib
 /share
 /env
+cache/
 
 /README.rst
 
