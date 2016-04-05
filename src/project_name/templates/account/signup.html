@@ -6,16 +6,22 @@
 
     <h1>Регистрация</h1>
 
-    <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
-      {% csrf_token %}
-      {{ form.as_p }}
+    <div class="row">
+        <div class="col-md-6">
+            <form class="form" method="post" action="{% url 'account_signup' %}">
+                {% csrf_token %}
+                {% include "includes/bootstrap/bs3-form.html" %}
 
-      {% if redirect_field_value %}
-          <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-      {% endif %}
+                {% if redirect_field_value %}
+                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                {% endif %}
 
-      <button type="submit">Зарегистрироваться</button>
-    </form>
+                <div class="form-group">
+                    <button class="btn btn-primary" type="submit">Зарегистрироваться</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <a href="{{ login_url }}">Вход</a>
 
