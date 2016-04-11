@@ -24,3 +24,4 @@ ipython
 pytils
 pymorphy2[fast]
 pymorphy2-dicts-ru
+rules

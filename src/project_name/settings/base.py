@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'el_pagination',
     'easy_thumbnails',
     'django_cleanup',
+    'rules.apps.AutodiscoverRulesConfig',
 
     # project apps
     'core',
@@ -101,6 +102,8 @@ TEMPLATES = [
             ),
             'libraries': {},
             'builtins': [
+                'rules.templatetags.rules',
+
                 'core.templatetags.builtins',
                 'el_pagination.templatetags.el_pagination_tags',
             ],
@@ -113,10 +116,9 @@ LOCALE_PATHS = [
 ]
 
 AUTHENTICATION_BACKENDS = (
-    # default django backend
-    "django.contrib.auth.backends.ModelBackend",
-    # django-allauth
+    "rules.permissions.ObjectPermissionBackend",
     "allauth.account.auth_backends.AuthenticationBackend",
+    "django.contrib.auth.backends.ModelBackend",
 )
 
 STATICFILES_FINDERS = (
