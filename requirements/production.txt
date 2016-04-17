@@ -1,5 +1,1 @@
 -r base.txt
-uwsgi
-circusd
-#supervisor
-#https://github.com/Supervisor/supervisor/archive/master.zip
