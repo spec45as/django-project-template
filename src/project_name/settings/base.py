@@ -63,6 +63,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 )
 
+X_FRAME_OPTIONS = 'DENY'
+
 SITE_ID = 1
 
 ROOT_URLCONF = '{{ project_name }}.urls'
@@ -139,6 +141,8 @@ STATICFILES_DIRS = (
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(PROJECT_DIR, 'media')
+
+COOKIE_HTTP_ONLY = True
 
 CSRF_COOKIE_NAME = '__csrf'
 
