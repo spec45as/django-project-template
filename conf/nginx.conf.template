@@ -9,11 +9,11 @@ server {
     server_name .example.com;
     charset     utf-8;
 
-    # max upload size
     client_max_body_size 75M;
 
-    # Django media
     location /media  {
+        add_header X-Content-Type-Options nosniff;
+
         alias /path/to/site/project_name/media;
     }
 
@@ -21,7 +21,16 @@ server {
         alias /path/to/site/project_name/static;
     }
 
+
     location / {
+        # Allow frame for this site and yandex.metrika
+        set $frame_options '';
+        # Change yourdomain.com
+        if ($http_referer !~ '^https?:\/\/([^\/]+\.)?(yourdomain\.com|webvisor\.com)\/'){
+            set $frame_options 'SAMEORIGIN';
+        }
+        add_header X-Frame-Options $frame_options;
+
         uwsgi_pass  django;
         # https://raw.githubusercontent.com/nginx/nginx/master/conf/uwsgi_params
         include     /path/to/site/project_name/uwsgi_params;
