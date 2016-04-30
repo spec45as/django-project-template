@@ -40,5 +40,5 @@ def send_mail(email, subject, template_html, template_txt, context, **kwargs):
         fail_silently=kwargs.pop('fail_silently', True),
         html_message=email_html,
         message=email_text,
-        **kwargs,
+        **kwargs
     )
