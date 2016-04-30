@@ -3,6 +3,9 @@
 import os
 from hashlib import md5
 
+from django.template.loader import render_to_string
+from django.conf import settings
+
 
 def upload_to(directory=None):
     """Загрузить файл в директорию `directory` с хешированным именем."""
