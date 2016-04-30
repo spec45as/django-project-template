@@ -3,6 +3,9 @@
 import os
 from hashlib import md5
 
+from django.template.loader import render_to_string
+from django.conf import settings
+
 
 def upload_to(directory=None):
     """Загрузить файл в директорию `directory` с хешированным именем."""
@@ -40,5 +43,5 @@ def send_mail(email, subject, template_html, template_txt, context, **kwargs):
         fail_silently=kwargs.pop('fail_silently', True),
         html_message=email_html,
         message=email_text,
-        **kwargs,
+        **kwargs
     )
