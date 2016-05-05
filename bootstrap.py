@@ -9,7 +9,7 @@ import getpass
 from deploy import (
     prompt, confirm, config_path,
     create_virtualenv, install_requirements,
-    create_env_file, install_crontabs, create_user_config_file,
+    create_env_file, create_user_config_file,
     setup_static, delete_common_files, logger,
     setup_npm_tools, setup_npm_tools_configs,
 )
@@ -26,7 +26,6 @@ def bootstrap_production():
     create_virtualenv()
 
     install_requirements('production.txt')
-    install_crontabs()
 
     create_env_file(
         settings_module=config_path('production'),

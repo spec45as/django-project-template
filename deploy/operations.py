@@ -34,29 +34,6 @@ def create_env_file(*args, **kwargs):
     logger.info('Создан файл {}'.format(ENV_FILE))
 
 
-def install_crontab(filepath):
-    """Установить задачу в крон."""
-    logger.info('Установка задачи в крон {}'.format(
-        os.path.basename(filepath)
-    ))
-    crontab_path = os.path.abspath(filepath)
-    tmp_file = tempfile.mkstemp(suffix='crontab')[1]
-    render(
-        src=crontab_path,
-        dst=tmp_file,
-        here=base_path(),
-        project_name=PROJECT_NAME,
-    )
-    local('crontab {}'.format(tmp_file))
-
-
-def install_crontabs():
-    """Найти и установить кронтабы."""
-    crontabs = glob.glob('crontabs/*')
-    for crontab in crontabs:
-        install_crontab(crontab)
-
-
 def create_user_config_file(settings_module):
     src_settings = base_path('conf/local_settings.template')
     dst_settings_path = os.path.join(
