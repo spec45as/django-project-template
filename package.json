@@ -30,9 +30,10 @@
     "jquery": "latest",
     "react": "latest",
     "react-dom": "latest",
-    "style-loader": "^0.13.1",
-    "webpack": "^1.13.0",
-    "webpack-stream": "^3.2.0",
+    "style-loader": "latest",
+    "expose-loader": "latest",
+    "webpack": "latest",
+    "webpack-stream": "latest",
     "yargs": "latest"
   }
 }
