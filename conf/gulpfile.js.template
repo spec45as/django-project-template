@@ -26,6 +26,13 @@ var jsTask = function(options) {
     webpackConfig.entry = {
         'bundle': options.src
     };
+    webpackConfig.plugins = webpackConfig.plugins.concat([
+        new webpack.ProvidePlugin({
+            $: "jquery",
+            jQuery: "jquery",
+            "window.jQuery": "jquery"
+        })
+    ])
 
     if (options.development) {
         webpackConfig.watch = true;
