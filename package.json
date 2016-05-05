@@ -1,21 +1,37 @@
 {
   "name": "{{ project_name }}",
-  "dependencies": {
-    "react": "latest",
-    "react-dom": "latest"
+  "version": "0.0.0",
+  "description": "The {{ project_name }} Project",
+  "main": "",
+  "engines": {
+    "node": ">=4.2"
   },
+  "author": "",
+  "license": "",
+  "dependencies": {},
   "devDependencies": {
-    "gulp": "latest",
-    "gulp-sass": "latest",
-    "gulp-rename": "latest",
-    "gulp-sourcemaps": "latest",
-    "gulp-autoprefixer": "latest",
-    "webpack": "latest",
-    "webpack-stream": "latest",
     "babel-core": "latest",
     "babel-loader": "latest",
-    "bower-webpack-plugin": "latest",
+    "babel-preset-es2015": "latest",
+    "babel-preset-react": "latest",
+    "babel-preset-stage-0": "latest",
+    "babel-preset-stage-1": "latest",
+    "bootstrap-sass": "latest",
+    "browser-sync": "latest",
     "css-loader": "latest",
-    "style-loader": "latest"
+    "gulp": "latest",
+    "gulp-cssmin": "latest",
+    "gulp-notify": "latest",
+    "gulp-plumber": "latest",
+    "gulp-rename": "latest",
+    "gulp-sass": "latest",
+    "gulp-uglify": "latest",
+    "jquery": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.13.0",
+    "webpack-stream": "^3.2.0",
+    "yargs": "latest"
   }
 }
