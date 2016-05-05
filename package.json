@@ -26,6 +26,7 @@
     "gulp-rename": "latest",
     "gulp-sass": "latest",
     "gulp-uglify": "latest",
+    "gulp-duration": "latest",
     "jquery": "latest",
     "react": "latest",
     "react-dom": "latest",
