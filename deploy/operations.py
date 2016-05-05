@@ -48,10 +48,6 @@ def create_user_config_file(settings_module):
     logger.info('Создан файл {}'.format(dst_settings_path))
 
 
-def setup_static():
-    local('bower install --save')
-
-
 def setup_npm_tools():
     local('npm install')
 

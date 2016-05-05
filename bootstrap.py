@@ -10,7 +10,7 @@ from deploy import (
     prompt, confirm, config_path,
     create_virtualenv, install_requirements,
     create_env_file, create_user_config_file,
-    setup_static, delete_common_files, logger,
+    delete_common_files, logger,
     setup_npm_tools, setup_npm_tools_configs,
 )
 from deploy.settings import ENV_FILE, PROJECT_NAME, SOURCES_DIR
@@ -37,7 +37,6 @@ def bootstrap_development():
     setup_npm_tools()
     setup_npm_tools_configs()
     create_virtualenv()
-    setup_static()
 
     install_requirements('local.txt')
     settings_format = 'local_{}'
