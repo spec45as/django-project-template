@@ -56,7 +56,7 @@ def bootstrap_development():
          .format(ENV_FILE))
     managepy_path = os.path.join(SOURCES_DIR, 'manage.py')
     logger.info('\t - выполнить {} migrate'.format(managepy_path))
-    logger.info('\t - выполнить {} runserver'.format(managepy_path))
+    logger.info('\t - выполнить {} runserver, либо gulp'.format(managepy_path))
 
 
 if __name__ == '__main__':
