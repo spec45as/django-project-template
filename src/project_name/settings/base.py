@@ -223,9 +223,6 @@ MESSAGE_TAGS = {
 
 # debug toolbar
 DEBUG_TOOLBAR_PATCH_SETTINGS = False
-DEBUG_TOOLBAR_CONFIG = {
-    'JQUERY_URL': '/static/vendor/jquery/dist/jquery.js',
-}
 
 # django-allauth
 ACCOUNT_ADAPTER = "allauth.account.adapter.DefaultAccountAdapter"
