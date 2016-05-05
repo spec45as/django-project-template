@@ -67,7 +67,7 @@ def setup_npm_tools_configs(*args, **kwargs):
 
 
 def delete_common_files():
-    for fname in ['LICENSE.md', 'README.rst', 'todo.txt']:
+    for fname in ['README.rst', 'todo.txt']:
         try:
             os.unlink(fname)
         except OSError:
