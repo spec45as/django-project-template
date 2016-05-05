@@ -19,10 +19,9 @@ Django project template
 установить кронтабы из директории ``crontabs`` для продакшена
 и flake8 git-hook для девелопмента.
 
-Зависимости для фронтенда ставятся через bower в директорию
-``project_name/static/vendor``. По-умолчанию используется
-scss (``project_name/static/assets/styles/main.scss``), компилируется
-при помощи gulp-sass. Сборка es6 javascript производится с помощью webpack +
+Для разработки фронтенда по-умолчанию используется
+sass, компилируется при помощи gulp-sass.
+Сборка es6 javascript производится с помощью webpack +
 babel. Вся конфигурация сборки фронтенда описана в gulpfile.
 
 Используется регистрация с подтверждением по электропочте,
@@ -66,7 +65,6 @@ Node packages
 операционной системы:
 
 - npm
-- bower
 - gulp
 
 
@@ -89,7 +87,7 @@ Quickstart
 ==========
 Для создания проекта необходимо выполнить действия::
 
-    django-admin.py startproject --template=https://github.com/asyncee/django-project-template/zipball/master --extension py,template,ini,json,bowerrc <имя проекта>
+    django-admin.py startproject --template=https://github.com/asyncee/django-project-template/zipball/master --extension py,template,ini,json <имя проекта>
 
 Для разворачивания проекта в виртуальном окружении
 **для разработки** необходимо выполнить команду::
@@ -118,7 +116,8 @@ Quickstart
 Провести миграции и запустить сервер::
 
     src/manage.py migrate
-    src/manage.py runserver
+    src/manage.py runserver  # если необходимо запустить только сервер django, либо
+    gulp                     # если необходимо работать с фронтендом
 
 
 Параметр ``--settings`` можно опустить, так как после разворачивания
@@ -128,13 +127,6 @@ Quickstart
 Чтобы запустить проект на боевом сервере, можно воспользоваться
 шаблонами конфигурации ``uwsgi`` и ``supervisor`` из директории
 **conf**.
-
-После запуска проекта, необходимо собрать статику с помощью ``gulp``::
-
-    gulp
-    gulp sass
-    gulp js
-    gulp watch
 
 
 Configuration
