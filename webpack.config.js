@@ -22,7 +22,8 @@ var webpackConfig = {
                 test: /\.css$/,
                 loader: "style-loader!css-loader"
             },
-            { test: /jquery/, loader: 'expose?$!expose?jQuery' }
+            { test: /jquery\.js$/, loader: 'expose?$' },
+            { test: /jquery\.js$/, loader: 'expose?jQuery' }
         ]
     },
     plugins: []
