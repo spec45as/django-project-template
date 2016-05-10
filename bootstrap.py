@@ -11,7 +11,7 @@ from deploy import (
     create_virtualenv, install_requirements,
     create_env_file, create_user_config_file,
     delete_common_files, logger,
-    setup_npm_tools, setup_npm_tools_configs,
+    setup_npm_tools,
 )
 from deploy.settings import ENV_FILE, PROJECT_NAME, SOURCES_DIR
 
