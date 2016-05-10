@@ -36,6 +36,7 @@ var jsTask = function (options) {
 
     if (options.development) {
         webpackConfig.watch = true;
+        webpackConfig.devtool = '#cheap-module-eval-source-map';
         webpackConfig.plugins = webpackConfig.plugins.concat([
             new webpack.NoErrorsPlugin()
         ]);
