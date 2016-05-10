@@ -35,7 +35,6 @@ def bootstrap_production():
 def bootstrap_development():
     delete_common_files()
     setup_npm_tools()
-    setup_npm_tools_configs()
     create_virtualenv()
 
     install_requirements('local.txt')
@@ -52,8 +51,7 @@ def bootstrap_development():
     )
 
     logger.info('Для запуска проекта осталось:')
-    logger.info('\t - указать конфигурацию БД в {}'
-         .format(ENV_FILE))
+    logger.info('\t - указать конфигурацию БД в {}'.format(ENV_FILE))
     managepy_path = os.path.join(SOURCES_DIR, 'manage.py')
     logger.info('\t - выполнить {} migrate'.format(managepy_path))
     logger.info('\t - выполнить {} runserver, либо gulp'.format(managepy_path))
