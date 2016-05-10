@@ -20,4 +20,3 @@ pymorphy2[fast]
 pytils
 redis
 rules
-wheel

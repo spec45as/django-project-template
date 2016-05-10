@@ -18,8 +18,12 @@ def create_virtualenv():
 
 def install_requirements(reqs_file):
     """Установить зависимости в виртуальное окружение. """
-    cmd = ('source env/bin/activate && '
-           'pip install -r requirements/{}'.format(reqs_file))
+    cmd = (
+        'source env/bin/activate && '
+        'pip install -U pip wheel && '
+        'pip wheel -r requirements/{reqs} && '
+        'pip install --no-index -r requirements/{reqs}'
+    ).format(reqs=reqs_file)
     local(cmd, shell='bash')
 
 
