@@ -5,6 +5,12 @@ var webpackConfig = {
         library: '[name]'
     },
     module: {
+        preLoaders: [
+            {
+                test: /\.jsx?$/,
+                loaders: ['eslint']
+            }
+        ],
         loaders: [
             {
                 test: /\.jsx?$/,
