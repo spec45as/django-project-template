@@ -36,6 +36,7 @@
     "react-dom": "latest",
     "style-loader": "latest",
     "expose-loader": "latest",
+    "sass-loader": "latest",
     "webpack": "latest",
     "webpack-stream": "latest",
     "yargs": "latest"
