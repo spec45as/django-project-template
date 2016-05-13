@@ -8,7 +8,12 @@
   },
   "author": "",
   "license": "",
-  "dependencies": {},
+  "dependencies": {
+    "bootstrap-sass": "latest",
+    "jquery": "latest",
+    "react": "latest",
+    "react-dom": "latest"
+  },
   "devDependencies": {
     "autoprefixer": "latest",
     "babel-core": "latest",
@@ -18,7 +23,6 @@
     "babel-preset-stage-0": "latest",
     "babel-preset-stage-1": "latest",
     "babel-eslint": "latest",
-    "bootstrap-sass": "latest",
     "browser-sync": "latest",
     "css-loader": "latest",
     "eslint": "latest",
@@ -32,9 +36,6 @@
     "gulp-rename": "latest",
     "gulp-sass": "latest",
     "gulp-uglify": "latest",
-    "jquery": "latest",
-    "react": "latest",
-    "react-dom": "latest",
     "style-loader": "latest",
     "expose-loader": "latest",
     "sass-loader": "latest",
