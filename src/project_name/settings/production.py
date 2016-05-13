@@ -5,7 +5,6 @@ import dj_database_url
 from {{ project_name }}.settings.base import *
 
 ADMINS = (
-    ('username', 'user@email'),
 )
 
 MANAGERS = ()
