@@ -35,7 +35,8 @@ let webpackConfig = {
         ],
         noParse: [
             new RegExp('.*vendor.*')
-        ]
+        ],
+        postcss: [ autoprefixer({ browsers: ['last 10 versions'] }) ]
     },
     plugins: [
         new webpack.ProvidePlugin({

@@ -10,6 +10,7 @@
   "license": "",
   "dependencies": {},
   "devDependencies": {
+    "autoprefixer": "latest",
     "babel-core": "latest",
     "babel-loader": "latest",
     "babel-preset-es2015": "latest",
@@ -27,6 +28,7 @@
     "gulp-cssmin": "latest",
     "gulp-notify": "latest",
     "gulp-plumber": "latest",
+    "gulp-postcss": "latest",
     "gulp-rename": "latest",
     "gulp-sass": "latest",
     "gulp-uglify": "latest",

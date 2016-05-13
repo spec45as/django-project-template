@@ -7,6 +7,8 @@ let plumber = require('gulp-plumber');
 let cssmin = require('gulp-cssmin');
 let rename = require("gulp-rename");
 let sass = require('gulp-sass');
+let postcss = require('gulp-postcss');
+let autoprefixer = require('autoprefixer');
 let path = require('path');
 let browserSync = require('browser-sync').create();
 let webpack_stream = require('webpack-stream');
@@ -66,6 +68,7 @@ gulp.task('sass:dev', function () {
     return gulp.src(config.sass.src)
         .pipe(plumber())
         .pipe(sass(config.sass.sassOptions))
+        .pipe(postcss([ autoprefixer({ browsers: ['last 10 versions'] }) ]))
         .pipe(rename(config.sass.destFileName))
         .pipe(gulp.dest(config.sass.dest))
         .pipe(browserSync.stream())
@@ -75,6 +78,7 @@ gulp.task('sass:dev', function () {
 gulp.task('sass:prod', function () {
     return gulp.src(config.sass.src)
         .pipe(sass(config.sass.sassOptions))
+        .pipe(postcss([ autoprefixer({ browsers: ['last 10 versions'] }) ]))
         .pipe(rename(config.sass.destFileName))
         .pipe(cssmin())
         .pipe(gulp.dest(config.sass.dest))
