@@ -14,7 +14,7 @@ Features
   (``local_<username>.py``) и сохраняется в репозитории.
 - Конфигурация внешних сервисов из переменных окружения или файла ``conf/env``.
 - Интеграция с webpack, bower и gulp.
-- Поддержка ES2015, ES6, JSX, SCSS.
+- Поддержка ES2015, ES7, JSX, SCSS.
 - Frontend-ассеты хранятся в директории ``assets``.
 - Регистрация by django-allauth
 - По-умолчанию установлено приложение ``django.contrib.flatpages``
