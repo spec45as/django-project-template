@@ -1,23 +1,29 @@
 {
-  "name": "{{ project_name }}",
+  "name": "project",
   "version": "0.0.0",
   "homepage": "",
   "authors": [],
-  "license": "MIT",
+  "license": "",
   "private": true,
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
-    "src/{{ project_name }}/static/vendor",
     "test",
-    "tests"
+    "tests",
+    "src",
+    "source",
+    "spec",
+    ".bowerrc",
+    ".gitignore",
+    ".jshintignore",
+    ".jshintrc",
+    "bower.json",
+    "gruntfile.js",
+    "gulpfile.js",
+    "package.json",
+    "README.md"
   ],
   "dependencies": {
-    "jquery": "latest",
-    "bootstrap-sass": "latest",
-    "html5shiv": "latest",
-    "respond": "latest",
-    "codemirror": "latest"
   }
 }

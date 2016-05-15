@@ -133,8 +133,10 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
 
 STATICFILES_DIRS = (
-    ('assets', os.path.join(STATIC_ROOT, 'assets')),
-    ('vendor', os.path.join(STATIC_ROOT, 'vendor')),
+    ('img', os.path.join(STATIC_ROOT, 'img')),
+    ('css', os.path.join(STATIC_ROOT, 'css')),
+    ('js', os.path.join(STATIC_ROOT, 'js')),
+    ('fonts', os.path.join(STATIC_ROOT, 'fonts')),
     ('build', os.path.join(STATIC_ROOT, 'build')),
 )
 
@@ -221,9 +223,6 @@ MESSAGE_TAGS = {
 
 # debug toolbar
 DEBUG_TOOLBAR_PATCH_SETTINGS = False
-DEBUG_TOOLBAR_CONFIG = {
-    'JQUERY_URL': '/static/vendor/jquery/dist/jquery.js',
-}
 
 # django-allauth
 ACCOUNT_ADAPTER = "allauth.account.adapter.DefaultAccountAdapter"

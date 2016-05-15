@@ -9,9 +9,9 @@ import getpass
 from deploy import (
     prompt, confirm, config_path,
     create_virtualenv, install_requirements,
-    create_env_file, install_crontabs, create_user_config_file,
-    setup_static, delete_common_files, logger,
-    setup_npm_tools, setup_npm_tools_configs,
+    create_env_file, create_user_config_file,
+    delete_common_files, logger,
+    setup_npm_tools,
 )
 from deploy.settings import ENV_FILE, PROJECT_NAME, SOURCES_DIR
 
@@ -26,7 +26,6 @@ def bootstrap_production():
     create_virtualenv()
 
     install_requirements('production.txt')
-    install_crontabs()
 
     create_env_file(
         settings_module=config_path('production'),
@@ -36,9 +35,7 @@ def bootstrap_production():
 def bootstrap_development():
     delete_common_files()
     setup_npm_tools()
-    setup_npm_tools_configs()
     create_virtualenv()
-    setup_static()
 
     install_requirements('local.txt')
     settings_format = 'local_{}'
@@ -54,11 +51,10 @@ def bootstrap_development():
     )
 
     logger.info('Для запуска проекта осталось:')
-    logger.info('\t - указать конфигурацию БД в {}'
-         .format(ENV_FILE))
+    logger.info('\t - указать конфигурацию БД в {}'.format(ENV_FILE))
     managepy_path = os.path.join(SOURCES_DIR, 'manage.py')
     logger.info('\t - выполнить {} migrate'.format(managepy_path))
-    logger.info('\t - выполнить {} runserver'.format(managepy_path))
+    logger.info('\t - выполнить {} runserver, либо gulp'.format(managepy_path))
 
 
 if __name__ == '__main__':

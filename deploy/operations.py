@@ -18,8 +18,12 @@ def create_virtualenv():
 
 def install_requirements(reqs_file):
     """Установить зависимости в виртуальное окружение. """
-    cmd = ('source env/bin/activate && '
-           'pip install -r requirements/{}'.format(reqs_file))
+    cmd = (
+        'source env/bin/activate && '
+        'pip install -U pip wheel && '
+        'pip wheel -r requirements/{reqs} && '
+        'pip install --no-index -r requirements/{reqs}'
+    ).format(reqs=reqs_file)
     local(cmd, shell='bash')
 
 
@@ -32,29 +36,6 @@ def create_env_file(*args, **kwargs):
         **kwargs
     )
     logger.info('Создан файл {}'.format(ENV_FILE))
-
-
-def install_crontab(filepath):
-    """Установить задачу в крон."""
-    logger.info('Установка задачи в крон {}'.format(
-        os.path.basename(filepath)
-    ))
-    crontab_path = os.path.abspath(filepath)
-    tmp_file = tempfile.mkstemp(suffix='crontab')[1]
-    render(
-        src=crontab_path,
-        dst=tmp_file,
-        here=base_path(),
-        project_name=PROJECT_NAME,
-    )
-    local('crontab {}'.format(tmp_file))
-
-
-def install_crontabs():
-    """Найти и установить кронтабы."""
-    crontabs = glob.glob('crontabs/*')
-    for crontab in crontabs:
-        install_crontab(crontab)
 
 
 def create_user_config_file(settings_module):
@@ -71,26 +52,12 @@ def create_user_config_file(settings_module):
     logger.info('Создан файл {}'.format(dst_settings_path))
 
 
-def setup_static():
-    local('bower install --save')
-
-
 def setup_npm_tools():
     local('npm install')
 
 
-def setup_npm_tools_configs(*args, **kwargs):
-    render(
-        base_path('conf/gulpfile.js.template'),
-        base_path('gulpfile.js'),
-        *args,
-        **kwargs
-    )
-    logger.info('Создан gulpfile.js')
-
-
 def delete_common_files():
-    for fname in ['LICENSE.md', 'README.rst', 'todo.txt']:
+    for fname in ['README.rst', 'todo.txt']:
         try:
             os.unlink(fname)
         except OSError:

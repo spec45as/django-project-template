@@ -33,10 +33,6 @@
           href="{% static "build/bundle.css" %}?ver={% file_version 'build/bundle.css' %}"/>
     <!-- End CSS -->
 
-    <!-- JS -->
-    <script src="{% static 'vendor/jquery/dist/jquery.min.js' %}"></script>
-    <script src="{% static 'vendor/bootstrap-sass/assets/javascripts/bootstrap.min.js' %}"></script>
-
     <!--[if lt IE 9]>
       <script src="{% static 'vendor/html5shiv/dist/html5shiv.min.js' %}"></script>
       <script src="{% static 'vendor/respond/dest/respond.min.js' %}"></script>
@@ -67,8 +63,6 @@
     </div>
 
     <!-- bundles -->
-    <script type="text/javascript"
-            src="{% static 'build/vendor.bundle.js' %}?ver={% file_version 'build/vendor.bundle.js' %}"></script>
     <script type="text/javascript"
             src="{% static 'build/bundle.js' %}?ver={% file_version 'build/bundle.js' %}"></script>
 

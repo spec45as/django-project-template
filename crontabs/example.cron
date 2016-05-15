@@ -1,6 +1,0 @@
-# Example crontab
-# * * * * *    /bin/false
-
-# Absolute path example
-# * * * * *    {{ here }}/env/bin/some_command --app={{ project_name }}
-
