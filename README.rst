@@ -53,7 +53,7 @@ Quickstart
 ==========
 Создать проект можно командой::
 
-    django-admin.py startproject --template=https://github.com/asyncee/django-project-template/zipball/master --name=gulpfile.js,.bowerrc,tox.ini --extension py,template <имя проекта>
+    django-admin.py startproject --template=https://github.com/asyncee/django-project-template/zipball/master --name=gulpfile.js,.bowerrc,tox.ini --extension py,template,rst <имя проекта>
 
 Разворачивание **для разработки** в виртуальном окружении::
 
