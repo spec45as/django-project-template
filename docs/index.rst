@@ -8,11 +8,5 @@
 
    docs/provisioning
    docs/crontabs
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+   docs/management-commands
 
