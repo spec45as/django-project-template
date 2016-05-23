@@ -4,8 +4,7 @@ import dj_database_url
 
 from {{ project_name }}.settings.base import *
 
-ADMINS = (
-)
+ADMINS = ()
 
 MANAGERS = ()
 
@@ -14,6 +13,16 @@ ALLOWED_HOSTS = ['*']
 DATABASES = {
     'default': dj_database_url.parse(e.get('DJANGO_DB')),
 }
+
+
+del TEMPLATES[0]['APP_DIRS']
+TEMPLATES[0]['OPTIONS']['loaders'] = [
+    ('django.template.loaders.cached.Loader', [
+        'django.template.loaders.filesystem.Loader',
+        'django.template.loaders.app_directories.Loader',
+    ]),
+]
+
 
 CACHES = {
     'default': {
