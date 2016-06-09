@@ -45,3 +45,37 @@ def send_mail(email, subject, template_html, template_txt, context, **kwargs):
         message=email_text,
         **kwargs
     )
+
+
+def save_url_to_file_field(model, url, save_to=None, filename=None):
+    """
+    Сохранить файл, доступный по адресу ``url`` в поле ``save_to`` модели ``model``.
+
+    Аргументы:
+        model — объект класса Model, либо FieldFile / ImageFieldFile
+        url — ссылка на файл
+        save_to — название файлового поля
+        filename — новое имя для сохраняемого файла
+
+    Примеры использования:
+        save_file_from_url(gallery, '<url>', save_to='image')
+        save_file_from_url(gallery.image, '<url>')
+    """
+    assert isinstance(model, (FieldFile, Model)), '"model" argument should be a Model or FieldFile instance'
+
+    if isinstance(model, FieldFile):
+        field = model
+    else:
+        assert isinstance(save_to, str), '"save_to" argument must be provided along with Model instance'
+        field = getattr(model, save_to)
+
+    r = requests.get(url)
+
+    if not filename:
+        filename = url.split('/')[-1]
+
+    temp_file = NamedTemporaryFile(delete=True)
+    temp_file.write(r.content)
+    temp_file.flush()
+
+    field.save(filename, File(temp_file), save=True)
