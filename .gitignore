@@ -80,3 +80,5 @@ docs/_build/
 
 # PyBuilder
 target/
+
+!**/static/vendor/**/dist/
