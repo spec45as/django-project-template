@@ -68,7 +68,7 @@ gulp.task('js:prod', function () {
 gulp.task('sass:dev', function () {
     return gulp.src(config.sass.src)
         .pipe(plumber())
-        .pipe(sass(config.sass.sassOptions))
+        .pipe(sass(config.sass.sassOptions).on('error', sass.logError))
         .pipe(postcss([ autoprefixer({ browsers: ['>1%'] }) ]))
         .pipe(rename(config.sass.destDevFileName))
         .pipe(gulp.dest(config.sass.dest))
