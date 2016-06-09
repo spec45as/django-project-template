@@ -27,7 +27,8 @@ let config = {
         src: './assets/sass/index.scss',
         watch: './assets/sass/**/*.scss',
         dest: './src/{{ project_name }}/static/build/',
-        destFileName: 'bundle.css',
+        destDevFileName: 'bundle.css',
+        destProdFileName: 'bundle.min.css',
         sassOptions: {
             includePaths: ['node_modules']
         }
@@ -68,8 +69,8 @@ gulp.task('sass:dev', function () {
     return gulp.src(config.sass.src)
         .pipe(plumber())
         .pipe(sass(config.sass.sassOptions))
-        .pipe(postcss([ autoprefixer({ browsers: ['last 10 versions'] }) ]))
-        .pipe(rename(config.sass.destFileName))
+        .pipe(postcss([ autoprefixer({ browsers: ['>1%'] }) ]))
+        .pipe(rename(config.sass.destDevFileName))
         .pipe(gulp.dest(config.sass.dest))
         .pipe(browserSync.stream())
 });
@@ -79,7 +80,7 @@ gulp.task('sass:prod', function () {
     return gulp.src(config.sass.src)
         .pipe(sass(config.sass.sassOptions))
         .pipe(postcss([ autoprefixer({ browsers: ['>1%'] }) ]))
-        .pipe(rename(config.sass.destFileName))
+        .pipe(rename(config.sass.destProdFileName))
         .pipe(cssmin())
         .pipe(gulp.dest(config.sass.dest))
 });

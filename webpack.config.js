@@ -21,8 +21,13 @@ let webpackConfig = {
                 exclude: [/node_modules/, /vendor/],
                 loader: "babel-loader",
                 query: {
+                    plugins: ['transform-runtime'],
                     presets: ['es2015', 'react', 'stage-0']
                 }
+            },
+            {
+                test: /\.svg$/,
+                loader: 'svg-inline'
             },
             {
                 test: /\.scss$/,
@@ -60,6 +65,10 @@ let developmentConfig = Object.assign({}, webpackConfig, {
 
 
 let productionConfig = Object.assign({}, webpackConfig, {
+    output: {
+        filename: '[name].min.js',
+        library: '[name]'
+    },
     plugins: webpackConfig.plugins.concat([
         // removes a lot of debugging code in React
         new webpack.DefinePlugin({
