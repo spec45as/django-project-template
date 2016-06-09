@@ -21,6 +21,10 @@ server {
         alias /path/to/site/project_name/static;
     }
 
+    location /favicon.ico {
+        access_log off;
+        log_not_found off;
+    }
 
     location / {
         # Allow frame for this site and yandex.metrika
