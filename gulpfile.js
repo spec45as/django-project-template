@@ -78,7 +78,7 @@ gulp.task('sass:dev', function () {
 gulp.task('sass:prod', function () {
     return gulp.src(config.sass.src)
         .pipe(sass(config.sass.sassOptions))
-        .pipe(postcss([ autoprefixer({ browsers: ['last 10 versions'] }) ]))
+        .pipe(postcss([ autoprefixer({ browsers: ['>1%'] }) ]))
         .pipe(rename(config.sass.destFileName))
         .pipe(cssmin())
         .pipe(gulp.dest(config.sass.dest))

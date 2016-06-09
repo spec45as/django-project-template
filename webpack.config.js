@@ -1,4 +1,6 @@
 let webpack = require('webpack');
+let autoprefixer = require('autoprefixer');
+
 
 let webpackConfig = {
     context: __dirname,
@@ -36,7 +38,7 @@ let webpackConfig = {
         noParse: [
             new RegExp('.*vendor.*')
         ],
-        postcss: [ autoprefixer({ browsers: ['last 10 versions'] }) ]
+        postcss: [ autoprefixer({ browsers: ['>1%'] }) ]
     },
     plugins: [
         new webpack.ProvidePlugin({
