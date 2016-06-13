@@ -2,9 +2,11 @@ conf/secret
 conf/env
 
 node_modules/
+elasticsearch/
 
 **/static/admin/
-**/static/wagtail/
+**/build/bundle.js*
+**/build/bundle.css*
 
 .secret
 .idea
@@ -80,3 +82,5 @@ docs/_build/
 
 # PyBuilder
 target/
+
+!**/static/vendor/**/dist/

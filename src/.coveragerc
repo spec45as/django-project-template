@@ -5,7 +5,6 @@ omit =
     */migrations/*
     */settings/*
     */wsgi.py
-    */translation_override.py
 
 [report]
 show_missing = True

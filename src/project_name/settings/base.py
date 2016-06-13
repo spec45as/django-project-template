@@ -137,6 +137,7 @@ STATICFILES_DIRS = (
     ('css', os.path.join(STATIC_ROOT, 'css')),
     ('js', os.path.join(STATIC_ROOT, 'js')),
     ('fonts', os.path.join(STATIC_ROOT, 'fonts')),
+    ('vendor', os.path.join(STATIC_ROOT, 'vendor')),
     ('build', os.path.join(STATIC_ROOT, 'build')),
 )
 

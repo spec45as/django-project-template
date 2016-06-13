@@ -3,8 +3,8 @@ project_dir = %d
 
 virtualenv = %(project_dir)env
 pythonpath = .
-chdir = %(project_dir)src
 
+chdir = %(project_dir)src
 module = {{ project_name }}.wsgi:application
 
 pidfile = %(project_dir)var/pid/uwsgi.pid
@@ -14,8 +14,8 @@ chmod-socket = 666
 thunder-lock = true
 
 workers = 3
-vacuum = true
 master = true
+
 touch-reload = %(project_dir)var/reload
 touch-logrotate = %(project_dir)var/rotate
 
@@ -26,5 +26,5 @@ harakiri-verbose = true
 ignore-sigpipe = 1
 log-format-strftime = 1
 log-date =
-
+vacuum = true
 #reaper = 1

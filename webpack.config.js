@@ -1,4 +1,6 @@
 let webpack = require('webpack');
+let autoprefixer = require('autoprefixer');
+
 
 let webpackConfig = {
     context: __dirname,
@@ -19,8 +21,13 @@ let webpackConfig = {
                 exclude: [/node_modules/, /vendor/],
                 loader: "babel-loader",
                 query: {
+                    plugins: ['transform-runtime'],
                     presets: ['es2015', 'react', 'stage-0']
                 }
+            },
+            {
+                test: /\.svg$/,
+                loader: 'svg-inline'
             },
             {
                 test: /\.scss$/,
@@ -36,7 +43,7 @@ let webpackConfig = {
         noParse: [
             new RegExp('.*vendor.*')
         ],
-        postcss: [ autoprefixer({ browsers: ['last 10 versions'] }) ]
+        postcss: [ autoprefixer({ browsers: ['>1%'] }) ]
     },
     plugins: [
         new webpack.ProvidePlugin({
@@ -58,6 +65,10 @@ let developmentConfig = Object.assign({}, webpackConfig, {
 
 
 let productionConfig = Object.assign({}, webpackConfig, {
+    output: {
+        filename: '[name].min.js',
+        library: '[name]'
+    },
     plugins: webpackConfig.plugins.concat([
         // removes a lot of debugging code in React
         new webpack.DefinePlugin({

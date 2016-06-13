@@ -28,10 +28,13 @@
         {% block head_title %}Title{% endblock %}
     </title>
 
-    <!-- CSS -->
-    <link rel="stylesheet" type="text/css"
-          href="{% static "build/bundle.css" %}?ver={% file_version 'build/bundle.css' %}"/>
-    <!-- End CSS -->
+    {% if debug %}
+        <link rel="stylesheet" href="{% static "build/bundle.css" %}?ver={% file_version 'build/bundle.css' %}"/>
+        <script type="text/javascript" src="{% static 'build/bundle.js' %}?ver={% file_version 'build/bundle.js' %}"></script>
+    {% else %}
+        <link rel="stylesheet" href="{% static "build/bundle.min.css" %}?ver={% file_version 'build/bundle.min.css' %}"/>
+        <script type="text/javascript" src="{% static 'build/bundle.min.js' %}?ver={% file_version 'build/bundle.min.js' %}"></script>
+    {% endif %}
 
     <!--[if lt IE 9]>
       <script src="{% static 'vendor/html5shiv/dist/html5shiv.min.js' %}"></script>
@@ -61,10 +64,6 @@
     <div class="footer">
         {% cms_group "counters" "Счётчики Yandex / Google" %}
     </div>
-
-    <!-- bundles -->
-    <script type="text/javascript"
-            src="{% static 'build/bundle.js' %}?ver={% file_version 'build/bundle.js' %}"></script>
 
 </body>
 </html>
