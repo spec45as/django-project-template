@@ -7,7 +7,7 @@
 
 Общий шаблон выглядит так::
 
-    cd /home/<пользователь>/<проект> && PYTHONIOENCODING=utf-8 /home/<пользователь>/<проект>/env/bin/python /home/<пользователь>/<проект>/src/manage.py <команда> <параметры> --settings=<проект> >> /home/<пользователь>/<проект>/var/log/<команда>.log 2>&1
+    cd /home/<пользователь>/<проект> && PYTHONIOENCODING=utf-8 /home/<пользователь>/<проект>/env/bin/python /home/<пользователь>/<проект>/src/manage.py <команда> <параметры> --settings=<проект.settings.production> >> /home/<пользователь>/<проект>/var/log/<команда>.log 2>&1
 
 
 Очистка устаревших тумбнейлов
