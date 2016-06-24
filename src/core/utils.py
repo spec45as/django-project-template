@@ -3,8 +3,15 @@
 import os
 from hashlib import md5
 
-from django.template.loader import render_to_string
+import requests
 from django.conf import settings
+from django.core.files import File
+from django.core.files.temp import NamedTemporaryFile
+from django.core.mail import send_mail as django_send_mail
+from django.db.models import Model
+from django.db.models.fields.files import FieldFile
+from django.shortcuts import resolve_url
+from django.template.loader import render_to_string
 
 
 def upload_to(directory=None):
@@ -34,7 +41,7 @@ def send_mail(email, subject, template_html, template_txt, context, **kwargs):
     """
     email_html = render_to_string(template_html, context)
     email_text = render_to_string(template_txt, context)
-    send_mail(
+    django_send_mail(
         auth_user=settings.EMAIL_HOST_USER,
         auth_password=settings.EMAIL_HOST_PASSWORD,
         from_email=settings.DEFAULT_FROM_EMAIL,
