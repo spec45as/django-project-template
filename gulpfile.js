@@ -122,4 +122,4 @@ gulp.task('default', ['sass:dev', 'js:dev', 'django-runserver', 'browsersync', '
 
 
 // Run before deploy to production
-gulp.task('deploy', ['sass:prod', 'js:prod']);
+gulp.task('bundle', ['sass:prod', 'js:prod']);
