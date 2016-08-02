@@ -85,7 +85,6 @@ USE_TZ = False
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'APP_DIRS': True,
         'DIRS': [
             os.path.join(PROJECT_DIR, 'templates'),
         ],
@@ -108,6 +107,10 @@ TEMPLATES = [
                 'core.templatetags.builtins',
                 'el_pagination.templatetags.el_pagination_tags',
             ],
+            'loaders': [
+                'django.template.loaders.filesystem.Loader',
+                'django.template.loaders.app_directories.Loader',
+            ]
         }
     },
 ]
