@@ -15,7 +15,8 @@ DATABASES = {
 }
 
 
-del TEMPLATES[0]['APP_DIRS']
+if 'APP_DIRS' in TEMPLATES[0]:
+    del TEMPLATES[0]['APP_DIRS']
 TEMPLATES[0]['OPTIONS']['loaders'] = [
     ('django.template.loaders.cached.Loader', [
         'django.template.loaders.filesystem.Loader',
