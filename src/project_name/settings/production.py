@@ -15,13 +15,9 @@ DATABASES = {
 }
 
 
-if 'APP_DIRS' in TEMPLATES[0]:
-    del TEMPLATES[0]['APP_DIRS']
+# Wrap loaders in cached loader
 TEMPLATES[0]['OPTIONS']['loaders'] = [
-    ('django.template.loaders.cached.Loader', [
-        'django.template.loaders.filesystem.Loader',
-        'django.template.loaders.app_directories.Loader',
-    ]),
+    ('django.template.loaders.cached.Loader', TEMPLATES[0]['OPTIONS']['loaders']),
 ]
 
 
