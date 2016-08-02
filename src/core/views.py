@@ -4,9 +4,10 @@ from django.shortcuts import render
 from django.conf import settings
 from django.views import csrf
 from django.views import defaults
+from django.views.csrf import CSRF_FAILURE_TEMPLATE_NAME
 
 
-def csrf_failure(request, reason="", force_display=False):
+def csrf_failure(request, reason="", template_name=CSRF_FAILURE_TEMPLATE_NAME, force_display=False):
     if not settings.DEBUG or force_display:
         return render(request, 'errors/403_csrf.html', {})
 

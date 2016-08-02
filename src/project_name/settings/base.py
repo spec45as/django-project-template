@@ -49,19 +49,18 @@ INSTALLED_APPS = [
 
 AUTH_USER_MODEL = 'users.User'
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = [
     'django.middleware.gzip.GZipMiddleware',
+    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sites.middleware.CurrentSiteMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
-)
+]
 
 X_FRAME_OPTIONS = 'DENY'
 
@@ -158,8 +157,8 @@ SESSION_COOKIE_NAME = '__sid'
 USE_ETAGS = False
 
 LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 LOGIN_URL = 'account_login'
-LOGOUT_URL = 'account_logout'
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
 SESSION_COOKIE_HTTPONLY = True
@@ -178,6 +177,10 @@ LOGGING = {
         }
     },
     'formatters': {
+        'django.server': {
+            '()': 'django.utils.log.ServerFormatter',
+            'format': '[%(server_time)s] %(message)s',
+        },
         'simple': {
             'format': '[%(asctime)s] %(levelname)s %(message)s',
             'datefmt': '%Y-%m-%d %H:%M:%S'
@@ -188,6 +191,11 @@ LOGGING = {
         },
     },
     'handlers': {
+        'django.server': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'django.server',
+        },
         'mail_admins': {
             'level': 'ERROR',
             'filters': ['require_debug_false'],
@@ -214,6 +222,11 @@ LOGGING = {
             'handlers': ['mail_admins', 'logfile'],
             'level': 'ERROR',
             'propagate': True,
+        },
+        'django.server': {
+            'handlers': ['django.server'],
+            'level': 'INFO',
+            'propagate': False,
         },
     }
 }
