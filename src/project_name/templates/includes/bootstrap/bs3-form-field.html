@@ -6,11 +6,9 @@
             {{ field.label }}
         </label>
     {% endif %}
-    {% if field.field.required %}
-        {{ field|add_class:"form-control"|attr:"required" }}
-    {% else %}
-        {{ field|add_class:"form-control" }}
-    {% endif %}
+
+    {{ field|add_class:"form-control" }}
+
     {% if field.errors %}
         <div class="field-errors">
             {% for error in field.errors %}
