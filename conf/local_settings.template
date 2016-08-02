@@ -7,12 +7,8 @@ from {{ project_name }}.settings.base import *
 DEBUG = True
 
 if DEBUG:
-    INSTALLED_APPS += ('debug_toolbar',)
-    MIDDLEWARE_CLASSES = (
-        (MIDDLEWARE_CLASSES[0],) +
-        ('debug_toolbar.middleware.DebugToolbarMiddleware',) +
-        MIDDLEWARE_CLASSES[1:]
-    )
+    INSTALLED_APPS.append('debug_toolbar')
+    MIDDLEWARE.append('debug_toolbar.middleware.DebugToolbarMiddleware')
 
 DATABASES = {
     'default': dj_database_url.parse(e.get('DJANGO_DB')),
