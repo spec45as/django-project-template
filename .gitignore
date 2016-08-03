@@ -8,6 +8,7 @@ elasticsearch/
 **/build/bundle.js*
 **/build/bundle.css*
 *.djcache
+*.whl
 
 .secret
 .idea
@@ -25,9 +26,6 @@ CACHE
 *.socket
 *.sql
 
-/bin
-/lib
-/share
 /env
 cache/
 
@@ -45,11 +43,8 @@ __pycache__/
 env/
 #build/
 develop-eggs/
-dist/
 downloads/
 eggs/
-lib/
-lib64/
 parts/
 sdist/
 *.egg-info/
