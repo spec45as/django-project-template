@@ -1,5 +1,7 @@
 # coding: utf-8
 
+import warnings
+
 from os import path as p
 
 import envvars as env
@@ -12,4 +14,4 @@ env.load(env_file)
 try:
     from .celery import app as celery_app
 except ImportError as e:
-    print('{{ project_name }}/__init__.py: celery import error, ignoring')
+    warnings.warn('Celery import error, is it installed?')
