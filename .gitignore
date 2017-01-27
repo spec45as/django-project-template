@@ -1,12 +1,11 @@
 conf/secret
 conf/env
+.venv
 
 node_modules/
 elasticsearch/
 
 **/static/admin/
-**/build/bundle.js*
-**/build/bundle.css*
 *.djcache
 *.whl
 

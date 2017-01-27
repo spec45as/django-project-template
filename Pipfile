@@ -1,0 +1,37 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+
+[dev-packages]
+django-debug-toolbar = "*"
+pytest = "*"
+pytest-django = "*"
+coverage = "*"
+tox = "*"
+mock = "*"
+
+[packages]
+celery = "*"
+Django = "*"
+django-allauth = "*"
+django-ckeditor = "*"
+django-cleanup = "*"
+django-cmstemplates = "*"
+django-codemirror-widget = "*"
+django-el-pagination = "*"
+django-widget-tweaks = "*"
+easy-thumbnails = "*"
+envvars = "*"
+hiredis = "*"
+ipython = "*"
+lxml = "*"
+psycopg2 = "*"
+pymorphy2-dicts-ru = "*"
+pytils = "*"
+redis = "*"
+rules = "*"
+dj_database_url = "*"
+Pillow = "*"
+
+[packages.pymorphy2]
+extras = [ "fast",]
