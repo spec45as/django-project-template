@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'easy_thumbnails',
     'django_cleanup',
     'rules.apps.AutodiscoverRulesConfig',
+    'compressor',
+    'compressor_toolkit',
 
     # project apps
     'core',
@@ -128,6 +130,7 @@ AUTHENTICATION_BACKENDS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
 )
 
 STATIC_URL = '/static/'
@@ -140,7 +143,6 @@ STATICFILES_DIRS = (
     ('js', os.path.join(STATIC_ROOT, 'js')),
     ('fonts', os.path.join(STATIC_ROOT, 'fonts')),
     ('vendor', os.path.join(STATIC_ROOT, 'vendor')),
-    ('build', os.path.join(STATIC_ROOT, 'build')),
 )
 
 MEDIA_URL = '/media/'
@@ -292,3 +294,11 @@ CELERY_RESULT_BACKEND = e.get('CELERY_RESULT_BACKEND')
 # pymorphy
 import pymorphy2
 MORPH = pymorphy2.MorphAnalyzer()
+
+# django-compressor
+COMPRESS_PRECOMPILERS = (
+    ('text/x-scss', 'compressor_toolkit.precompilers.SCSSCompiler'),
+    ('module', 'compressor_toolkit.precompilers.ES6Compiler'),
+)
+COMPRESS_LOCAL_NPM_INSTALL = False
+COMPRESS_AUTOPREFIXER_BROWSERS = 'ie >= 9, > 5%'

@@ -1,4 +1,4 @@
-{% load static account cmstemplates_tags %}
+{% load static account cmstemplates_tags compress %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,13 +28,13 @@
         {% block head_title %}Title{% endblock %}
     </title>
 
-    {% if debug %}
-        <link rel="stylesheet" href="{% static "build/bundle.css" %}?ver={% file_version 'build/bundle.css' %}"/>
-        <script type="text/javascript" src="{% static 'build/bundle.js' %}?ver={% file_version 'build/bundle.js' %}"></script>
-    {% else %}
-        <link rel="stylesheet" href="{% static "build/bundle.min.css" %}?ver={% file_version 'build/bundle.min.css' %}"/>
-        <script type="text/javascript" src="{% static 'build/bundle.min.js' %}?ver={% file_version 'build/bundle.min.js' %}"></script>
-    {% endif %}
+    {% compress css %}
+        <link type="text/x-scss" href="{% static 'css/main.scss' %}" rel="stylesheet">
+    {% endcompress %}
+
+    {% compress js %}
+        <script type="module" src="{% static 'js/main.js' %}"></script>
+    {% endcompress %}
 
     <!--[if lt IE 9]>
       <script src="{% static 'vendor/html5shiv/dist/html5shiv.min.js' %}"></script>

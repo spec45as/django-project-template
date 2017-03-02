@@ -25,3 +25,4 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 INTERNAL_IPS = ['127.0.0.1']
 
+COMPRESS_NODE_MODULES = '/home/<USER>/.nvm/versions/node/v6.1.0/lib/node_modules'
