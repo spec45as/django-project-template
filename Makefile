@@ -1,8 +1,8 @@
 bootstrap:
-	pipenv install --dev
+	pipenv --three install --dev
 	mkdir -p ./var/{log,run,pid}
 	touch ./var/{log,run,pid}/.gitkeep
-	cp conf/local_settings.template src/{{ project_name }}/settings/local_"$USER".py
+	cp conf/local_settings.template src/{{ project_name }}/settings/local_$(USER).py
 	cp conf/env.template conf/env
 
 	echo 'Для запуска проекта осталось:'
