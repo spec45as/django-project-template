@@ -26,12 +26,10 @@ hiredis = "*"
 ipython = "*"
 lxml = "*"
 psycopg2 = "*"
+pymorphy2 = {extra = ['fast']}
 pymorphy2-dicts-ru = "*"
 pytils = "*"
 redis = "*"
 rules = "*"
 dj_database_url = "*"
 Pillow = "*"
-
-[packages.pymorphy2]
-extras = [ "fast",]
