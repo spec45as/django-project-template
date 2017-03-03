@@ -1,5 +1,5 @@
 install:
-	pipenv --python ~/.pythonz/pythons/CPython-3.6.0/bin/python install --dev
+	pipenv install --python ~/.pythonz/pythons/CPython-3.6.0/bin/python --dev
 	mkdir -p ./var/log
 	mkdir -p ./var/pid
 	mkdir -p ./var/run
