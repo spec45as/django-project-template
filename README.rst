@@ -8,7 +8,9 @@ Django project template
 развёртывания нового проекта без рутины.
 
 **Note**: поддержка этого шаблона прекращена в пользу
-[cookiecutter-django](https://github.com/asyncee/cookiecutter-django).
+cookiecutter-django_.
+
+.. _cookiecutter-django: https://github.com/asyncee/cookiecutter-django
 
 
 Features
