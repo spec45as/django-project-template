@@ -7,6 +7,10 @@ Django project template
 Шаблон разработан с целью облегчения и ускорения процесса
 развёртывания нового проекта без рутины.
 
+**Note**: поддержка этого шаблона прекращена в пользу
+[cookiecutter-django](https://github.com/asyncee/cookiecutter-django).
+
+
 Features
 ========
 
